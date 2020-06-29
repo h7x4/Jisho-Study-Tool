@@ -6,9 +6,12 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      width: 100,
+    return TextField(
+      controller: TextEditingController(),
+      decoration: InputDecoration(
+        labelText: 'Search',
+        border: OutlineInputBorder()
+      ),
     );
   }
 }
