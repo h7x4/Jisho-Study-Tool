@@ -7,7 +7,13 @@ Widget searchForKanji(String kanji) {
   return FutureBuilder(
     future: jisho.searchForKanji(kanji),
     builder: (BuildContext context, AsyncSnapshot<jisho.KanjiResult> snapshot) {
-      return KanjiResultCard(snapshot.data);
+      if (snapshot.hasData) {
+        return KanjiResultCard(snapshot.data);
+      } else if (snapshot.hasError) {
+        throw 'ASYNC ERROR';
+      } else {
+        return CircularProgressIndicator();
+      }
     }
   );
 }

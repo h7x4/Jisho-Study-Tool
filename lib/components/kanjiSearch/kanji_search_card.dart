@@ -11,7 +11,8 @@ class KanjiResultCard extends StatelessWidget {
     return Container(
       height: 100,
       width: 100,
-      child: Text(_result.query),
+      child: Center(child:Text(_result.query)),
+      color: Colors.amber,
     );
   }
 

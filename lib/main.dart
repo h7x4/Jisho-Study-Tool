@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/screens/kanji_search.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,9 +30,10 @@ class _HomeState extends State<Home> {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Jisho Study Tool')
+          title: Text(pages[_selectedPage].title),
+          centerTitle: true,
         ),
-        body: Container(),
+        body: pages[_selectedPage].content,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
           onTap: (int index) {
@@ -39,29 +41,7 @@ class _HomeState extends State<Home> {
               _selectedPage = index;
             });
           },
-          items: [
-            BottomNavigationBarItem(
-              title: Text('Search'),
-              icon: Icon(Icons.search)
-            ),
-            BottomNavigationBarItem(
-              title: Text('Kanji'),
-              icon: Text(
-                '漢',
-                style: TextStyle(
-                  fontSize: 18
-                ),
-              )
-            ),
-            BottomNavigationBarItem(
-              title: Text('Memorize'),
-              icon: Icon(Icons.book)
-            ),
-            BottomNavigationBarItem(
-              title: Text('Settings'),
-              icon: Icon(Icons.settings)
-            ),
-          ],
+          items: navBar,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           unselectedItemColor: Colors.blue,
@@ -71,3 +51,56 @@ class _HomeState extends State<Home> {
     }
 
 }
+
+List<BottomNavigationBarItem> navBar = [
+  BottomNavigationBarItem(
+    title: Text('Search'),
+    icon: Icon(Icons.search)
+  ),
+  BottomNavigationBarItem(
+    title: Text('Kanji'),
+    icon: Text(
+      '漢',
+      style: TextStyle(
+        fontSize: 18
+      ),
+    )
+  ),
+  BottomNavigationBarItem(
+    title: Text('Memorize'),
+    icon: Icon(Icons.book)
+  ),
+  BottomNavigationBarItem(
+    title: Text('Settings'),
+    icon: Icon(Icons.settings)
+  ),
+];
+
+class Page {
+  String title;
+  Widget content;
+
+  Page({
+    this.title,
+    this.content
+  });
+}
+
+List<Page> pages = [
+  Page(
+    title: "Search",
+    content: Container()
+  ),
+  Page(
+    title: "Kanji",
+    content: KanjiSearch()
+  ),
+  Page(
+    title: "Memorization",
+    content: Container()
+  ),
+  Page(
+    title: "Settings",
+    content: Container()
+  ),
+];
