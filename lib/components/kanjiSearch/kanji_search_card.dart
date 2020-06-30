@@ -12,4 +12,8 @@ class KanjiResultCard extends StatelessWidget {
       child: Text('Test'),
     );
   }
+
+  KanjiResultCard(var result) {
+    
+  }
 }
