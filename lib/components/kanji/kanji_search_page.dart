@@ -72,6 +72,26 @@ class _Grade extends StatelessWidget {
   _Grade(this._grade);
 }
 
+class _StrokeOrderGif extends StatelessWidget {
+  final String _uri;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20.0),
+      padding: EdgeInsets.all(5.0),
+      child: ClipRRect(child: Image.network(_uri),
+      borderRadius: BorderRadius.circular(10.0),),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+    );
+  }
+
+  _StrokeOrderGif(this._uri);
+}
+
 class KanjiResultCard extends StatelessWidget {
   final KanjiResult _result;
 
@@ -89,17 +109,7 @@ class KanjiResultCard extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              padding: EdgeInsets.all(10.0),
-              child: Image.network(_result.strokeOrderGifUri),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-            )
-          ],
+          children: [_StrokeOrderGif(_result.strokeOrderGifUri)],
         )
       ],
     );
