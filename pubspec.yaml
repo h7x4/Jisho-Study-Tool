@@ -25,6 +25,7 @@ dependencies:
   # cupertino_icons: ^0.1.2
   unofficial_jisho_api: ^1.1.0
   flutter_bloc: ^5.0.1
+  url_launcher: ^5.5.0
 
 dev_dependencies:
   flutter_test:

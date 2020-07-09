@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jisho_study_tool/screens/kanji_search.dart';
+import 'package:jisho_study_tool/screens/log.dart';
+import 'package:jisho_study_tool/screens/search.dart';
 
 void main() => runApp(MyApp());
 
@@ -86,15 +88,15 @@ class Page {
 List<Page> pages = [
   Page(
     title: "Search",
-    content: Container(),
+    content: SearchView(),
   ),
   Page(
     title: "Kanji",
-    content: KanjiSearch(),
+    content: KanjiView(),
   ),
   Page(
     title: "Log",
-    content: Container(),
+    content: LogView(),
   ),
   Page(
     title: "Memorization",
