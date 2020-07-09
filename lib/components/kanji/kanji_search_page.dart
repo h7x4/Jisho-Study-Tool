@@ -86,6 +86,20 @@ class KanjiResultCard extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [_JlptLevel(_result.jlptLevel), _Grade(_result.taughtIn)],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20.0),
+              padding: EdgeInsets.all(10.0),
+              child: Image.network(_result.strokeOrderGifUri),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            )
+          ],
         )
       ],
     );
