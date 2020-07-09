@@ -68,7 +68,7 @@ List<BottomNavigationBarItem> navBar = [
   ),
   BottomNavigationBarItem(
     title: Text('Memorize'),
-    icon: Icon(Icons.book)
+    icon: Icon(Icons.local_offer)
   ),
   BottomNavigationBarItem(
     title: Text('Settings'),
