@@ -24,6 +24,54 @@ class _Header extends StatelessWidget {
   _Header(this._kanji);
 }
 
+class _JlptLevel extends StatelessWidget {
+  final String _jlptLevel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Text(
+        _jlptLevel,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+        ),
+      ),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.blue,
+      ),
+    );
+  }
+
+  _JlptLevel(this._jlptLevel);
+}
+
+class _Grade extends StatelessWidget {
+  final String _grade;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Text(
+        _grade,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+        ),
+      ),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    );
+  }
+
+  _Grade(this._grade);
+}
+
 class KanjiResultCard extends StatelessWidget {
   final KanjiResult _result;
 
@@ -35,6 +83,10 @@ class KanjiResultCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [_Header(_result.query)],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_JlptLevel(_result.jlptLevel), _Grade(_result.taughtIn)],
+        )
       ],
     );
   }
