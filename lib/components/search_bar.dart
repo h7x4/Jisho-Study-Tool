@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class _LanguageOption extends StatelessWidget {
   final String _language;
+  final Color _color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,13 @@ class _LanguageOption extends StatelessWidget {
             color: Colors.black,
             width: 1.0,
           ),
+          color: _color
         ),
       ),
     );
   }
 
-  _LanguageOption(this._language);
+  _LanguageOption(this._language, this._color);
 }
 
 class SearchBar extends StatelessWidget {
@@ -45,8 +47,9 @@ class SearchBar extends StatelessWidget {
           ),
           Row(
             children: [
-              _LanguageOption('English'),
-              _LanguageOption('Japanese'),
+              _LanguageOption('Auto', Colors.white), 
+              _LanguageOption('English', Colors.white),
+              _LanguageOption('Japanese', Colors.blue),
             ],
           ),
         ],
