@@ -23,30 +23,6 @@ class _Header extends StatelessWidget {
   _Header(this._kanji);
 }
 
-class _JlptLevel extends StatelessWidget {
-  final String _jlptLevel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      child: Text(
-        _jlptLevel,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-        ),
-      ),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.blue,
-      ),
-    );
-  }
-
-  _JlptLevel(this._jlptLevel);
-}
-
 class _Rank extends StatelessWidget {
   final int _rank;
 
@@ -71,6 +47,30 @@ class _Rank extends StatelessWidget {
   _Rank(this._rank);
 }
 
+class _JlptLevel extends StatelessWidget {
+  final String _jlptLevel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Text(
+        _jlptLevel,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.0,
+        ),
+      ),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.blue,
+      ),
+    );
+  }
+
+  _JlptLevel(this._jlptLevel);
+}
+
 class _Grade extends StatelessWidget {
   final String _grade;
 
@@ -87,7 +87,7 @@ class _Grade extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Colors.blue,
-        borderRadius: BorderRadius.circular(10.0),
+        shape: BoxShape.circle,
       ),
     );
   }
@@ -106,7 +106,7 @@ class _Radical extends StatelessWidget {
         _radical.symbol,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 20.0,
+          fontSize: 40.0,
         ),
       ),
       decoration: BoxDecoration(
@@ -186,19 +186,19 @@ class KanjiResultCard extends StatelessWidget {
                     Row(
                       children: [
                         Text("JLPT: ", style: TextStyle(fontSize: 20.0)),
-                        _JlptLevel(_result.jlptLevel),
+                        _JlptLevel(_result.jlptLevel ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Grade: ", style: TextStyle(fontSize: 20.0)),
-                        _Grade(_result.taughtIn),
+                        _Grade(_result.taughtIn ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Rank: ", style: TextStyle(fontSize: 20.0)),
-                        _Rank(_result.newspaperFrequencyRank),
+                        _Rank(_result.newspaperFrequencyRank ?? -1),
                       ],
                     ),
                   ],
