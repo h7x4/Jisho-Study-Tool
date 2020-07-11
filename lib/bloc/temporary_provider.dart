@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import './kanji_search.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
-import 'package:jisho_study_tool/components/kanji/kanji_search_page.dart';
+import 'package:jisho_study_tool/components/kanji/kanji__search_page/kanji_search_page.dart';
+import 'package:jisho_study_tool/services/kanji_search.dart';
 
 Widget searchForKanji(String kanji) {
   return FutureBuilder(

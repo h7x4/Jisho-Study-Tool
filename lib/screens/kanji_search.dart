@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/services/jisho_search.dart';
+import 'package:jisho_study_tool/bloc/temporary_provider.dart';
 
 class KanjiView extends StatelessWidget {
   @override
