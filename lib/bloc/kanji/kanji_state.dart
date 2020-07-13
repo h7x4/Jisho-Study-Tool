@@ -1,14 +1,27 @@
-part of 'kanji_bloc.dart';
+import 'package:unofficial_jisho_api/api.dart';
 
-@immutable
-abstract class KanjiState {}
+abstract class KanjiState {
+  const KanjiState();
+}
 
-class KanjiSearchInitial extends KanjiState {}
+class KanjiSearchInitial extends KanjiState {
+  KanjiSearchInitial();
+}
 
-class KanjiSearchLoading extends KanjiState {}
+class KanjiSearchLoading extends KanjiState {
+  KanjiSearchLoading();
+}
 
-class KanjiSearchFinished extends KanjiState {}
+class KanjiSearchFinished extends KanjiState {
+  final KanjiResult kanji;
 
-class KanjiSearchError extends KanjiState {}
+  KanjiSearchFinished(this.kanji);
+}
+
+class KanjiSearchError extends KanjiState {
+  final String message;
+
+  KanjiSearchError(this.message);
+}
 
 class ReKanjiSearch extends KanjiState {}

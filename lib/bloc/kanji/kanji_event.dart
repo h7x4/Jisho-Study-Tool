@@ -1,4 +1,9 @@
-part of 'kanji_bloc.dart';
+abstract class KanjiEvent {
+  const KanjiEvent();
+}
 
-@immutable
-abstract class KanjiEvent {}
+class GetKanji extends KanjiEvent {
+  final String kanjiSearchString;
+
+  GetKanji(this.kanjiSearchString);
+}

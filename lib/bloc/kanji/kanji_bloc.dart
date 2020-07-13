@@ -1,18 +1,27 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import './kanji_event.dart';
+import './kanji_state.dart';
 
-part 'kanji_event.dart';
-part 'kanji_state.dart';
+import 'package:bloc/bloc.dart';
+import 'package:jisho_study_tool/services/kanji_search.dart';
 
 class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
+
   KanjiBloc() : super(KanjiSearchInitial());
 
   @override
   Stream<KanjiState> mapEventToState(
     KanjiEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    yield KanjiSearchLoading();
+    if (event is GetKanji) {
+      try {
+        final _kanji = await fetchKanji(event.kanjiSearchString);
+        yield KanjiSearchFinished(_kanji);
+      } on Exception {
+        yield KanjiSearchError('Something went wrong');
+      }
+    }
   }
 }
