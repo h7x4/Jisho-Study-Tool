@@ -7,3 +7,7 @@ class GetKanji extends KanjiEvent {
 
   GetKanji(this.kanjiSearchString);
 }
+
+class ReturnToInitialState extends KanjiEvent {
+  ReturnToInitialState();
+}

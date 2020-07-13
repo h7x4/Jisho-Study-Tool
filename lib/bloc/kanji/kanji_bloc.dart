@@ -17,14 +17,19 @@ class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
   Stream<KanjiState> mapEventToState(
     KanjiEvent event,
   ) async* {
-    yield KanjiSearchLoading();
     if (event is GetKanji) {
+      
+      yield KanjiSearchLoading();
+
       try {
         final _kanji = await fetchKanji(event.kanjiSearchString);
         yield KanjiSearchFinished(_kanji);
       } on Exception {
         yield KanjiSearchError('Something went wrong');
       }
+
+    } else if (event is ReturnToInitialState) {
+      yield KanjiSearchInitial();
     }
   }
 }
