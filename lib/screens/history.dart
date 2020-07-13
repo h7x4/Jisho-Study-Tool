@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LogView extends StatelessWidget {
+class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

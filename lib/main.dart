@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jisho_study_tool/screens/kanji_search.dart';
-import 'package:jisho_study_tool/screens/log.dart';
+import 'package:jisho_study_tool/screens/history.dart';
 import 'package:jisho_study_tool/screens/search.dart';
 
 void main() => runApp(MyApp());
@@ -65,7 +65,7 @@ final List<BottomNavigationBarItem> navBar = [
     ),
   ),
   BottomNavigationBarItem(
-    title: Text('Log'),
+    title: Text('History'),
     icon: Icon(Icons.bookmark),
   ),
   BottomNavigationBarItem(
@@ -95,8 +95,8 @@ final List<Page> pages = [
     content: KanjiView(),
   ),
   Page(
-    title: "Log",
-    content: LogView(),
+    title: "History",
+    content: HistoryView(),
   ),
   Page(
     title: "Memorization",
