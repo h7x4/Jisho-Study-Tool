@@ -6,6 +6,9 @@ import './kanji_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:jisho_study_tool/services/kanji_search.dart';
 
+export './kanji_event.dart';
+export './kanji_state.dart';
+
 class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
 
   KanjiBloc() : super(KanjiSearchInitial());
