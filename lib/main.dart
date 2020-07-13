@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-List<BottomNavigationBarItem> navBar = [
+final List<BottomNavigationBarItem> navBar = [
   BottomNavigationBarItem(
     title: Text('Search'),
     icon: Icon(Icons.search),
@@ -85,7 +85,7 @@ class Page {
   Page({this.title, this.content});
 }
 
-List<Page> pages = [
+final List<Page> pages = [
   Page(
     title: "Search",
     content: SearchView(),
