@@ -30,6 +30,13 @@ class _KanjiSearchPage extends StatelessWidget {
   }
 }
 
+class KanjiViewBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text('Kanji');
+  }
+}
+
 class KanjiSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

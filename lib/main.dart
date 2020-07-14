@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(pages[_selectedPage].title),
+        title: pages[_selectedPage].titleBar,
         centerTitle: true,
       ),
       body: pages[_selectedPage].content,
@@ -79,31 +79,31 @@ final List<BottomNavigationBarItem> navBar = [
 ];
 
 class Page {
-  String title;
   Widget content;
+  Widget titleBar;
 
-  Page({this.title, this.content});
+  Page({ this.content,this.titleBar,});
 }
 
 final List<Page> pages = [
   Page(
-    title: "Search",
     content: SearchView(),
+    titleBar: Text('Search')
   ),
   Page(
-    title: "Kanji",
     content: KanjiView(),
+    titleBar: KanjiViewBar(),
   ),
   Page(
-    title: "History",
     content: HistoryView(),
+    titleBar: Text("History"),
   ),
   Page(
-    title: "Memorization",
     content: Container(),
+    titleBar: Text("Memorization"),
   ),
   Page(
-    title: "Settings",
     content: Container(),
+    titleBar: Text("Settings"),
   ),
 ];
