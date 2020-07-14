@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/components/kanji/kanji__search_page/kunyomi.dart';
 
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
@@ -8,6 +9,8 @@ import './jlpt_level.dart';
 import './radical.dart';
 import './rank.dart';
 import './stroke_order_gif.dart';
+import './onyomi.dart';
+import './kunyomi.dart';
 
 class KanjiResultCard extends StatelessWidget {
   final jisho.KanjiResult _result;
@@ -41,6 +44,8 @@ class KanjiResultCard extends StatelessWidget {
             ],
           ),
         ),
+        _result.onyomi.length != 0 ? Onyomi(_result.onyomi) : SizedBox.shrink(),
+        _result.kunyomi.length != 0 ? Kunyomi(_result.kunyomi) : SizedBox.shrink(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
