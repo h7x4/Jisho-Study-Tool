@@ -15,8 +15,12 @@ class KanjiView extends StatelessWidget {
         else if (state is KanjiSearchLoading)
           return LoadingScreen();
         else if (state is KanjiSearchFinished)
-          return KanjiResultCard(state.kanji);
-
+          return WillPopScope(
+              child: KanjiResultCard(state.kanji),
+              onWillPop: () async {
+                BlocProvider.of<KanjiBloc>(context).add(ReturnToInitialState());
+                return false;
+              });
         throw 'No such event found';
       },
     );
