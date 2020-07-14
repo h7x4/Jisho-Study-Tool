@@ -8,22 +8,15 @@ import 'package:jisho_study_tool/components/loading.dart';
 class KanjiView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => KanjiBloc(),
-      child: _KanjiSearchPage(),
-    );
-  }
-}
-
-class _KanjiSearchPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     return BlocBuilder<KanjiBloc, KanjiState>(
       builder: (context, state) {
-        if (state is KanjiSearchInitial) return KanjiSearchBar();
-        else if (state is KanjiSearchLoading) return LoadingScreen();
-        else if (state is KanjiSearchFinished) return KanjiResultCard(state.kanji);
-        
+        if (state is KanjiSearchInitial)
+          return Container();
+        else if (state is KanjiSearchLoading)
+          return LoadingScreen();
+        else if (state is KanjiSearchFinished)
+          return KanjiResultCard(state.kanji);
+
         throw 'No such event found';
       },
     );
@@ -33,19 +26,41 @@ class _KanjiSearchPage extends StatelessWidget {
 class KanjiViewBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Kanji');
-  }
-}
-
-class KanjiSearchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
     return Center(
-      child: TextField(
-        onSubmitted: (text) => BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
-        decoration: new InputDecoration(
-          prefixIcon: Icon(Icons.search),
-          hintText: 'Search for kanji'
+      child: Container(
+        child: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => BlocProvider.of<KanjiBloc>(context)
+                  .add(ReturnToInitialState()),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                child: TextField(
+                  onSubmitted: (text) =>
+                      BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
+                  decoration: new InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Search for kanji',
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(100.0)),
+                  ),
+                ),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.star_border),
+              onPressed: null,
+            ),
+            IconButton(
+              icon: Icon(Icons.add),
+              onPressed: null,
+            ),
+          ],
         ),
       ),
     );

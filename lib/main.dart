@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/screens/kanji_search.dart';
 import 'package:jisho_study_tool/screens/history.dart';
 import 'package:jisho_study_tool/screens/search.dart';
+
+import 'bloc/search/search_bloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SearchBloc()),
+          BlocProvider(create: (context) => KanjiBloc()),
+        ],
+        child: Home(),
+      ),
     );
   }
 }
@@ -82,14 +92,14 @@ class Page {
   Widget content;
   Widget titleBar;
 
-  Page({ this.content,this.titleBar,});
+  Page({
+    this.content,
+    this.titleBar,
+  });
 }
 
 final List<Page> pages = [
-  Page(
-    content: SearchView(),
-    titleBar: Text('Search')
-  ),
+  Page(content: SearchView(), titleBar: Text('Search')),
   Page(
     content: KanjiView(),
     titleBar: KanjiViewBar(),
