@@ -14,8 +14,12 @@ class KanjiSearchLoading extends KanjiState {
 
 class KanjiSearchFinished extends KanjiState {
   final KanjiResult kanji;
+  final bool starred;
 
-  KanjiSearchFinished(this.kanji);
+  KanjiSearchFinished({
+    this.kanji, 
+    this.starred = false,
+  });
 }
 
 class KanjiSearchError extends KanjiState {
