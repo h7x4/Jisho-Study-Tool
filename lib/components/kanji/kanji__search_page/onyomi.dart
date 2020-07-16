@@ -10,7 +10,9 @@ class Onyomi extends StatelessWidget {
         horizontal: 10.0,
         vertical: 5.0,
       ),
-      child: Row(
+      alignment: Alignment.centerLeft,
+      child: Wrap(
+        runSpacing: 10.0,
         children: _onyomi.map((onyomi) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10.0),
