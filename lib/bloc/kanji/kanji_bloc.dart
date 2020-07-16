@@ -23,7 +23,8 @@ class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
 
       try {
         final _kanji = await fetchKanji(event.kanjiSearchString);
-        yield KanjiSearchFinished(kanji: _kanji);
+        if (_kanji.found) yield KanjiSearchFinished(kanji: _kanji);
+        else yield KanjiSearchError('Something went wrong');
       } on Exception {
         yield KanjiSearchError('Something went wrong');
       }
