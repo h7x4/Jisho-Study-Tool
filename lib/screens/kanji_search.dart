@@ -30,42 +30,40 @@ class KanjiView extends StatelessWidget {
 class KanjiViewBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => BlocProvider.of<KanjiBloc>(context)
-                  .add(ReturnToInitialState()),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: TextField(
-                  onSubmitted: (text) =>
-                      BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
-                  decoration: new InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: 'Search for kanji',
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100.0)),
-                  ),
+    return Container(
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => BlocProvider.of<KanjiBloc>(context)
+                .add(ReturnToInitialState()),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10.0),
+              child: TextField(
+                onSubmitted: (text) =>
+                    BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
+                decoration: new InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Search for kanji',
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(100.0)),
                 ),
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.star_border),
-              onPressed: null,
-            ),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: null,
-            ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: Icon(Icons.star_border),
+            onPressed: null,
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: null,
+          ),
+        ],
       ),
     );
   }
