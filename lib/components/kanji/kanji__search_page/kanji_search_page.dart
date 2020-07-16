@@ -17,7 +17,7 @@ class KanjiResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
         Container(
           margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 30.0),
