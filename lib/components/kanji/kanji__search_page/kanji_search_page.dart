@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/components/kanji/kanji__search_page/examples.dart';
 
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
@@ -81,6 +82,7 @@ class KanjiResultCard extends StatelessWidget {
             ],
           ),
         ),
+        Examples(_result.onyomiExamples, _result.kunyomiExamples),
       ],
     );
   }
