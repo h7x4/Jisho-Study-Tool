@@ -2,12 +2,16 @@ abstract class KanjiEvent {
   const KanjiEvent();
 }
 
+class GetKanjiSuggestions extends KanjiEvent {
+  final String searchString;
+  const GetKanjiSuggestions(this.searchString);
+}
+
 class GetKanji extends KanjiEvent {
   final String kanjiSearchString;
-
-  GetKanji(this.kanjiSearchString);
+  const GetKanji(this.kanjiSearchString);
 }
 
 class ReturnToInitialState extends KanjiEvent {
-  ReturnToInitialState();
+  const ReturnToInitialState();
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/components/kanji/kanji__search_page/kanji_search_page.dart';
+import 'package:jisho_study_tool/components/kanji/kanji_suggestions.dart';
 import 'package:jisho_study_tool/components/loading.dart';
 
 class KanjiView extends StatelessWidget {
@@ -12,6 +13,8 @@ class KanjiView extends StatelessWidget {
       builder: (context, state) {
         if (state is KanjiSearchInitial)
           return Container();
+        else if (state is KanjiSearchInput)
+          return KanjiSuggestions(state.kanjiSuggestions);
         else if (state is KanjiSearchLoading)
           return LoadingScreen();
         else if (state is KanjiSearchFinished)
@@ -42,6 +45,7 @@ class KanjiViewBar extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: TextField(
+                onChanged: (text) => BlocProvider.of<KanjiBloc>(context).add(GetKanjiSuggestions(text)),
                 onSubmitted: (text) =>
                     BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
                 decoration: new InputDecoration(
