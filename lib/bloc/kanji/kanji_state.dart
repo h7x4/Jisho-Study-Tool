@@ -5,18 +5,23 @@ abstract class KanjiState {
 }
 
 class KanjiSearchInitial extends KanjiState {
-  KanjiSearchInitial();
+  const KanjiSearchInitial();
+}
+
+class KanjiSearchInput extends KanjiState {
+  final List<String> kanjiSuggestions;
+  const KanjiSearchInput(this.kanjiSuggestions);
 }
 
 class KanjiSearchLoading extends KanjiState {
-  KanjiSearchLoading();
+  const KanjiSearchLoading();
 }
 
 class KanjiSearchFinished extends KanjiState {
   final KanjiResult kanji;
   final bool starred;
 
-  KanjiSearchFinished({
+  const KanjiSearchFinished({
     this.kanji, 
     this.starred = false,
   });
@@ -25,7 +30,5 @@ class KanjiSearchFinished extends KanjiState {
 class KanjiSearchError extends KanjiState {
   final String message;
 
-  KanjiSearchError(this.message);
+  const KanjiSearchError(this.message);
 }
-
-class ReKanjiSearch extends KanjiState {}
