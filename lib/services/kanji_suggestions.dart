@@ -1,5 +1,5 @@
-final kanjiPattern = RegExp(r'[\x3400-\x4DB5\x4E00-\x9FCB\xF900-\xFA6A]');
+final kanjiPattern = RegExp(r'[\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]');
 
 List<String> kanjiSuggestions(String string) {
-  return kanjiPattern.allMatches(string).map((match) => match.group(0));
+  return kanjiPattern.allMatches(string).map((match) => match.group(0)).toList();
 }
