@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
@@ -75,9 +76,12 @@ class _KanjiTextField extends StatefulWidget {
   _KanjiTextFieldState createState() => new _KanjiTextFieldState();
 }
 
+enum TextFieldButton {clear, paste}
+
 class _KanjiTextFieldState extends State<_KanjiTextField> {
   FocusNode _focus = new FocusNode();
   TextEditingController _textController = new TextEditingController();
+  TextFieldButton _button = TextFieldButton.paste;
 
   @override
   void initState() {
@@ -85,22 +89,47 @@ class _KanjiTextFieldState extends State<_KanjiTextField> {
     _focus.addListener(_onFocusChange);
   }
 
-  void _onFocusChange() {
-    debugPrint('TextField Focus Changed: ${_focus.hasFocus.toString()}');
-    if (_focus.hasFocus) _getKanjiSuggestions(_textController.text);
-    else FocusScope.of(context).unfocus();
-  }
-
   void _getKanjiSuggestions(String text) =>
       BlocProvider.of<KanjiBloc>(context).add(GetKanjiSuggestions(text));
 
+  void updateSuggestions() => _getKanjiSuggestions(_textController.text);
+
+  void _onFocusChange() {
+    debugPrint('TextField Focus Changed: ${_focus.hasFocus.toString()}');
+
+    setState(() {
+      _button = _focus.hasFocus ? TextFieldButton.clear : TextFieldButton.paste;
+    });
+
+    if (_focus.hasFocus)
+      updateSuggestions();
+    else
+      FocusScope.of(context).unfocus();
+  }
+
   void _clearText() {
     _textController.text = '';
-    _getKanjiSuggestions(_textController.text);
+    updateSuggestions();
+  }
+
+  void _pasteText() async {
+    ClipboardData clipboardData = await Clipboard.getData('text/plain');
+    _textController.text = clipboardData.text;
+    updateSuggestions();
   }
 
   @override
   Widget build(BuildContext context) {
+    IconButton _clearButton = IconButton(
+      icon: Icon(Icons.clear),
+      onPressed: () => _clearText(),
+    );
+
+    IconButton _pasteButton = IconButton(
+      icon: Icon(Icons.content_paste),
+      onPressed: () => _pasteText(),
+    );
+
     return TextField(
       focusNode: _focus,
       controller: _textController,
@@ -117,10 +146,7 @@ class _KanjiTextFieldState extends State<_KanjiTextField> {
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
         isDense: false,
-        suffixIcon: IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: () => _clearText(),
-        )
+        suffixIcon: (_button == TextFieldButton.clear) ? _clearButton : _pasteButton,
       ),
       style: TextStyle(
         fontSize: 14.0,
