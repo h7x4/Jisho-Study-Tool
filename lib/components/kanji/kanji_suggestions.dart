@@ -32,7 +32,6 @@ class _Suggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        FocusScope.of(context).unfocus(); //Puts away the keyboard
         BlocProvider.of<KanjiBloc>(context).add(GetKanji(_kanji));
       },
       child: Container(
