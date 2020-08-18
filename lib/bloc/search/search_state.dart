@@ -10,5 +10,3 @@ class SearchLoading extends SearchState {}
 class SearchFinished extends SearchState {}
 
 class SearchError extends SearchState {}
-
-class ReSearch extends SearchState {}
