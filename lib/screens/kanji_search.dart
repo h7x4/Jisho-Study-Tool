@@ -20,12 +20,9 @@ class KanjiView extends StatelessWidget {
       },
       child: BlocBuilder<KanjiBloc, KanjiState>(
         builder: (context, state) {
-          if (state is KanjiSearchInitial) {
-            return Container();
-          } else if (state is KanjiSearchInput)
-            return KanjiSuggestions(state.kanjiSuggestions);
-          else if (state is KanjiSearchLoading)
-            return LoadingScreen();
+          if (state is KanjiSearchInitial) return Container();
+          else if (state is KanjiSearchInput) return KanjiSuggestions(state.kanjiSuggestions);
+          else if (state is KanjiSearchLoading) return LoadingScreen();
           else if (state is KanjiSearchFinished)
             return WillPopScope(
                 child: KanjiResultCard(state.kanji),

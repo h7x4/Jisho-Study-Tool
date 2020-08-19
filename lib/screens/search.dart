@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
+import 'package:jisho_study_tool/components/loading.dart';
+import 'package:jisho_study_tool/components/search/search_card.dart';
 
 class SearchView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<SearchBloc, SearchState>(
+      listener: (context, state) {
+      },
+      child: BlocBuilder<SearchBloc, SearchState>(
+        builder: (context, state) {
+          if (state is SearchInitial) return _InitialView();
+          else if (state is SearchLoading) return LoadingScreen();
+          else if (state is SearchFinished) {
+            return ListView(
+              children: state.results.map((result) => SearchResultCard(result)).toList(),
+            );
+          }
+        },
+      ) 
+    );
+  }
+}
+
+class _InitialView extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SearchBar(),
-      ],
+      ]
     );
   }
 }
@@ -44,6 +70,7 @@ class SearchBar extends StatelessWidget {
       child: Column(
         children: [
           TextField(
+            onSubmitted: (text) => BlocProvider.of<SearchBloc>(context).add(GetSearchResults(text)),
             controller: TextEditingController(),
             decoration: InputDecoration(
               labelText: 'Search',

@@ -14,9 +14,9 @@ class SearchLoading extends SearchState {
 }
 
 class SearchFinished extends SearchState {
-  final JishoAPIResult result;
+  final List<JishoResult> results;
 
-  const SearchFinished(this.result);
+  const SearchFinished(this.results);
 }
 
 class SearchError extends SearchState {
