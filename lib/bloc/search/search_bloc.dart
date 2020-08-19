@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import 'package:jisho_study_tool/services/jisho_search.dart';
+import 'package:unofficial_jisho_api/parser.dart';
+
 part 'search_event.dart';
 part 'search_state.dart';
 
@@ -15,6 +18,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is GetSearchResults) {
+      yield SearchLoading();
+
+      try {
+        final _searchResults = await fetchJishoResults(event.searchString);
+        yield SearchFinished(_searchResults);
+      } on Exception {
+        yield SearchError('Something went wrong');
+      }
+    } else if (event is ReturnToInitialState) {
+
+    }
   }
 }

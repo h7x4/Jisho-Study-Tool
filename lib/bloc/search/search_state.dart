@@ -1,12 +1,26 @@
 part of 'search_bloc.dart';
 
 @immutable
-abstract class SearchState {}
+abstract class SearchState {
+  const SearchState();
+}
 
-class SearchInitial extends SearchState {}
+class SearchInitial extends SearchState {
+  const SearchInitial();
+}
 
-class SearchLoading extends SearchState {}
+class SearchLoading extends SearchState {
+  const SearchLoading();
+}
 
-class SearchFinished extends SearchState {}
+class SearchFinished extends SearchState {
+  final JishoAPIResult result;
 
-class SearchError extends SearchState {}
+  const SearchFinished(this.result);
+}
+
+class SearchError extends SearchState {
+  final String message;
+
+  const SearchError(this.message);
+}
