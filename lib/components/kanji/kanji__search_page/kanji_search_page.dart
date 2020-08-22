@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/components/kanji/kanji__search_page/examples.dart';
 
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
-import './grade.dart';
-import './header.dart';
-import './jlpt_level.dart';
-import './meaning.dart';
-import './radical.dart';
-import './rank.dart';
-import './stroke_order_gif.dart';
-import './onyomi.dart';
-import './kunyomi.dart';
+import 'parts/grade.dart';
+import 'parts/header.dart';
+import 'parts/jlpt_level.dart';
+import 'parts/meaning.dart';
+import 'parts/radical.dart';
+import 'parts/rank.dart';
+import 'parts/stroke_order_gif.dart';
+import 'parts/onyomi.dart';
+import 'parts/kunyomi.dart';
+import 'parts/examples.dart';
 
 class KanjiResultCard extends StatelessWidget {
   final jisho.KanjiResult _result;
