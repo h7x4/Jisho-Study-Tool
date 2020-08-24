@@ -28,7 +28,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         yield SearchError('Something went wrong');
       }
     } else if (event is ReturnToInitialState) {
-
+      yield SearchInitial();
     }
   }
 }

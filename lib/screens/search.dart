@@ -8,33 +8,40 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SearchBloc, SearchState>(
-      listener: (context, state) {
-      },
-      child: BlocBuilder<SearchBloc, SearchState>(
-        builder: (context, state) {
-          if (state is SearchInitial) return _InitialView();
-          else if (state is SearchLoading) return LoadingScreen();
-          else if (state is SearchFinished) {
-            return ListView(
-              children: state.results.map((result) => SearchResultCard(result)).toList(),
-            );
-          }
-        },
-      ) 
-    );
+        listener: (context, state) {},
+        child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            if (state is SearchInitial)
+              return _InitialView();
+            else if (state is SearchLoading)
+              return LoadingScreen();
+            else if (state is SearchFinished) {
+              return WillPopScope(
+                child: ListView(
+                  children: state.results
+                      .map((result) => SearchResultCard(result))
+                      .toList(),
+                ),
+                onWillPop: () async {
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(ReturnToInitialState());
+                      print('Popped');
+                  return false;
+                },
+              );
+            }
+            throw 'No such event found';
+          },
+        ));
   }
 }
 
 class _InitialView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SearchBar(),
-      ]
-    );
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      SearchBar(),
+    ]);
   }
 }
 
@@ -49,12 +56,11 @@ class _LanguageOption extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Center(child: Text(_language)),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 1.0,
-          ),
-          color: _color
-        ),
+            border: Border.all(
+              color: Colors.black,
+              width: 1.0,
+            ),
+            color: _color),
       ),
     );
   }
@@ -70,7 +76,8 @@ class SearchBar extends StatelessWidget {
       child: Column(
         children: [
           TextField(
-            onSubmitted: (text) => BlocProvider.of<SearchBloc>(context).add(GetSearchResults(text)),
+            onSubmitted: (text) => BlocProvider.of<SearchBloc>(context)
+                .add(GetSearchResults(text)),
             controller: TextEditingController(),
             decoration: InputDecoration(
               labelText: 'Search',
@@ -84,7 +91,7 @@ class SearchBar extends StatelessWidget {
           ),
           Row(
             children: [
-              _LanguageOption('Auto', Colors.white), 
+              _LanguageOption('Auto', Colors.white),
               _LanguageOption('English', Colors.white),
               _LanguageOption('Japanese', Colors.blue),
             ],
