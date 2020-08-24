@@ -4,7 +4,11 @@ A japanese dictionary with features for making studying the language easier.
 
 ## Search
 
+Standard search using Jishos own API. This returns standard Jisho search results, including what you'd find if you searched for something through the standard jisho search bar without any #modifiers
+
 ## Kanji Search
+
+Standard kanji search using the #kanji modifier. This will give you detailed information about things like drawing order, radicals, different kinds of ranks and statistics and some onyomi and kunyomi example words.
 
 ## Upcoming Features
 
