@@ -1,16 +1,20 @@
-# jisho_study_tool
+# Jisho Study tool
 
-A new Flutter project.
+A japanese dictionary with features for making studying the language easier.
 
-## Getting Started
+## Search
 
-This project is a starting point for a Flutter application.
+Standard search using Jishos own API. This returns standard Jisho search results, including what you'd find if you searched for something through the standard jisho search bar without any #modifiers
 
-A few resources to get you started if this is your first Flutter project:
+## Kanji Search
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Standard kanji search using the #kanji modifier. This will give you detailed information about things like drawing order, radicals, different kinds of ranks and statistics and some onyomi and kunyomi example words.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Upcoming Features
+
+* Different kinds of kanji input like radicals and grade based lists
+* Favorites, history and custom lists
+* Anki export
+* Memo cards
+* Cloud sync
+* Dark theme
