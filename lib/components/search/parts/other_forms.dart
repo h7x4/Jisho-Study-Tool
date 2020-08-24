@@ -8,9 +8,18 @@ class OtherForms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Row(
-      children: _otherForms.map((form) => _KanaBox(form)).toList(),
-    ));
+      child: Column(
+        children: [
+          Text(
+            'Other Forms',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Row(
+            children: _otherForms.map((form) => _KanaBox(form)).toList(),
+          ),
+        ],
+      ),
+    );
   }
 }
 

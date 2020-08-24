@@ -10,6 +10,8 @@ class JapaneseHeader extends StatelessWidget {
     final hasFurigana = (_word.word != null);
 
     return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(left: 10.0),
       child: Column(
         children: [
           (hasFurigana) ? Text(_word.reading) : Text(''),

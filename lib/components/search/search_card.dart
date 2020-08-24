@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import 'parts/header.dart';
+import 'parts/senses.dart';
 import 'parts/other_forms.dart';
 
 class SearchResultCard extends StatelessWidget {
@@ -19,8 +20,10 @@ class SearchResultCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: JapaneseHeader(_mainWord),
-      children: [OtherForms(_otherForms)],
+      children: [
+        Senses(_result.senses),
+        OtherForms(_otherForms),
+      ],
     );
   }
 }
-
