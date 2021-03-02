@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:unofficial_jisho_api/api.dart';
 
-import 'parts/header.dart';
-import 'parts/senses.dart';
-import 'parts/other_forms.dart';
+import './parts/header.dart';
+import './parts/senses.dart';
+import './parts/other_forms.dart';
 
 class SearchResultCard extends StatelessWidget {
   final JishoResult _result;

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
 import 'package:jisho_study_tool/view/components/search/LanguageSelector.dart';
 import 'package:jisho_study_tool/view/screens/loading.dart';
-import 'package:jisho_study_tool/view/components/search/search_card.dart';
+import 'package:jisho_study_tool/view/components/search/search_result_page/search_card.dart';
 
 class SearchView extends StatelessWidget {
   @override
