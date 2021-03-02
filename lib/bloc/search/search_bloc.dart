@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'package:jisho_study_tool/services/jisho_search.dart';
+import 'package:jisho_study_tool/services/jisho_api/jisho_search.dart';
 import 'package:unofficial_jisho_api/parser.dart';
 
 part 'search_event.dart';

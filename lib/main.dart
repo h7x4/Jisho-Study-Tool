@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
-import 'package:jisho_study_tool/screens/kanji_search.dart';
-import 'package:jisho_study_tool/screens/history.dart';
-import 'package:jisho_study_tool/screens/search.dart';
+import 'package:jisho_study_tool/view/screens/kanji_search.dart';
+import 'package:jisho_study_tool/view/screens/history.dart';
+import 'package:jisho_study_tool/view/screens/search.dart';
 
 import 'bloc/search/search_bloc.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

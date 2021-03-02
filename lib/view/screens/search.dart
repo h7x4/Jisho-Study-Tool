@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
-import 'package:jisho_study_tool/components/loading.dart';
-import 'package:jisho_study_tool/components/search/search_card.dart';
+import 'package:jisho_study_tool/view/components/search/LanguageSelector.dart';
+import 'package:jisho_study_tool/view/screens/loading.dart';
+import 'package:jisho_study_tool/view/components/search/search_card.dart';
 
 class SearchView extends StatelessWidget {
   @override
@@ -45,28 +46,6 @@ class _InitialView extends StatelessWidget {
   }
 }
 
-class _LanguageOption extends StatelessWidget {
-  final String _language;
-  final Color _color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
-        child: Center(child: Text(_language)),
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-              width: 1.0,
-            ),
-            color: _color),
-      ),
-    );
-  }
-
-  _LanguageOption(this._language, this._color);
-}
 
 class SearchBar extends StatelessWidget {
   @override
@@ -89,13 +68,7 @@ class SearchBar extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          Row(
-            children: [
-              _LanguageOption('Auto', Colors.white),
-              _LanguageOption('English', Colors.white),
-              _LanguageOption('Japanese', Colors.blue),
-            ],
-          ),
+          LanguageSelector(["Auto", "Japanese", "English"])
         ],
       ),
     );
