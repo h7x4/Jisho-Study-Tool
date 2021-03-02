@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Grade extends StatelessWidget {
-  final String _grade;
+  final String grade;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
-        _grade,
+        grade,
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
@@ -21,5 +21,5 @@ class Grade extends StatelessWidget {
     );
   }
 
-  Grade(this._grade);
+  Grade(this.grade);
 }

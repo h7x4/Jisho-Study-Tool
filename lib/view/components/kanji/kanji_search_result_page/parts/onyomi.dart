@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Onyomi extends StatelessWidget {
-  final List<String> _onyomi;
-  List<_OnyomiCard> _onyomiCards;
-  bool _expandable;
+  final List<String> onyomi;
+  List<_OnyomiCard> onyomiCards;
+  bool expandable;
 
-  Onyomi(this._onyomi) {
-    _onyomiCards = _onyomi.map((onyomi) => _OnyomiCard(onyomi)).toList();
-    _expandable = (_onyomi.length > 6);
+  Onyomi(this.onyomi) {
+    onyomiCards = onyomi.map((onyomi) => _OnyomiCard(onyomi)).toList();
+    expandable = (onyomi.length > 6);
   }
 
   @override
@@ -23,7 +23,7 @@ class Onyomi extends StatelessWidget {
   }
 
   Widget _OnyomiWrapper(BuildContext context) {
-    if (_expandable) {
+    if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,
         title: Center(child: _OnyomiCard('Onyomi')),
@@ -33,7 +33,7 @@ class Onyomi extends StatelessWidget {
           ),
           Wrap(
             runSpacing: 10.0,
-            children: _onyomiCards,
+            children: onyomiCards,
           ),
           SizedBox(
             height: 25.0,
@@ -43,15 +43,15 @@ class Onyomi extends StatelessWidget {
     } else {
       return Wrap(
         runSpacing: 10.0,
-        children: _onyomiCards,
+        children: onyomiCards,
       );
     }
   }
 }
 
 class _OnyomiCard extends StatelessWidget {
-  final String _onyomi;
-  const _OnyomiCard(this._onyomi);
+  final String onyomi;
+  const _OnyomiCard(this.onyomi);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _OnyomiCard extends StatelessWidget {
         horizontal: 10.0,
       ),
       child: Text(
-        _onyomi,
+        onyomi,
         style: TextStyle(
           fontSize: 20.0,
           color: Colors.white,

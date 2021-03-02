@@ -34,21 +34,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedPage = 0;
+  int selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: pages[_selectedPage].titleBar,
+        title: pages[selectedPage].titleBar,
         centerTitle: true,
       ),
-      body: pages[_selectedPage].content,
+      body: pages[selectedPage].content,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedPage,
+        currentIndex: selectedPage,
         onTap: (int index) {
           setState(() {
-            _selectedPage = index;
+            selectedPage = index;
           });
         },
         items: navBar,
@@ -63,55 +63,55 @@ class _HomeState extends State<Home> {
 
 final List<BottomNavigationBarItem> navBar = [
   BottomNavigationBarItem(
-    title: Text('Search'),
+    label: 'Search',
     icon: Icon(Icons.search),
   ),
   BottomNavigationBarItem(
-    title: Text('Kanji'),
+    label: 'Kanji',
     icon: Text(
       '漢',
       style: TextStyle(fontSize: 18),
     ),
   ),
   BottomNavigationBarItem(
-    title: Text('History'),
+    label: 'History',
     icon: Icon(Icons.bookmark),
   ),
   BottomNavigationBarItem(
-    title: Text('Memorize'),
+    label: 'Memorize',
     icon: Icon(Icons.local_offer),
   ),
   BottomNavigationBarItem(
-    title: Text('Settings'),
+    label: 'Settings',
     icon: Icon(Icons.settings),
   ),
 ];
 
-class Page {
+class _Page {
   Widget content;
   Widget titleBar;
 
-  Page({
+  _Page({
     this.content,
     this.titleBar,
   });
 }
 
-final List<Page> pages = [
-  Page(content: SearchView(), titleBar: Text('Search')),
-  Page(
+final List<_Page> pages = [
+  _Page(content: SearchView(), titleBar: Text('Search')),
+  _Page(
     content: KanjiView(),
     titleBar: KanjiViewBar(),
   ),
-  Page(
+  _Page(
     content: HistoryView(),
     titleBar: Text("History"),
   ),
-  Page(
+  _Page(
     content: Container(),
     titleBar: Text("Memorization"),
   ),
-  Page(
+  _Page(
     content: Container(),
     titleBar: Text("Settings"),
   ),

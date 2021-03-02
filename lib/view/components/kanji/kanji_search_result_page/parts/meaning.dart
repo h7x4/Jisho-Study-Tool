@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Meaning extends StatelessWidget {
-  List<String> _meanings;
-  List<_MeaningCard> _meaningCards;
-  bool _expandable;
+  List<String> meanings;
+  List<_MeaningCard> meaningCards;
+  bool expandable;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Meaning extends StatelessWidget {
   }
 
   Widget _MeaningWrapper(BuildContext context) {
-    if (_expandable) {
+    if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,
         title: Center(child: _MeaningCard('Meanings')),
@@ -28,7 +28,7 @@ class Meaning extends StatelessWidget {
           ),
           Wrap(
             runSpacing: 10.0,
-            children: _meaningCards,
+            children: meaningCards,
           ),
           SizedBox(
             height: 25.0,
@@ -38,21 +38,21 @@ class Meaning extends StatelessWidget {
     } else {
       return Wrap(
         runSpacing: 10.0,
-        children: _meaningCards,
+        children: meaningCards,
       );
     }
   }
 
-  Meaning(_meaning) {
-    this._meanings = _meaning.split(', ');
-    this._meaningCards =
-        _meanings.map((meaning) => _MeaningCard(meaning)).toList();
-    this._expandable = (this._meanings.length > 6);
+  Meaning(meaning) {
+    this.meanings = meaning.split(', ');
+    this.meaningCards =
+        meanings.map((m) => _MeaningCard(m)).toList();
+    this.expandable = (this.meanings.length > 6);
   }
 }
 
 class _MeaningCard extends StatelessWidget {
-  final String _meaning;
+  final String meaning;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _MeaningCard extends StatelessWidget {
         vertical: 10.0,
       ),
       child: Text(
-        _meaning,
+        meaning,
         style: TextStyle(
           fontSize: 20.0,
           color: Colors.white,
@@ -76,5 +76,5 @@ class _MeaningCard extends StatelessWidget {
     );
   }
 
-  _MeaningCard(this._meaning);
+  _MeaningCard(this.meaning);
 }

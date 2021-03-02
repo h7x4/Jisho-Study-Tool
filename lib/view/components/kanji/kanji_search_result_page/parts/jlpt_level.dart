@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 class JlptLevel extends StatelessWidget {
-  final String _jlptLevel;
+  final String jlptLevel;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
-        _jlptLevel,
+        jlptLevel,
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
@@ -22,5 +22,5 @@ class JlptLevel extends StatelessWidget {
     );
   }
 
-  JlptLevel(this._jlptLevel);
+  JlptLevel(this.jlptLevel);
 }

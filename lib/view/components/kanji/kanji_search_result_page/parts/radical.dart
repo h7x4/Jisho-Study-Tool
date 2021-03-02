@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 class Radical extends StatelessWidget {
-  final jisho.Radical _radical;
+  final jisho.Radical radical;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
-        _radical.symbol,
+        radical.symbol,
         style: TextStyle(
           color: Colors.white,
           fontSize: 40.0,
@@ -22,5 +22,5 @@ class Radical extends StatelessWidget {
     );
   }
 
-  Radical(this._radical);
+  Radical(this.radical);
 }

@@ -1,7 +1,7 @@
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 String _convertGrade(String grade) {
-  const _conversionTable = {
+  const conversionTable = {
     "grade 1": "小1",
     "grade 2": "小2",
     "grade 3": "小3",
@@ -11,9 +11,9 @@ String _convertGrade(String grade) {
     "junior high": "中"
   };
 
-  print('conversion run: $grade -> ${_conversionTable[grade]}');
+  print('conversion run: $grade -> ${conversionTable[grade]}');
 
-  return _conversionTable[grade];
+  return conversionTable[grade];
 }
 
 Future<jisho.KanjiResult> fetchKanji(String kanji) async {

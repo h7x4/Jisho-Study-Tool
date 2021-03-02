@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StrokeOrderGif extends StatelessWidget {
-  final String _uri;
+  final String uri;
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class StrokeOrderGif extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 20.0),
       padding: EdgeInsets.all(5.0),
       child: ClipRRect(
-        child: Image.network(_uri),
+        child: Image.network(uri),
         borderRadius: BorderRadius.circular(10.0),
       ),
       decoration: BoxDecoration(
@@ -19,5 +19,5 @@ class StrokeOrderGif extends StatelessWidget {
     );
   }
 
-  StrokeOrderGif(this._uri);
+  StrokeOrderGif(this.uri);
 }

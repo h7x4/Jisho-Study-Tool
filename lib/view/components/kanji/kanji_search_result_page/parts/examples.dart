@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 class Examples extends StatelessWidget {
-  final List<YomiExample> _onyomiExamples;
-  final List<YomiExample> _kunyomiExamples;
+  final List<YomiExample> onyomiExamples;
+  final List<YomiExample> kunyomiExamples;
 
   const Examples(
-    this._onyomiExamples,
-    this._kunyomiExamples,
+    this.onyomiExamples,
+    this.kunyomiExamples,
   );
 
   @override
@@ -30,10 +30,10 @@ class Examples extends StatelessWidget {
           ),
         ),
         children: [
-          _onyomiExamples
+          onyomiExamples
               .map((onyomiExample) => _Example(onyomiExample, _KanaType.onyomi))
               .toList(),
-          _kunyomiExamples
+          kunyomiExamples
               .map((kunyomiExample) =>
                   _Example(kunyomiExample, _KanaType.kunyomi))
               .toList(),
@@ -44,10 +44,10 @@ class Examples extends StatelessWidget {
 enum _KanaType { kunyomi, onyomi }
 
 class _Example extends StatelessWidget {
-  final _KanaType _kanaType;
-  final YomiExample _yomiExample;
+  final _KanaType kanaType;
+  final YomiExample yomiExample;
 
-  const _Example(this._yomiExample, this._kanaType);
+  const _Example(this.yomiExample, this.kanaType);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _Example extends StatelessWidget {
                 horizontal: 10.0,
               ),
               decoration: BoxDecoration(
-                color: (_kanaType == _KanaType.kunyomi)
+                color: (kanaType == _KanaType.kunyomi)
                     ? Colors.lightBlue
                     : Colors.orange,
                 borderRadius: BorderRadius.only(
@@ -79,7 +79,7 @@ class _Example extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      _yomiExample.reading,
+                      yomiExample.reading,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 15.0,
@@ -91,7 +91,7 @@ class _Example extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      _yomiExample.example,
+                      yomiExample.example,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -109,7 +109,7 @@ class _Example extends StatelessWidget {
                 children: [
                   Container(
                     child: Text(
-                      _yomiExample.meaning,
+                      yomiExample.meaning,
                       style: TextStyle(
                         color: Colors.white,
                       ),

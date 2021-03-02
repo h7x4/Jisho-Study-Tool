@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Kunyomi extends StatelessWidget {
-  final List<String> _kunyomi;
-  List<_KunyomiCard> _kunyomiCards;
-  bool _expandable;
+  final List<String> kunyomi;
+  List<_KunyomiCard> kunyomiCards;
+  bool expandable;
 
-  Kunyomi(this._kunyomi) {
-    _kunyomiCards = _kunyomi.map((kunyomi) => _KunyomiCard(kunyomi)).toList();
-    _expandable = (_kunyomi.length > 6);
+  Kunyomi(this.kunyomi) {
+    kunyomiCards = kunyomi.map((kunyomi) => _KunyomiCard(kunyomi)).toList();
+    expandable = (kunyomi.length > 6);
   }
 
   @override
@@ -23,7 +23,7 @@ class Kunyomi extends StatelessWidget {
   }
 
   Widget _KunyomiWrapper(BuildContext context) {
-    if (_expandable) {
+    if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,
         title: Center(child: _KunyomiCard('Kunyomi')),
@@ -33,7 +33,7 @@ class Kunyomi extends StatelessWidget {
           ),
           Wrap(
             runSpacing: 10.0,
-            children: _kunyomiCards,
+            children: kunyomiCards,
           ),
           SizedBox(
             height: 25.0,
@@ -43,15 +43,15 @@ class Kunyomi extends StatelessWidget {
     } else {
       return Wrap(
         runSpacing: 10.0,
-        children: _kunyomiCards,
+        children: kunyomiCards,
       );
     }
   }
 }
 
 class _KunyomiCard extends StatelessWidget {
-  final String _kunyomi;
-  const _KunyomiCard(this._kunyomi);
+  final String kunyomi;
+  const _KunyomiCard(this.kunyomi);
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _KunyomiCard extends StatelessWidget {
         horizontal: 10.0,
       ),
       child: Text(
-        _kunyomi,
+        kunyomi,
         style: TextStyle(
           fontSize: 20.0,
           color: Colors.white,

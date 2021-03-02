@@ -7,22 +7,22 @@ import './parts/senses.dart';
 import './parts/other_forms.dart';
 
 class SearchResultCard extends StatelessWidget {
-  final JishoResult _result;
-  JishoJapaneseWord _mainWord;
-  List<JishoJapaneseWord> _otherForms;
+  final JishoResult result;
+  JishoJapaneseWord mainWord;
+  List<JishoJapaneseWord> otherForms;
 
-  SearchResultCard(this._result) {
-    this._mainWord = _result.japanese[0];
-    this._otherForms = _result.japanese.sublist(1);
+  SearchResultCard(this.result) {
+    this.mainWord = result.japanese[0];
+    this.otherForms = result.japanese.sublist(1);
   }
 
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: JapaneseHeader(_mainWord),
+      title: JapaneseHeader(mainWord),
       children: [
-        Senses(_result.senses),
-        OtherForms(_otherForms),
+        Senses(result.senses),
+        OtherForms(otherForms),
       ],
     );
   }

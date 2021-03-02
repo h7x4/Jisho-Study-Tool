@@ -2,13 +2,11 @@
 import 'package:flutter/material.dart';
 
 class LanguageSelector extends StatefulWidget {
-
-
   @override
-  LanguageSelectorState createState() => new LanguageSelectorState();
+  _LanguageSelectorState createState() => new _LanguageSelectorState();
 }
 
-class LanguageSelectorState extends State<LanguageSelector> {
+class _LanguageSelectorState extends State<LanguageSelector> {
   List<bool> isSelected;
 
   @override
@@ -22,9 +20,9 @@ class LanguageSelectorState extends State<LanguageSelector> {
     return ToggleButtons(
       isSelected: isSelected,
       children: <Widget> [
-        LanguageOption("Auto"),
-        LanguageOption("Japanese"),
-        LanguageOption("English")
+        _LanguageOption("Auto"),
+        _LanguageOption("Japanese"),
+        _LanguageOption("English")
       ],
       selectedColor: Colors.blue,
       onPressed: (int buttonIndex) {
@@ -39,17 +37,17 @@ class LanguageSelectorState extends State<LanguageSelector> {
 
 }
 
-class LanguageOption extends StatelessWidget {
-  final String _language;
+class _LanguageOption extends StatelessWidget {
+  final String language;
 
-  LanguageOption(this._language);
+  _LanguageOption(this.language);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-        child: Center(child: Text(_language)),
+        child: Center(child: Text(language)),
       ),
     );
   }

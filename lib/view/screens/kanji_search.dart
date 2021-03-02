@@ -76,60 +76,60 @@ class _KanjiTextField extends StatefulWidget {
 enum TextFieldButton {clear, paste}
 
 class _KanjiTextFieldState extends State<_KanjiTextField> {
-  FocusNode _focus = new FocusNode();
-  TextEditingController _textController = new TextEditingController();
-  TextFieldButton _button = TextFieldButton.paste;
+  FocusNode focus = new FocusNode();
+  TextEditingController textController = new TextEditingController();
+  TextFieldButton button = TextFieldButton.paste;
 
   @override
   void initState() {
     super.initState();
-    _focus.addListener(_onFocusChange);
+    focus.addListener(_onFocusChange);
   }
 
   void _getKanjiSuggestions(String text) =>
       BlocProvider.of<KanjiBloc>(context).add(GetKanjiSuggestions(text));
 
-  void updateSuggestions() => _getKanjiSuggestions(_textController.text);
+  void updateSuggestions() => _getKanjiSuggestions(textController.text);
 
   void _onFocusChange() {
-    debugPrint('TextField Focus Changed: ${_focus.hasFocus.toString()}');
+    debugPrint('TextField Focus Changed: ${focus.hasFocus.toString()}');
 
     setState(() {
-      _button = _focus.hasFocus ? TextFieldButton.clear : TextFieldButton.paste;
+      button = focus.hasFocus ? TextFieldButton.clear : TextFieldButton.paste;
     });
 
-    if (_focus.hasFocus)
+    if (focus.hasFocus)
       updateSuggestions();
     else
       FocusScope.of(context).unfocus();
   }
 
   void _clearText() {
-    _textController.text = '';
+    textController.text = '';
     updateSuggestions();
   }
 
   void _pasteText() async {
     ClipboardData clipboardData = await Clipboard.getData('text/plain');
-    _textController.text = clipboardData.text;
+    textController.text = clipboardData.text;
     updateSuggestions();
   }
 
   @override
   Widget build(BuildContext context) {
-    IconButton _clearButton = IconButton(
+    IconButton clearButton = IconButton(
       icon: Icon(Icons.clear),
       onPressed: () => _clearText(),
     );
 
-    IconButton _pasteButton = IconButton(
+    IconButton pasteButton = IconButton(
       icon: Icon(Icons.content_paste),
       onPressed: () => _pasteText(),
     );
 
     return TextField(
-      focusNode: _focus,
-      controller: _textController,
+      focusNode: focus,
+      controller: textController,
       onChanged: (text) => _getKanjiSuggestions(text),
       onSubmitted: (text) =>
           BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
@@ -143,7 +143,7 @@ class _KanjiTextFieldState extends State<_KanjiTextField> {
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
         isDense: false,
-        suffixIcon: (_button == TextFieldButton.clear) ? _clearButton : _pasteButton,
+        suffixIcon: (button == TextFieldButton.clear) ? clearButton : pasteButton,
       ),
       style: TextStyle(
         fontSize: 14.0,

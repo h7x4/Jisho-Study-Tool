@@ -14,7 +14,7 @@ import 'parts/kunyomi.dart';
 import 'parts/examples.dart';
 
 class KanjiResultCard extends StatelessWidget {
-  final jisho.KanjiResult _result;
+  final jisho.KanjiResult result;
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +33,26 @@ class KanjiResultCard extends StatelessWidget {
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
-                child: Center(child: Header(_result.query)),
+                child: Center(child: Header(result.query)),
               ),
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
                 child: Center(
-                  child: Radical(_result.radical),
+                  child: Radical(result.radical),
                 ),
               ),
             ],
           ),
         ),
-        Meaning(_result.meaning),
-        _result.onyomi.length != 0 ? Onyomi(_result.onyomi) : SizedBox.shrink(),
-        _result.kunyomi.length != 0 ? Kunyomi(_result.kunyomi) : SizedBox.shrink(),
+        Meaning(result.meaning),
+        result.onyomi.length != 0 ? Onyomi(result.onyomi) : SizedBox.shrink(),
+        result.kunyomi.length != 0 ? Kunyomi(result.kunyomi) : SizedBox.shrink(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StrokeOrderGif(_result.strokeOrderGifUri),
+              StrokeOrderGif(result.strokeOrderGifUri),
               Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,19 +61,19 @@ class KanjiResultCard extends StatelessWidget {
                     Row(
                       children: [
                         Text("JLPT: ", style: TextStyle(fontSize: 20.0)),
-                        JlptLevel(_result.jlptLevel ?? "⨉"),
+                        JlptLevel(result.jlptLevel ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Grade: ", style: TextStyle(fontSize: 20.0)),
-                        Grade(_result.taughtIn ?? "⨉"),
+                        Grade(result.taughtIn ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Rank: ", style: TextStyle(fontSize: 20.0)),
-                        Rank(_result.newspaperFrequencyRank ?? -1),
+                        Rank(result.newspaperFrequencyRank ?? -1),
                       ],
                     ),
                   ],
@@ -82,10 +82,10 @@ class KanjiResultCard extends StatelessWidget {
             ],
           ),
         ),
-        Examples(_result.onyomiExamples, _result.kunyomiExamples),
+        Examples(result.onyomiExamples, result.kunyomiExamples),
       ],
     );
   }
 
-  KanjiResultCard(this._result);
+  KanjiResultCard(this.result);
 }

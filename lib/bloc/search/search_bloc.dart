@@ -22,8 +22,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchLoading();
 
       try {
-        final _searchResults = await fetchJishoResults(event.searchString);
-        if (_searchResults.meta.status == 200) yield SearchFinished(_searchResults.data);
+        final searchResults = await fetchJishoResults(event.searchString);
+        if (searchResults.meta.status == 200) yield SearchFinished(searchResults.data);
       } on Exception {
         yield SearchError('Something went wrong');
       }

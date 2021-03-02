@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 
 class Rank extends StatelessWidget {
-  final int _rank;
+  final int rank;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
-        '${_rank.toString()} / 2500',
+        '${rank.toString()} / 2500',
         style: TextStyle(
           color: Colors.white,
           fontSize: 20.0,
@@ -22,5 +22,5 @@ class Rank extends StatelessWidget {
     );
   }
 
-  Rank(this._rank);
+  Rank(this.rank);
 }

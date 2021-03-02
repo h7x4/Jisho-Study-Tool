@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  final String _kanji;
+  final String kanji;
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +11,12 @@ class Header extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Text(
-          _kanji,
+          kanji,
           style: TextStyle(fontSize: 80.0, color: Colors.white),
         ),
       ),
     );
   }
 
-  Header(this._kanji);
+  Header(this.kanji);
 }
