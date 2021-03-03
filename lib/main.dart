@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mdi/mdi.dart';
+
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/view/screens/kanji_search.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
@@ -68,10 +70,7 @@ final List<BottomNavigationBarItem> navBar = [
   ),
   BottomNavigationBarItem(
     label: 'Kanji',
-    icon: Text(
-      '漢',
-      style: TextStyle(fontSize: 18),
-    ),
+    icon: Icon(Mdi.ideogramCjk, size: 30,)
   ),
   BottomNavigationBarItem(
     label: 'History',
