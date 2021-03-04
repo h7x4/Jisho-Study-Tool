@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageSelector extends StatefulWidget {
   @override
@@ -7,12 +7,35 @@ class LanguageSelector extends StatefulWidget {
 }
 
 class _LanguageSelectorState extends State<LanguageSelector> {
+  SharedPreferences prefs;
   List<bool> isSelected;
 
   @override
   void initState() {
     super.initState();
-    isSelected = [true, false, false];
+    isSelected = [false, false, false];
+
+    SharedPreferences.getInstance()
+      .then((prefs) {
+        this.prefs = prefs;
+        setState(() {
+          isSelected = _getSelectedStatus() ?? isSelected;
+        });
+      });
+  }
+
+  void _updateSelectedStatus() async {
+    await prefs.setStringList('languageSelectorStatus',
+      isSelected
+        .map((b) => b ? '1' : '0')
+        .toList());
+  }
+
+  List<bool> _getSelectedStatus() {
+    return prefs
+      .getStringList('languageSelectorStatus')
+      ?.map((s) => s == '1')
+      ?.toList();
   }
 
   @override
@@ -30,6 +53,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
           for (var i in Iterable.generate(isSelected.length)) {
             isSelected[i] = i == buttonIndex;
           }
+          _updateSelectedStatus();
         });
       },
     );
@@ -44,11 +68,9 @@ class _LanguageOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-        child: Center(child: Text(language)),
-      ),
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      child: Center(child: Text(language)),
     );
   }
 }
