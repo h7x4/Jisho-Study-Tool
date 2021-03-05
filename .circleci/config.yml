@@ -27,12 +27,11 @@ jobs:
 
   lint:
     description: "Run static analysis for the code"
-    requires: build
     docker:
-      - image: cirrusci/flutter:v1.10.7
+      - image: cirrusci/flutter:stable
     working_directory: ~/project
     steps:
-      - checkout
+      # - checkout
       # - restore_cache:
       #     keys:
       #       - dart-dependencies-{{ checksum "pubspec.lock" }}
@@ -43,12 +42,11 @@ jobs:
 
   test:
     description: "Run all unittests"
-    requires: build
     docker:
-      - image: cirrusci/flutter:v1.10.7
+      - image: cirrusci/flutter:stable
     working_directory: ~/project
     steps:
-      - checkout
+      # - checkout
       # - restore_cache:
       #     keys:
       #       - dart-dependencies-{{ checksum "pubspec.lock" }}
@@ -70,5 +68,7 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - lint
-      - test
+      - lint:
+          requires: build
+      - test:
+          requires: build
