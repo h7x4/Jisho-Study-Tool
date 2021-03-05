@@ -7,7 +7,7 @@ class JapaneseHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasFurigana = (word.word != null);
+    final hasFurigana = (word.word != null && word.reading != null);
 
     return Container(
       alignment: Alignment.centerLeft,
@@ -15,7 +15,7 @@ class JapaneseHeader extends StatelessWidget {
       child: Column(
         children: [
           (hasFurigana) ? Text(word.reading) : Text(''),
-          (hasFurigana) ? Text(word.word) : Text(word.reading),
+          (hasFurigana) ? Text(word.word) : Text(word.reading ?? word.word),
         ],
       ),
     );
