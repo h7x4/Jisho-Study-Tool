@@ -20,10 +20,10 @@ jobs:
           name: Build
           command: flutter -v build apk
         
-      # - save_cache:
-      #     paths:
-      #       - .dart_tool
-      #     key: dart-dependencies-{{ checksum "pubspec.lock" }}
+      - save_cache:
+          paths:
+            - .dart_tool
+          key: dart-dependencies-{{ checksum "pubspec.lock" }}
 
   lint:
     description: "Run static analysis for the code"
@@ -31,11 +31,13 @@ jobs:
       - image: cirrusci/flutter:stable
     working_directory: ~/project
     steps:
-      # - checkout
-      # - restore_cache:
-      #     keys:
-      #       - dart-dependencies-{{ checksum "pubspec.lock" }}
-      #       - dart-dependencies-
+      - checkout
+
+      - restore_cache:
+          keys:
+            - dart-dependencies-{{ checksum "pubspec.lock" }}
+            - dart-dependencies-
+
       - run:
           name: Analyze code
           command: flutter analyze lib
@@ -46,16 +48,11 @@ jobs:
       - image: cirrusci/flutter:stable
     working_directory: ~/project
     steps:
-      # - checkout
-      # - restore_cache:
-      #     keys:
-      #       - dart-dependencies-{{ checksum "pubspec.lock" }}
-      #       - dart-dependencies-
-
-      # - save_cache:
-      #     paths:
-      #       - .dart_tool
-      #     key: dart-dependencies-{{ checksum "pubspec.lock" }}
+      - checkout
+      - restore_cache:
+          keys:
+            - dart-dependencies-{{ checksum "pubspec.lock" }}
+            - dart-dependencies-
 
       - run:
           name: Run tests
