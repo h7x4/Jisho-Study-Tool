@@ -40,7 +40,10 @@ jobs:
 
       - run:
           name: Analyze code
-          command: flutter analyze --no-fatal-infos
+          command: flutter analyze --no-fatal-infos > lint_analysis_data/results.txt
+
+      - store_artifacts:
+          path: ~/project/lint_analysis_data
 
   test:
     description: "Run all unittests"
