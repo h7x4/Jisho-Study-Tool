@@ -97,7 +97,10 @@ class _Page {
 }
 
 final List<_Page> pages = [
-  _Page(content: SearchView(), titleBar: Text('Search')),
+  _Page(
+    content: SearchView(),
+    titleBar: Text('Search'),
+  ),
   _Page(
     content: KanjiView(),
     titleBar: KanjiViewBar(),
