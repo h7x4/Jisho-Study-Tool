@@ -55,8 +55,12 @@ jobs:
             - dart-dependencies-
 
       - run:
+          name: Install test report converter tool
+          command: pub global activate junitreport
+
+      - run:
           name: Run tests
-          command: flutter test | tojunit --output test-results
+          command: flutter test | .pub-cache/bin/tojunit --output test-results
 
       - store_test_results:
           path: test-results
