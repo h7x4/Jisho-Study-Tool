@@ -60,7 +60,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: flutter test | .pub-cache/bin/tojunit --output test-results
+          command: flutter test | ~/.pub-cache/bin/tojunit --output test-results
 
       - store_test_results:
           path: test-results
