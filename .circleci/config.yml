@@ -1,90 +1,68 @@
-# Author @mvxt
 version: 2.1
 
-# Simple YAML anchors
-aliases:
-  - &project_dir "~/project"
+jobs:
+  # build:
+  #   docker:
+  #     - image: cirrusci/flutter:stable
+  #   steps:
+  #     - checkout
+  #     - run: flutter doctor
+  #     - run: flutter test 
+  #     - run: flutter -v build apk
 
-commands:
-  dependencies:
-    description: "Download dependencies and setup global packages"
-    parameters:
-      shell:
-        type: string
-        default: "/bin/bash --login -eo pipefail"
-      pub-cache:
-        type: string
-        default: "~/.pub-cache"
+  lint:
+    description: "Run static analysis for Flutter"
+    docker:
+      - image: cirrusci/flutter:v1.10.7
+    working_directory: ~/repo
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
-            - v1.4-dependencies-{{ arch }}-
+            - dart-dependencies-{{ checksum "pubspec.lock" }}
+            - dart-dependencies-
       - run:
-          name: Download deps
-          shell: << parameters.shell >>
-          command: pub get
+          name: Install Dependencies
+          command: flutter pub get
       - run:
-          name: Get junitreporter
-          shell: << parameters.shell >>
-          command: pub global activate junitreport
+          name: Build
+          command: flutter packages pub run build_runner build
       - save_cache:
-          key: v1.4-dependencies-{{ arch }}-{{ checksum "pubspec.lock" }}
           paths:
             - .dart_tool
-            - << parameters.pub-cache >>
-
-###### ################
-# Workflow definition
-###### ################
-workflows:
-  version: 2.1
-  test-and-build:
-    jobs:
-      - test
-      - build-linux:
-          requires:
-            - test
-##################
-# Job Definitions
-##################
-jobs:
-  test:
-    docker:
-      - image: google/dart:2.9.1
-        auth:
-          username: $DOCKER_USERNAME
-          password: $DOCKER_PASSWORD  # context / project UI env-var reference
-    steps:
-      - dependencies:
-          shell: "/bin/bash -eo pipefail"
+          key: dart-dependencies-{{ checksum "pubspec.lock" }}
       - run:
-          name: Make folder for test results
-          command: mkdir -p test-results/dart-tests
+          name: Analyze code
+          command: flutter analyze lib
+
+  test:
+    description: "Run tests for Flutter"
+    docker:
+      - image: cirrusci/flutter:v1.10.7
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dart-dependencies-{{ checksum "pubspec.lock" }}
+            - dart-dependencies-
+
+      - run:
+          name: Install Dependencies
+          command: flutter pub get
+
+      - run:
+          name: Build
+          command: flutter packages pub run build_runner build
+
+      - save_cache:
+          paths:
+            - .dart_tool
+          key: dart-dependencies-{{ checksum "pubspec.lock" }}
+
       - run:
           name: Run tests
-          command: pub run test --reporter json | tojunit --output test-results/dart-tests/circleci_dart_demo_test-report.xml
+          command: flutter test | tojunit --output test-results
+
       - store_test_results:
           path: test-results
-
-  build-linux:
-    machine: true
-    steps:
-      - run:
-          name: Install Dart SDK
-          shell: /bin/bash --login -eo pipefail
-          command: |
-            # Setup repo & signing key
-            sudo apt update
-            sudo apt install apt-transport-https
-            sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
-            sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
-
-            # Update again and install
-            sudo apt update
-            sudo apt install dart
-
-            # Set PATH in profile for downstream commands
-            echo "export PATH=$PATH:/usr/lib/dart/bin" >> $BASH_ENV
-      - dependencies
