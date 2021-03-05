@@ -1,64 +1,63 @@
 version: 2.1
 
 jobs:
-  # build:
-  #   docker:
-  #     - image: cirrusci/flutter:stable
-  #   steps:
-  #     - checkout
-  #     - run: flutter doctor
-  #     - run: flutter test 
-  #     - run: flutter -v build apk
-
-  lint:
-    description: "Run static analysis for Flutter"
+  build:
+    description: "Build the application into an Android APK executable"
     docker:
-      - image: cirrusci/flutter:v1.10.7
-    working_directory: ~/repo
+      - image: cirrusci/flutter:stable
+    working_directory: ~/project
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - dart-dependencies-{{ checksum "pubspec.lock" }}
-            - dart-dependencies-
+      - run:
+          name: Print 
+          command: flutter doctor
+        
       - run:
           name: Install Dependencies
           command: flutter pub get
+        
       - run:
           name: Build
-          command: flutter packages pub run build_runner build
-      - save_cache:
-          paths:
-            - .dart_tool
-          key: dart-dependencies-{{ checksum "pubspec.lock" }}
+          command: flutter -v build apk
+        
+      # - save_cache:
+      #     paths:
+      #       - .dart_tool
+      #     key: dart-dependencies-{{ checksum "pubspec.lock" }}
+
+  lint:
+    description: "Run static analysis for the code"
+    requires: build
+    docker:
+      - image: cirrusci/flutter:v1.10.7
+    working_directory: ~/project
+    steps:
+      - checkout
+      # - restore_cache:
+      #     keys:
+      #       - dart-dependencies-{{ checksum "pubspec.lock" }}
+      #       - dart-dependencies-
       - run:
           name: Analyze code
           command: flutter analyze lib
 
   test:
-    description: "Run tests for Flutter"
+    description: "Run all unittests"
+    requires: build
     docker:
       - image: cirrusci/flutter:v1.10.7
-    working_directory: ~/repo
+    working_directory: ~/project
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - dart-dependencies-{{ checksum "pubspec.lock" }}
-            - dart-dependencies-
+      # - restore_cache:
+      #     keys:
+      #       - dart-dependencies-{{ checksum "pubspec.lock" }}
+      #       - dart-dependencies-
 
-      - run:
-          name: Install Dependencies
-          command: flutter pub get
-
-      - run:
-          name: Build
-          command: flutter packages pub run build_runner build
-
-      - save_cache:
-          paths:
-            - .dart_tool
-          key: dart-dependencies-{{ checksum "pubspec.lock" }}
+      # - save_cache:
+      #     paths:
+      #       - .dart_tool
+      #     key: dart-dependencies-{{ checksum "pubspec.lock" }}
 
       - run:
           name: Run tests
@@ -70,5 +69,6 @@ jobs:
 workflows:
   build_and_test:
     jobs:
+      - build
       - lint
       - test
