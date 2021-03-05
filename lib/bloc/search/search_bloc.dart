@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'package:jisho_study_tool/services/jisho_search.dart';
+import 'package:jisho_study_tool/services/jisho_api/jisho_search.dart';
 import 'package:unofficial_jisho_api/parser.dart';
 
 part 'search_event.dart';
@@ -22,8 +22,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchLoading();
 
       try {
-        final _searchResults = await fetchJishoResults(event.searchString);
-        if (_searchResults.meta.status == 200) yield SearchFinished(_searchResults.data);
+        final searchResults = await fetchJishoResults(event.searchString);
+        if (searchResults.meta.status == 200) yield SearchFinished(searchResults.data);
       } on Exception {
         yield SearchError('Something went wrong');
       }

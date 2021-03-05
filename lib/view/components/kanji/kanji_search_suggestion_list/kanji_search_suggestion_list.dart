@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
 class KanjiSuggestions extends StatelessWidget {
-  final List<String> _suggestions;
-  const KanjiSuggestions(this._suggestions);
+  final List<String> suggestions;
+  const KanjiSuggestions(this.suggestions);
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +18,21 @@ class KanjiSuggestions extends StatelessWidget {
         crossAxisCount: 3,
         mainAxisSpacing: 20.0,
         crossAxisSpacing: 40.0,
-        children: _suggestions.map((kanji) => _Suggestion(kanji)).toList(),
+        children: suggestions.map((kanji) => _Suggestion(kanji)).toList(),
       ),
     );
   }
 }
 
 class _Suggestion extends StatelessWidget {
-  final String _kanji;
-  const _Suggestion(this._kanji);
+  final String kanji;
+  const _Suggestion(this.kanji);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlocProvider.of<KanjiBloc>(context).add(GetKanji(_kanji));
+        BlocProvider.of<KanjiBloc>(context).add(GetKanji(kanji));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class _Suggestion extends StatelessWidget {
           margin: EdgeInsets.all(10.0),
           child: FittedBox(
             child: Text(
-              _kanji,
+              kanji,
               style: TextStyle(color: Colors.white),
             ),
           ),

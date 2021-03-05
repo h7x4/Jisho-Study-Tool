@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 class OtherForms extends StatelessWidget {
-  final List<JishoJapaneseWord> _otherForms;
-  OtherForms(this._otherForms);
+  final List<JishoJapaneseWord> otherForms;
+  OtherForms(this.otherForms);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class OtherForms extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Row(
-            children: _otherForms.map((form) => _KanaBox(form)).toList(),
+            children: otherForms.map((form) => _KanaBox(form)).toList(),
           ),
         ],
       ),
@@ -24,18 +24,18 @@ class OtherForms extends StatelessWidget {
 }
 
 class _KanaBox extends StatelessWidget {
-  final JishoJapaneseWord _word;
-  const _KanaBox(this._word);
+  final JishoJapaneseWord word;
+  const _KanaBox(this.word);
 
   @override
   Widget build(BuildContext context) {
-    final hasFurigana = (_word.word != null);
+    final hasFurigana = (word.word != null);
 
     return Container(
       child: Column(
         children: [
-          (hasFurigana) ? Text(_word.reading) : Text(''),
-          (hasFurigana) ? Text(_word.word) : Text(_word.reading),
+          (hasFurigana) ? Text(word.reading) : Text(''),
+          (hasFurigana) ? Text(word.word) : Text(word.reading),
         ],
       ),
       margin: EdgeInsets.symmetric(

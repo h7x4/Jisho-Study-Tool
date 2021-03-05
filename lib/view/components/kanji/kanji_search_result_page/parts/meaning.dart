@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Kunyomi extends StatelessWidget {
-  final List<String> _kunyomi;
-  List<_KunyomiCard> _kunyomiCards;
-  bool _expandable;
-
-  Kunyomi(this._kunyomi) {
-    _kunyomiCards = _kunyomi.map((kunyomi) => _KunyomiCard(kunyomi)).toList();
-    _expandable = (_kunyomi.length > 6);
-  }
+class Meaning extends StatelessWidget {
+  List<String> meanings;
+  List<_MeaningCard> meaningCards;
+  bool expandable;
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +13,22 @@ class Kunyomi extends StatelessWidget {
         vertical: 5.0,
       ),
       alignment: Alignment.centerLeft,
-      child: _KunyomiWrapper(context),
+      child: _MeaningWrapper(context),
     );
   }
 
-  Widget _KunyomiWrapper(BuildContext context) {
-    if (_expandable) {
+  Widget _MeaningWrapper(BuildContext context) {
+    if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,
-        title: Center(child: _KunyomiCard('Kunyomi')),
+        title: Center(child: _MeaningCard('Meanings')),
         children: [
           SizedBox(
             height: 20.0,
           ),
           Wrap(
             runSpacing: 10.0,
-            children: _kunyomiCards,
+            children: meaningCards,
           ),
           SizedBox(
             height: 25.0,
@@ -43,35 +38,43 @@ class Kunyomi extends StatelessWidget {
     } else {
       return Wrap(
         runSpacing: 10.0,
-        children: _kunyomiCards,
+        children: meaningCards,
       );
     }
   }
+
+  Meaning(meaning) {
+    this.meanings = meaning.split(', ');
+    this.meaningCards =
+        meanings.map((m) => _MeaningCard(m)).toList();
+    this.expandable = (this.meanings.length > 6);
+  }
 }
 
-class _KunyomiCard extends StatelessWidget {
-  final String _kunyomi;
-  const _KunyomiCard(this._kunyomi);
+class _MeaningCard extends StatelessWidget {
+  final String meaning;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       padding: EdgeInsets.symmetric(
-        vertical: 10.0,
         horizontal: 10.0,
+        vertical: 10.0,
       ),
       child: Text(
-        _kunyomi,
+        meaning,
         style: TextStyle(
           fontSize: 20.0,
           color: Colors.white,
         ),
       ),
       decoration: BoxDecoration(
-        color: Colors.lightBlue,
+        color: Colors.grey,
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
   }
+
+  _MeaningCard(this.meaning);
 }

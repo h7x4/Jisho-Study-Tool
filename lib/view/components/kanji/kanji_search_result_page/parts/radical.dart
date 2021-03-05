@@ -1,18 +1,18 @@
-
 import 'package:flutter/material.dart';
+import 'package:unofficial_jisho_api/api.dart' as jisho;
 
-class JlptLevel extends StatelessWidget {
-  final String _jlptLevel;
+class Radical extends StatelessWidget {
+  final jisho.Radical radical;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
-        _jlptLevel,
+        radical.symbol,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 20.0,
+          fontSize: 40.0,
         ),
       ),
       decoration: BoxDecoration(
@@ -22,5 +22,5 @@ class JlptLevel extends StatelessWidget {
     );
   }
 
-  JlptLevel(this._jlptLevel);
+  Radical(this.radical);
 }
