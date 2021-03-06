@@ -1,3 +1,5 @@
+[![CircleCI Status](https://circleci.com/gh/h7x4ABk3g/Jisho-Study-Tool.svg?style=shield)]()
+
 # Jisho Study tool
 
 A japanese dictionary with features for making studying the language easier.
