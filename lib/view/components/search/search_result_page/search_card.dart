@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/view/components/search/search_result_page/parts/common_badge.dart';
+import 'package:jisho_study_tool/view/components/search/search_result_page/parts/jlpt_badge.dart';
+import 'package:jisho_study_tool/view/components/search/search_result_page/parts/wanikani_badge.dart';
 
 import 'package:unofficial_jisho_api/api.dart';
 
@@ -19,10 +22,32 @@ class SearchResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: JapaneseHeader(mainWord),
+      title: 
+      IntrinsicWidth(
+        child: Row(
+          children: [
+            JapaneseHeader(mainWord),
+            Row(
+              children: [
+                WKBadge(result.tags.firstWhere((tag) => tag.contains("wanikani"), orElse: () => '')),
+                JLPTBadge(result.jlpt.isNotEmpty ? result.jlpt[0] : ''),
+                CommonBadge(result.is_common)
+              ],
+            )
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),
+      ),
       children: [
-        Senses(result.senses),
-        OtherForms(otherForms),
+        Container(
+          child: Column(
+            children: [
+              Senses(result.senses),
+              OtherForms(otherForms),
+            ],
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 30),
+        )
       ],
     );
   }
