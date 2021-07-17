@@ -11,8 +11,11 @@ class SearchBar extends StatelessWidget {
       child: Column(
         children: [
           TextField(
-            onSubmitted: (text) => BlocProvider.of<SearchBloc>(context)
-                .add(GetSearchResults(text)),
+            onSubmitted: (text) {
+              
+              BlocProvider.of<SearchBloc>(context)
+                .add(GetSearchResults(text));
+              },
             controller: TextEditingController(),
             decoration: InputDecoration(
               labelText: 'Search',

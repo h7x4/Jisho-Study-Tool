@@ -12,7 +12,7 @@ export './kanji_state.dart';
 
 class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
 
-  KanjiBloc() : super(KanjiSearchInitial());
+  KanjiBloc() : super(KanjiSearch(KanjiSearchType.Initial));
 
   @override
   Stream<KanjiState> mapEventToState(KanjiEvent event)
@@ -31,10 +31,10 @@ class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
     } else if (event is GetKanjiSuggestions) {
       
       final suggestions = kanjiSuggestions(event.searchString);
-      yield KanjiSearchInput(suggestions);
+      yield KanjiSearchKeyboard(KanjiSearchType.Keyboard, suggestions);
 
     } else if (event is ReturnToInitialState) {
-      yield KanjiSearchInitial();
+      yield KanjiSearch(KanjiSearchType.Initial);
     }
   }
 }

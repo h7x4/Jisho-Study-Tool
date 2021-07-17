@@ -8,7 +8,7 @@ class Senses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> senseWidgets =
-        senses.map((sense) => _Sense(sense)).toList();
+        senses.asMap().entries.map((e) => _Sense(e.key, e.value)).toList();
 
     return Container(
         child: Column(
@@ -18,23 +18,42 @@ class Senses extends StatelessWidget {
 }
 
 class _Sense extends StatelessWidget {
+  final int index;
   final JishoWordSense sense;
-  const _Sense(this.sense);
+
+  const _Sense(this.index, this.sense);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          Text(
-            sense.parts_of_speech.join(', '),
-            style: TextStyle(fontWeight: FontWeight.bold),
-            textAlign: TextAlign.left,
+          Row(
+            children: [
+              Text(
+                (index + 1).toString() + '. ',
+                style: TextStyle(color: Colors.grey),
+              ),
+              Text(
+                sense.parts_of_speech.join(', '),
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
-          Column(
-            children:
-                sense.english_definitions.map((def) => Text(def)).toList(),
-          )
+          Container(
+            child: Row(
+              children:[
+                Column(
+                  children:
+                    sense.english_definitions.map((def) => Text(def)).toList(),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ]
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.fromLTRB(0, 5, 0, 15),
+          ),
         ],
       ),
     );

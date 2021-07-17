@@ -44,6 +44,9 @@ class SearchResultCard extends StatelessWidget {
             children: [
               Senses(result.senses),
               OtherForms(otherForms),
+              // Text(result.toJson().toString()),
+              // Text(result.attribution.toJson().toString()),
+              // Text(result.japanese.map((e) => e.toJson().toString()).toList().toString()),
             ],
           ),
           padding: EdgeInsets.symmetric(horizontal: 30),

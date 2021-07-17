@@ -69,12 +69,13 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
       onSubmitted: (text) =>
           BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
       decoration: new InputDecoration(
+
         prefixIcon: Icon(Icons.search),
-        hintText: 'Search for kanji',
+        hintText: 'Search',
         fillColor: Colors.white,
         filled: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(100.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         contentPadding: EdgeInsets.symmetric(vertical: 10.0),
         isDense: false,

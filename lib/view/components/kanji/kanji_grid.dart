@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
-class KanjiSuggestions extends StatelessWidget {
+class KanjiGrid extends StatelessWidget {
   final List<String> suggestions;
-  const KanjiSuggestions(this.suggestions);
+  const KanjiGrid(this.suggestions);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[300],
       padding: EdgeInsets.symmetric(
         vertical: 20.0,
         horizontal: 40.0,
       ),
       child: GridView.count(
         crossAxisCount: 3,
-        mainAxisSpacing: 20.0,
-        crossAxisSpacing: 40.0,
-        children: suggestions.map((kanji) => _Suggestion(kanji)).toList(),
+        mainAxisSpacing: 10.0,
+        crossAxisSpacing: 10.0,
+        children: suggestions.map((kanji) => _GridItem(kanji)).toList(),
       ),
     );
   }
 }
 
-class _Suggestion extends StatelessWidget {
+class _GridItem extends StatelessWidget {
   final String kanji;
-  const _Suggestion(this.kanji);
+  const _GridItem(this.kanji);
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +36,15 @@ class _Suggestion extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(20.0),
         ),
         child: Container(
           margin: EdgeInsets.all(10.0),
           child: FittedBox(
             child: Text(
               kanji,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.black),
             ),
           ),
         ),

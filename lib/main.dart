@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
-import 'package:jisho_study_tool/view/screens/kanji_search.dart';
+import 'package:jisho_study_tool/view/screens/kanji/view.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
-import 'package:jisho_study_tool/view/screens/search.dart';
+import 'package:jisho_study_tool/view/screens/search/view.dart';
 
 import 'bloc/search/search_bloc.dart';
 
@@ -69,16 +69,18 @@ final List<BottomNavigationBarItem> navBar = [
     icon: Icon(Icons.search),
   ),
   BottomNavigationBarItem(
-    label: 'Kanji',
-    icon: Icon(Mdi.ideogramCjk, size: 30,)
-  ),
+      label: 'Kanji',
+      icon: Icon(
+        Mdi.ideogramCjk,
+        size: 30,
+      )),
   BottomNavigationBarItem(
     label: 'History',
-    icon: Icon(Icons.bookmark),
+    icon: Icon(Icons.history),
   ),
   BottomNavigationBarItem(
     label: 'Memorize',
-    icon: Icon(Icons.local_offer),
+    icon: Icon(Icons.bookmark),
   ),
   BottomNavigationBarItem(
     label: 'Settings',

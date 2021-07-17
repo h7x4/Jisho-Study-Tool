@@ -4,13 +4,22 @@ abstract class KanjiState {
   const KanjiState();
 }
 
-class KanjiSearchInitial extends KanjiState {
-  const KanjiSearchInitial();
+enum KanjiSearchType {
+  Initial,
+  Keyboard,
+  Drawing,
+  Radical,
+  Grade
 }
 
-class KanjiSearchInput extends KanjiState {
+class KanjiSearch extends KanjiState {
+  final KanjiSearchType type;
+  const KanjiSearch(this.type);
+}
+
+class KanjiSearchKeyboard extends KanjiSearch {
   final List<String> kanjiSuggestions;
-  const KanjiSearchInput(this.kanjiSuggestions);
+  const KanjiSearchKeyboard(KanjiSearchType type, this.kanjiSuggestions) : super(type);
 }
 
 class KanjiSearchLoading extends KanjiState {

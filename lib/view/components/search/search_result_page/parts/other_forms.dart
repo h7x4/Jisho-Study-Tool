@@ -9,15 +9,18 @@ class OtherForms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
-        children: [
-          Text(
-            'Other Forms',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: otherForms.map((form) => _KanaBox(form)).toList(),
-          ),
-        ],
+        children: 
+          this.otherForms.isNotEmpty 
+          ? [
+            Text(
+              'Other Forms',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: otherForms.map((form) => _KanaBox(form)).toList(),
+            ),
+          ]
+          : [],
       ),
     );
   }
