@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+import 'package:jisho_study_tool/objectbox.g.dart';
 
+import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
+import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
+
 import 'package:jisho_study_tool/view/screens/kanji/view.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
 import 'package:jisho_study_tool/view/screens/search/view.dart';
 
-import 'bloc/search/search_bloc.dart';
 
 void main() => runApp(MyApp());
+
+DatabaseBloc _databaseBloc = DatabaseBloc();
 
 class MyApp extends StatelessWidget {
   @override
@@ -21,8 +28,9 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => SearchBloc()),
-          BlocProvider(create: (context) => KanjiBloc()),
+          BlocProvider(create: (context) => SearchBloc(_databaseBloc)),
+          BlocProvider(create: (context) => KanjiBloc(_databaseBloc)),
+          BlocProvider(create: (context) => _databaseBloc),
         ],
         child: Home(),
       ),
@@ -38,27 +46,62 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int selectedPage = 0;
 
+  Store _store;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getApplicationDocumentsDirectory()
+      .then((dir) {
+        _store = Store(
+          getObjectBoxModel(),
+          directory: join(dir.path, 'objectbox'),
+        );
+
+        _databaseBloc.add(ConnectedToDatabase(_store));
+      });
+  }
+
+  @override
+  void dispose() {
+    _store.close();
+    _databaseBloc.add(DisconnectedFromDatabase());
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: pages[selectedPage].titleBar,
-        centerTitle: true,
-      ),
-      body: pages[selectedPage].content,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedPage,
-        onTap: (int index) {
-          setState(() {
-            selectedPage = index;
-          });
-        },
-        items: navBar,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        unselectedItemColor: Colors.blue,
-        selectedItemColor: Colors.green,
-      ),
+    return BlocBuilder<DatabaseBloc, DatabaseState>(
+      builder: (context, state) {
+
+        if (state is DatabaseDisconnected) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: pages[selectedPage].titleBar,
+            centerTitle: true,
+          ),
+          body: pages[selectedPage].content,
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: selectedPage,
+            onTap: (int index) {
+              setState(() {
+                selectedPage = index;
+              });
+            },
+            items: navBar,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            unselectedItemColor: Colors.blue,
+            selectedItemColor: Colors.green,
+          ),
+        );
+      },
     );
   }
 }

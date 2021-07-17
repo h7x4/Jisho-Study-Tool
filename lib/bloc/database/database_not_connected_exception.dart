@@ -1,0 +1,1 @@
+class DatabaseNotConnectedException implements Exception {}

@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
+import 'package:jisho_study_tool/models/history/search.dart';
+
 import './kanji_event.dart';
 import './kanji_state.dart';
 
@@ -12,7 +15,23 @@ export './kanji_state.dart';
 
 class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
 
-  KanjiBloc() : super(KanjiSearch(KanjiSearchType.Initial));
+  DatabaseBloc _databaseBloc;
+
+  KanjiBloc(this._databaseBloc) : super(KanjiSearch(KanjiSearchType.Initial));
+
+  void addSearchToDB(searchString) {
+    if (_databaseBloc.state is DatabaseDisconnected)
+      throw DatabaseNotConnectedException;
+
+    (_databaseBloc.state as DatabaseConnected)
+      .database
+      .box<Search>()
+      .put(Search(
+        query: searchString,
+        timestamp: DateTime.now(),
+        type: "kanji"
+      ));
+  }
 
   @override
   Stream<KanjiState> mapEventToState(KanjiEvent event)
@@ -22,6 +41,7 @@ class KanjiBloc extends Bloc<KanjiEvent, KanjiState> {
       yield KanjiSearchLoading();
 
       try {
+        addSearchToDB(event.kanjiSearchString);
         final kanji = await fetchKanji(event.kanjiSearchString);
         if (kanji.found) yield KanjiSearchFinished(kanji: kanji);
         else yield KanjiSearchError('Something went wrong');
