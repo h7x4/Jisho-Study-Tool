@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
 class KanjiSearchBar extends StatefulWidget {
+
+  const KanjiSearchBar();
+
   @override
   _KanjiSearchBarState createState() => new _KanjiSearchBarState();
 }
@@ -18,26 +21,13 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
   @override
   void initState() {
     super.initState();
-    focus.addListener(_onFocusChange);
+    // focus.addListener(_onFocusChange);
   }
 
   void _getKanjiSuggestions(String text) =>
       BlocProvider.of<KanjiBloc>(context).add(GetKanjiSuggestions(text));
 
   void updateSuggestions() => _getKanjiSuggestions(textController.text);
-
-  void _onFocusChange() {
-    debugPrint('TextField Focus Changed: ${focus.hasFocus.toString()}');
-
-    setState(() {
-      button = focus.hasFocus ? TextFieldButton.clear : TextFieldButton.paste;
-    });
-
-    if (focus.hasFocus)
-      updateSuggestions();
-    else
-      FocusScope.of(context).unfocus();
-  }
 
   void _clearText() {
     textController.text = '';
@@ -63,26 +53,22 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
     );
 
     return TextField(
-      focusNode: focus,
       controller: textController,
       onChanged: (text) => _getKanjiSuggestions(text),
-      onSubmitted: (text) =>
-          BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
+      onSubmitted: (text) => {},
+          // BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
       decoration: new InputDecoration(
 
         prefixIcon: Icon(Icons.search),
         hintText: 'Search',
         fillColor: Colors.white,
         filled: true,
+        
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 10.0),
         isDense: false,
         suffixIcon: (button == TextFieldButton.clear) ? clearButton : pasteButton,
-      ),
-      style: TextStyle(
-        fontSize: 14.0,
       ),
     );
   }

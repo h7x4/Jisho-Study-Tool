@@ -4,12 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/view/screens/loading.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_grid.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_search_bar.dart';
 
-import 'init.dart';
+import 'search.dart';
 import 'result.dart';
-import 'search/grid.dart';
 
 class KanjiView extends StatelessWidget {
   @override
@@ -25,8 +22,8 @@ class KanjiView extends StatelessWidget {
       child: BlocBuilder<KanjiBloc, KanjiState>(
         builder: (context, state) {
           if (state is KanjiSearch) {
-            if (state.type == KanjiSearchType.Initial) return InitScreen();
-            else if (state is KanjiSearchKeyboard) return SearchGrid(state.kanjiSuggestions);
+            if (state.type == KanjiSearchType.Initial) return SearchScreen();
+            else if (state is KanjiSearchKeyboard) return SearchScreen();
           }
           else if (state is KanjiSearchLoading) return LoadingScreen();
           else if (state is KanjiSearchFinished)

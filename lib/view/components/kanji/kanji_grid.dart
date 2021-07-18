@@ -15,6 +15,7 @@ class KanjiGrid extends StatelessWidget {
         horizontal: 40.0,
       ),
       child: GridView.count(
+        shrinkWrap: true,
         crossAxisCount: 3,
         mainAxisSpacing: 10.0,
         crossAxisSpacing: 10.0,
