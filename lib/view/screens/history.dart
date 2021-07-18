@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
-import 'package:jisho_study_tool/models/history/search.dart';
+import 'package:jisho_study_tool/models/history/kanji_result.dart';
+import 'package:jisho_study_tool/models/history/search_string.dart';
+import 'package:jisho_study_tool/view/components/history/kanji_search_item.dart';
+import 'package:jisho_study_tool/view/components/history/search_item.dart';
 
 class HistoryView extends StatelessWidget {
   @override
@@ -13,13 +16,20 @@ class HistoryView extends StatelessWidget {
       builder: (context, state) {
         if (state is DatabaseDisconnected)
           throw DatabaseNotConnectedException();
-        return Text(
-          (state as DatabaseConnected)
+        return ListView(
+          children: (state as DatabaseConnected)
             .database
-            .box<Search>()
+            .box<SearchString>()
             .getAll()
-            .map((e) => e.toString())
-            .toString()
+            .map((e) => SearchItem(e) as Widget)
+            .toList()
+
+          + (state as DatabaseConnected)
+            .database
+            .box<KanjiResult>()
+            .getAll()
+            .map((e) => KanjiSearchItem(e) as Widget)
+            .toList(),
         );
       },
     );

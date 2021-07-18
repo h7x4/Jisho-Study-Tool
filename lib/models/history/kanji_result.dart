@@ -1,26 +1,22 @@
+
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-class Search {
+class KanjiResult {
   int id = 0;
 
   @Property(type: PropertyType.date)
   DateTime timestamp;
 
-  String query;
+  String kanji;
 
-  String type;
-
-  Search({
-    this.id,
+  KanjiResult({
     this.timestamp,
-    this.query,
-    this.type,
+    this.kanji,
   });
 
   @override
   String toString() {
-  return "${timestamp.toIso8601String()} [${type.toUpperCase()}] - $query";
+    return "[${timestamp.toIso8601String()}] - $kanji";
   }
-
 }

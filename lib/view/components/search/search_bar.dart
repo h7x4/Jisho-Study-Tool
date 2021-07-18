@@ -12,7 +12,6 @@ class SearchBar extends StatelessWidget {
         children: [
           TextField(
             onSubmitted: (text) {
-              
               BlocProvider.of<SearchBloc>(context)
                 .add(GetSearchResults(text));
               },

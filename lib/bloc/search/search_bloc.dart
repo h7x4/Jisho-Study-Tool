@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/models/history/search.dart';
+import 'package:jisho_study_tool/models/history/search_string.dart';
 import 'package:meta/meta.dart';
 
 import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
@@ -25,11 +25,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     (_databaseBloc.state as DatabaseConnected)
       .database
-      .box<Search>()
-      .put(Search(
+      .box<SearchString>()
+      .put(SearchString(
         query: searchString,
         timestamp: DateTime.now(),
-        type: "search"
       ));
   }
 
