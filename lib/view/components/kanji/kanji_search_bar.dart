@@ -35,9 +35,11 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
   }
 
   void _pasteText() async {
-    ClipboardData clipboardData = await Clipboard.getData('text/plain');
-    textController.text = clipboardData.text;
-    updateSuggestions();
+    ClipboardData? clipboardData = await Clipboard.getData('text/plain');
+    if (clipboardData != null && clipboardData.text != null) {
+      textController.text = clipboardData.text!;
+      updateSuggestions();
+    }
   }
 
   @override

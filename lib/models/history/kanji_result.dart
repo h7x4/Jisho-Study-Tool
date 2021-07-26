@@ -11,8 +11,8 @@ class KanjiResult {
   String kanji;
 
   KanjiResult({
-    this.timestamp,
-    this.kanji,
+    required this.timestamp,
+    required this.kanji,
   });
 
   @override

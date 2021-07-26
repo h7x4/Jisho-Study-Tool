@@ -5,7 +5,7 @@ import 'package:jisho_study_tool/models/history/kanji_result.dart';
 class _KanjiSearchItemHeader extends StatelessWidget {
   final KanjiResult result;
 
-  const _KanjiSearchItemHeader(this.result, {Key key}) : super(key: key);
+  const _KanjiSearchItemHeader(this.result, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class _KanjiSearchItemHeader extends StatelessWidget {
 class KanjiSearchItem extends StatelessWidget {
   final KanjiResult result;
 
-  const KanjiSearchItem(this.result,{Key key}) : super(key: key);
+  const KanjiSearchItem(this.result,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -14,8 +14,8 @@ class WordResult {
   final searchString = ToOne<SearchString>();
 
   WordResult({
-    this.timestamp,
-    this.word,
+    required this.timestamp,
+    required this.word,
   });
 
   @override

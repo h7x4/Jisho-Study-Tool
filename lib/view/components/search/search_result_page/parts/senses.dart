@@ -35,7 +35,7 @@ class _Sense extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
               Text(
-                sense.parts_of_speech.join(', '),
+                sense.partsOfSpeech.join(', '),
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
               ),
@@ -46,7 +46,7 @@ class _Sense extends StatelessWidget {
               children:[
                 Column(
                   children:
-                    sense.english_definitions.map((def) => Text(def)).toList(),
+                    sense.englishDefinitions.map((def) => Text(def)).toList(),
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
               ]

@@ -5,9 +5,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:jisho_study_tool/objectbox.g.dart';
 
-import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
 import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
+import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
 
 import 'package:jisho_study_tool/view/screens/kanji/view.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
@@ -46,7 +46,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int selectedPage = 0;
 
-  Store _store;
+  late final Store _store;
 
   @override
   void initState() {
@@ -136,8 +136,8 @@ class _Page {
   Widget titleBar;
 
   _Page({
-    this.content,
-    this.titleBar,
+    required this.content,
+    required this.titleBar,
   });
 }
 

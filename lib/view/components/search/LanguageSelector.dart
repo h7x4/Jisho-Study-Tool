@@ -7,8 +7,8 @@ class LanguageSelector extends StatefulWidget {
 }
 
 class _LanguageSelectorState extends State<LanguageSelector> {
-  SharedPreferences prefs;
-  List<bool> isSelected;
+  late final SharedPreferences prefs;
+  late List<bool> isSelected;
 
   @override
   void initState() {
@@ -31,11 +31,11 @@ class _LanguageSelectorState extends State<LanguageSelector> {
         .toList());
   }
 
-  List<bool> _getSelectedStatus() {
+  List<bool>? _getSelectedStatus() {
     return prefs
       .getStringList('languageSelectorStatus')
       ?.map((s) => s == '1')
-      ?.toList();
+      .toList();
   }
 
   @override

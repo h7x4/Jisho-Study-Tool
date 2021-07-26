@@ -8,7 +8,7 @@ import 'package:jisho_study_tool/view/components/kanji/kanji_search_bar.dart';
 import 'package:jisho_study_tool/view/components/kanji/kanji_search_options_bar.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({Key key}) : super(key: key);
+  SearchScreen({Key? key}) : super(key: key);
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -16,8 +16,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation _searchbarMovementAnimation;
+  late final AnimationController _controller;
+  late final Animation _searchbarMovementAnimation;
 
   @override
   void initState() {

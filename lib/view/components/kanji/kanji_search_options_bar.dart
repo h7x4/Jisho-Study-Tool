@@ -5,7 +5,7 @@ import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 //TODO: Make buttons have an effect
 
 class KanjiSearchOptionsBar extends StatelessWidget {
-  const KanjiSearchOptionsBar({Key key}) : super(key: key);
+  const KanjiSearchOptionsBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,12 @@ class KanjiSearchOptionsBar extends StatelessWidget {
 
 class _IconButton extends StatelessWidget {
   final Widget icon;
-  final Function onPressed;
-  const _IconButton({this.icon, this.onPressed, Key key}) : super(key: key);
+  final void Function()? onPressed;
+  const _IconButton({
+    required this.icon,
+    required this.onPressed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

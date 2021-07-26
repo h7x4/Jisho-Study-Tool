@@ -14,8 +14,9 @@ class JapaneseHeader extends StatelessWidget {
       padding: EdgeInsets.only(left: 10.0),
       child: Column(
         children: [
-          (hasFurigana) ? Text(word.reading) : Text(''),
-          (hasFurigana) ? Text(word.word) : Text(word.reading ?? word.word),
+          // TODO: take a look at this logic
+          (hasFurigana) ? Text(word.reading!) : Text(''),
+          (hasFurigana) ? Text(word.word!) : Text(word.reading ?? word.word!),
         ],
       ),
     );

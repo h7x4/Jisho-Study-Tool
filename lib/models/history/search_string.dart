@@ -15,8 +15,8 @@ class SearchString {
   final chosenResults = ToMany<WordResult>();
 
   SearchString({
-    this.timestamp,
-    this.query,
+    required this.timestamp,
+    required this.query,
   });
 
   @override

@@ -11,8 +11,8 @@ import './parts/other_forms.dart';
 
 class SearchResultCard extends StatelessWidget {
   final JishoResult result;
-  JishoJapaneseWord mainWord;
-  List<JishoJapaneseWord> otherForms;
+  late final JishoJapaneseWord mainWord;
+  late final List<JishoJapaneseWord> otherForms;
 
   SearchResultCard(this.result) {
     this.mainWord = result.japanese[0];
@@ -31,7 +31,7 @@ class SearchResultCard extends StatelessWidget {
               children: [
                 WKBadge(result.tags.firstWhere((tag) => tag.contains("wanikani"), orElse: () => '')),
                 JLPTBadge(result.jlpt.isNotEmpty ? result.jlpt[0] : ''),
-                CommonBadge(result.is_common)
+                CommonBadge(result.isCommon!)
               ],
             )
           ],

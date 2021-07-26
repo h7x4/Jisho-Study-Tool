@@ -4,255 +4,23 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "3:7851566044119418641",
-      "lastPropertyId": "4:2352718426928758061",
-      "name": "JishoAttribution",
-      "properties": [
-        {
-          "id": "1:9162407962473480509",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:708495477684386",
-          "name": "dbpedia",
-          "type": 9
-        },
-        {
-          "id": "3:6579248575703756688",
-          "name": "jmdict",
-          "type": 9
-        },
-        {
-          "id": "4:2352718426928758061",
-          "name": "jmnedict",
-          "type": 1
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "4:5830034738494786681",
-      "lastPropertyId": "3:1420686825377652298",
-      "name": "JishoJapaneseWord",
-      "properties": [
-        {
-          "id": "1:5568051277997102473",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:8794655557751948952",
-          "name": "reading",
-          "type": 9
-        },
-        {
-          "id": "3:1420686825377652298",
-          "name": "word",
-          "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "5:814015574151442186",
-      "lastPropertyId": "6:5908719510010444548",
-      "name": "JishoResult",
-      "properties": [
-        {
-          "id": "1:4779715838063307925",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:398633124413531447",
-          "name": "attributionId",
-          "type": 11,
-          "flags": 520,
-          "indexId": "1:3741479335507224998",
-          "relationTarget": "JishoAttribution"
-        },
-        {
-          "id": "3:3743357097628620453",
-          "name": "is_common",
-          "type": 1
-        },
-        {
-          "id": "4:2403901886209575067",
-          "name": "jlpt",
-          "type": 30
-        },
-        {
-          "id": "5:9147057123672087105",
-          "name": "slug",
-          "type": 9
-        },
-        {
-          "id": "6:5908719510010444548",
-          "name": "tags",
-          "type": 30
-        }
-      ],
-      "relations": [
-        {
-          "id": "1:1762405519516054052",
-          "name": "japanese",
-          "targetId": "4:5830034738494786681"
-        },
-        {
-          "id": "2:5662556255405307520",
-          "name": "senses",
-          "targetId": "8:7499450265299287403"
-        }
-      ]
-    },
-    {
-      "id": "6:6175990861942758315",
-      "lastPropertyId": "2:6228403848602783530",
-      "name": "JishoResultMeta",
-      "properties": [
-        {
-          "id": "1:2609861734144336951",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:6228403848602783530",
-          "name": "status",
-          "type": 6
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "7:8388739279951258717",
-      "lastPropertyId": "3:6475272726803052671",
-      "name": "JishoSenseLink",
-      "properties": [
-        {
-          "id": "1:9038298290884158108",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:3536322409202325005",
-          "name": "text",
-          "type": 9
-        },
-        {
-          "id": "3:6475272726803052671",
-          "name": "url",
-          "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "8:7499450265299287403",
-      "lastPropertyId": "8:8987388154341761734",
-      "name": "JishoWordSense",
-      "properties": [
-        {
-          "id": "1:3215440847258041904",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:2015550844387658352",
-          "name": "antonyms",
-          "type": 30
-        },
-        {
-          "id": "3:5828592811743363528",
-          "name": "english_definitions",
-          "type": 30
-        },
-        {
-          "id": "4:5593994833762859570",
-          "name": "info",
-          "type": 30
-        },
-        {
-          "id": "5:2972516533060921751",
-          "name": "parts_of_speech",
-          "type": 30
-        },
-        {
-          "id": "6:116167531949398184",
-          "name": "restrictions",
-          "type": 30
-        },
-        {
-          "id": "7:5268205144755091970",
-          "name": "see_also",
-          "type": 30
-        },
-        {
-          "id": "8:8987388154341761734",
-          "name": "tags",
-          "type": 30
-        }
-      ],
-      "relations": [
-        {
-          "id": "4:554428283260148269",
-          "name": "links",
-          "targetId": "7:8388739279951258717"
-        }
-      ]
-    },
-    {
-      "id": "9:6483665137820532859",
-      "lastPropertyId": "2:8047458152016460696",
-      "name": "SearchResult",
-      "properties": [
-        {
-          "id": "1:1744658189464710184",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:8047458152016460696",
-          "name": "metaId",
-          "type": 11,
-          "flags": 520,
-          "indexId": "2:2854883655423126351",
-          "relationTarget": "JishoResultMeta"
-        }
-      ],
-      "relations": [
-        {
-          "id": "3:9171394818028481706",
-          "name": "data",
-          "targetId": "5:814015574151442186"
-        }
-      ]
-    },
-    {
-      "id": "10:2511293769307589652",
-      "lastPropertyId": "3:7310514284446208088",
+      "id": "1:8135239166970424087",
+      "lastPropertyId": "3:1930470268740402049",
       "name": "KanjiResult",
       "properties": [
         {
-          "id": "1:4875831913401260727",
+          "id": "1:2681934095975267680",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:2639524138758004976",
+          "id": "2:4514526257378540330",
           "name": "timestamp",
           "type": 10
         },
         {
-          "id": "3:7310514284446208088",
+          "id": "3:1930470268740402049",
           "name": "kanji",
           "type": 9
         }
@@ -260,23 +28,23 @@
       "relations": []
     },
     {
-      "id": "11:8718716930258187923",
-      "lastPropertyId": "3:6047999002753663080",
+      "id": "2:461492167249325765",
+      "lastPropertyId": "3:7573103520245228403",
       "name": "SearchString",
       "properties": [
         {
-          "id": "1:8056495551508046109",
+          "id": "1:4297905889790758495",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:5805071287032353000",
+          "id": "2:4157902147911002923",
           "name": "timestamp",
           "type": 10
         },
         {
-          "id": "3:6047999002753663080",
+          "id": "3:7573103520245228403",
           "name": "query",
           "type": 9
         }
@@ -284,56 +52,47 @@
       "relations": []
     },
     {
-      "id": "12:8709403319711854658",
-      "lastPropertyId": "4:4071472200738865726",
+      "id": "3:8314315977756262774",
+      "lastPropertyId": "4:7972948456299367594",
       "name": "WordResult",
       "properties": [
         {
-          "id": "1:2725285997242709614",
+          "id": "1:8286440150679521496",
           "name": "id",
           "type": 6,
           "flags": 1
         },
         {
-          "id": "2:6271798504226631398",
+          "id": "2:2698026687178480112",
           "name": "timestamp",
           "type": 10
         },
         {
-          "id": "3:5467536225310784192",
+          "id": "3:8750782874894963158",
           "name": "word",
           "type": 9
         },
         {
-          "id": "4:4071472200738865726",
+          "id": "4:7972948456299367594",
           "name": "searchStringId",
           "type": 11,
           "flags": 520,
-          "indexId": "3:5534321127094586184",
+          "indexId": "1:6146948198859733323",
           "relationTarget": "SearchString"
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "12:8709403319711854658",
-  "lastIndexId": "3:5534321127094586184",
-  "lastRelationId": "4:554428283260148269",
+  "lastEntityId": "3:8314315977756262774",
+  "lastIndexId": "1:6146948198859733323",
+  "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [
-    2061102273968386021,
-    7471000004971513655
-  ],
+  "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [
-    1377817599424560887,
-    182004738902401315,
-    647032929519296287,
-    8448353731705407210,
-    1530573958565295186
-  ],
+  "retiredPropertyUids": [],
   "retiredRelationUids": [],
   "version": 1
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Kunyomi extends StatelessWidget {
   final List<String> kunyomi;
-  List<_KunyomiCard> kunyomiCards;
-  bool expandable;
+  late final List<_KunyomiCard> kunyomiCards;
+  late final bool expandable;
 
   Kunyomi(this.kunyomi) {
     kunyomiCards = kunyomi.map((kunyomi) => _KunyomiCard(kunyomi)).toList();
@@ -18,11 +18,11 @@ class Kunyomi extends StatelessWidget {
         vertical: 5.0,
       ),
       alignment: Alignment.centerLeft,
-      child: _KunyomiWrapper(context),
+      child: _kunyomiWrapper(context),
     );
   }
 
-  Widget _KunyomiWrapper(BuildContext context) {
+  Widget _kunyomiWrapper(BuildContext context) {
     if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,

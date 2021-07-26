@@ -42,7 +42,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       try {
         addSearchToDB(event.searchString);
         final searchResults = await fetchJishoResults(event.searchString);
-        if (searchResults.meta.status == 200) yield SearchFinished(searchResults.data);
+        if (searchResults.meta.status == 200) yield SearchFinished(searchResults.data!);
       } on Exception {
         yield SearchError('Something went wrong');
       }

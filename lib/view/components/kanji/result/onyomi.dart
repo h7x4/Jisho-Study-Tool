@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Onyomi extends StatelessWidget {
   final List<String> onyomi;
-  List<_OnyomiCard> onyomiCards;
-  bool expandable;
+  late final List<_OnyomiCard> onyomiCards;
+  late final bool expandable;
 
   Onyomi(this.onyomi) {
     onyomiCards = onyomi.map((onyomi) => _OnyomiCard(onyomi)).toList();
@@ -18,11 +18,11 @@ class Onyomi extends StatelessWidget {
         vertical: 5.0,
       ),
       alignment: Alignment.centerLeft,
-      child: _OnyomiWrapper(context),
+      child: _onyomiWrapper(context),
     );
   }
 
-  Widget _OnyomiWrapper(BuildContext context) {
+  Widget _onyomiWrapper(BuildContext context) {
     if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,

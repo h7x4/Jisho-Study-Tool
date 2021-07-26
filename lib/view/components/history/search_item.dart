@@ -5,7 +5,7 @@ import 'package:jisho_study_tool/models/history/search_string.dart';
 class SearchItemHeader extends StatelessWidget {
   final SearchString _search;
 
-  const SearchItemHeader(this._search, {Key key}) : super(key: key);
+  const SearchItemHeader(this._search, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class SearchItemHeader extends StatelessWidget {
 class SearchItem extends StatelessWidget {
   final SearchString _search;
 
-  const SearchItem(this._search, {Key key}) : super(key: key);
+  const SearchItem(this._search, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

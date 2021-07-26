@@ -31,7 +31,7 @@ class KanjiSearchFinished extends KanjiState {
   final bool starred;
 
   const KanjiSearchFinished({
-    this.kanji, 
+    required this.kanji, 
     this.starred = false,
   });
 }

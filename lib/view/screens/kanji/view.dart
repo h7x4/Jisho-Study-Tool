@@ -28,7 +28,7 @@ class KanjiView extends StatelessWidget {
           else if (state is KanjiSearchLoading) return LoadingScreen();
           else if (state is KanjiSearchFinished)
             return WillPopScope(
-                child: KanjiResultCard(state.kanji),
+                child: KanjiResultCard(result: state.kanji),
                 onWillPop: () async {
                   BlocProvider.of<KanjiBloc>(context)
                       .add(ReturnToInitialState());

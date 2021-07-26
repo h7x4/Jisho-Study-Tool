@@ -37,8 +37,9 @@ class _KanaBox extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          (hasFurigana) ? Text(word.reading) : Text(''),
-          (hasFurigana) ? Text(word.word) : Text(word.reading),
+          // TODO: take a look at this logic
+          (hasFurigana) ? Text(word.reading ?? '') : Text(''),
+          (hasFurigana) ? Text(word.word!) : Text(word.reading ?? ''),
         ],
       ),
       margin: EdgeInsets.symmetric(

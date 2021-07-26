@@ -4,9 +4,7 @@ import 'package:jisho_study_tool/view/components/search/search_result_page/parts
 class CommonBadge extends StatelessWidget {
   bool isCommon;
 
-  CommonBadge(this.isCommon) {
-    this.isCommon ??= false;
-  }
+  CommonBadge(this.isCommon);
 
   @override
   Widget build(BuildContext context) {

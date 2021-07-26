@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Meaning extends StatelessWidget {
-  List<String> meanings;
-  List<_MeaningCard> meaningCards;
-  bool expandable;
+  late final List<String> meanings;
+  late final List<_MeaningCard> meaningCards;
+  late final bool expandable;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class Meaning extends StatelessWidget {
         vertical: 5.0,
       ),
       alignment: Alignment.centerLeft,
-      child: _MeaningWrapper(context),
+      child: _meaningWrapper(context),
     );
   }
 
-  Widget _MeaningWrapper(BuildContext context) {
+  Widget _meaningWrapper(BuildContext context) {
     if (expandable) {
       return ExpansionTile(
         initiallyExpanded: false,

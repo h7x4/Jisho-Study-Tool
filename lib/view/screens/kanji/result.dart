@@ -15,7 +15,8 @@ import 'package:jisho_study_tool/view/components/kanji/result/kunyomi.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/examples.dart';
 
 class KanjiResultCard extends StatelessWidget {
-  final jisho.KanjiResult result;
+  late final String query;
+  late final jisho.KanjiResultData resultData;
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +35,26 @@ class KanjiResultCard extends StatelessWidget {
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
-                child: Center(child: Header(result.query)),
+                child: Center(child: Header(query)),
               ),
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
                 child: Center(
-                  child: Radical(result.radical),
+                  child: (resultData.radical != null) ? Radical(resultData.radical!) : SizedBox(),
                 ),
               ),
             ],
           ),
         ),
-        Meaning(result.meaning),
-        result.onyomi.length != 0 ? Onyomi(result.onyomi) : SizedBox.shrink(),
-        result.kunyomi.length != 0 ? Kunyomi(result.kunyomi) : SizedBox.shrink(),
+        Meaning(resultData.meaning),
+        resultData.onyomi.length != 0 ? Onyomi(resultData.onyomi) : SizedBox.shrink(),
+        resultData.kunyomi.length != 0 ? Kunyomi(resultData.kunyomi) : SizedBox.shrink(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StrokeOrderGif(result.strokeOrderGifUri),
+              StrokeOrderGif(resultData.strokeOrderGifUri),
               Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,19 +63,19 @@ class KanjiResultCard extends StatelessWidget {
                     Row(
                       children: [
                         Text("JLPT: ", style: TextStyle(fontSize: 20.0)),
-                        JlptLevel(result.jlptLevel ?? "⨉"),
+                        JlptLevel(resultData.jlptLevel ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Grade: ", style: TextStyle(fontSize: 20.0)),
-                        Grade(result.taughtIn ?? "⨉"),
+                        Grade(resultData.taughtIn ?? "⨉"),
                       ],
                     ),
                     Row(
                       children: [
                         Text("Rank: ", style: TextStyle(fontSize: 20.0)),
-                        Rank(result.newspaperFrequencyRank ?? -1),
+                        Rank(resultData.newspaperFrequencyRank ?? -1),
                       ],
                     ),
                   ],
@@ -83,10 +84,19 @@ class KanjiResultCard extends StatelessWidget {
             ],
           ),
         ),
-        Examples(result.onyomiExamples, result.kunyomiExamples),
+        Examples(resultData.onyomiExamples, resultData.kunyomiExamples),
       ],
     );
   }
 
-  KanjiResultCard(this.result);
+  KanjiResultCard({required jisho.KanjiResult result}) {
+
+    query = result.query;
+
+    // TODO: Handle this kind of exception before widget is initialized
+    if (result.data == null)
+      throw Exception();
+    
+    resultData = result.data!;
+  }
 }
