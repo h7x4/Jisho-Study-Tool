@@ -14,14 +14,12 @@ class KanjiSearchBar extends StatefulWidget {
 enum TextFieldButton {clear, paste}
 
 class _KanjiSearchBarState extends State<KanjiSearchBar> {
-  FocusNode focus = new FocusNode();
-  TextEditingController textController = new TextEditingController();
+  final TextEditingController textController = new TextEditingController();
   TextFieldButton button = TextFieldButton.paste;
 
   @override
   void initState() {
     super.initState();
-    // focus.addListener(_onFocusChange);
   }
 
   void _getKanjiSuggestions(String text) =>
@@ -57,10 +55,8 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
     return TextField(
       controller: textController,
       onChanged: (text) => _getKanjiSuggestions(text),
-      onSubmitted: (text) => {},
-          // BlocProvider.of<KanjiBloc>(context).add(GetKanji(text)),
+      onSubmitted: (_) => {},
       decoration: new InputDecoration(
-
         prefixIcon: Icon(Icons.search),
         hintText: 'Search',
         fillColor: Colors.white,

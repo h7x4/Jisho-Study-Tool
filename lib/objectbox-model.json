@@ -4,54 +4,6 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:8135239166970424087",
-      "lastPropertyId": "3:1930470268740402049",
-      "name": "KanjiResult",
-      "properties": [
-        {
-          "id": "1:2681934095975267680",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:4514526257378540330",
-          "name": "timestamp",
-          "type": 10
-        },
-        {
-          "id": "3:1930470268740402049",
-          "name": "kanji",
-          "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
-      "id": "2:461492167249325765",
-      "lastPropertyId": "3:7573103520245228403",
-      "name": "SearchString",
-      "properties": [
-        {
-          "id": "1:4297905889790758495",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:4157902147911002923",
-          "name": "timestamp",
-          "type": 10
-        },
-        {
-          "id": "3:7573103520245228403",
-          "name": "query",
-          "type": 9
-        }
-      ],
-      "relations": []
-    },
-    {
       "id": "3:8314315977756262774",
       "lastPropertyId": "4:7972948456299367594",
       "name": "WordResult",
@@ -78,21 +30,112 @@
           "type": 11,
           "flags": 520,
           "indexId": "1:6146948198859733323",
-          "relationTarget": "SearchString"
+          "relationTarget": "WordQuery"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:4256390943850643278",
+      "lastPropertyId": "3:1496429060084558178",
+      "name": "KanjiQuery",
+      "properties": [
+        {
+          "id": "1:2966275213904862677",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3733952844232949036",
+          "name": "kanji",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:3499538826755540666",
+      "lastPropertyId": "3:1154921921492752045",
+      "name": "WordQuery",
+      "properties": [
+        {
+          "id": "1:2582448470002735577",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6622038022626247037",
+          "name": "query",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:8118874861016646859",
+      "lastPropertyId": "5:818915488505962903",
+      "name": "Search",
+      "properties": [
+        {
+          "id": "1:3233720904924970047",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7793044338609887616",
+          "name": "timestamp",
+          "type": 10
+        },
+        {
+          "id": "4:5737790291742758071",
+          "name": "wordQueryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "4:4174896839978600983",
+          "relationTarget": "WordQuery"
+        },
+        {
+          "id": "5:818915488505962903",
+          "name": "kanjiQueryId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "5:5394995618034342416",
+          "relationTarget": "KanjiQuery"
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "3:8314315977756262774",
-  "lastIndexId": "1:6146948198859733323",
-  "lastRelationId": "0:0",
+  "lastEntityId": "6:8118874861016646859",
+  "lastIndexId": "5:5394995618034342416",
+  "lastRelationId": "1:2624712325077938293",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
-  "retiredIndexUids": [],
-  "retiredPropertyUids": [],
-  "retiredRelationUids": [],
+  "retiredEntityUids": [
+    8135239166970424087,
+    461492167249325765
+  ],
+  "retiredIndexUids": [
+    2344626140411525437,
+    1957456749938325194
+  ],
+  "retiredPropertyUids": [
+    2681934095975267680,
+    4514526257378540330,
+    1930470268740402049,
+    4297905889790758495,
+    4157902147911002923,
+    7573103520245228403,
+    1496429060084558178,
+    1154921921492752045,
+    2254834401134912797
+  ],
+  "retiredRelationUids": [
+    2624712325077938293
+  ],
   "version": 1
 }

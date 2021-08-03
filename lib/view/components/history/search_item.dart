@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:jisho_study_tool/models/history/search_string.dart';
 
-class SearchItemHeader extends StatelessWidget {
-  final SearchString _search;
+class SearchItem extends StatelessWidget {
+  final DateTime time;
+  final Widget search;
+  final void Function()? onTap;
 
-  const SearchItemHeader(this._search, {Key? key}) : super(key: key);
+  const SearchItem({
+    required this.time,
+    required this.search,
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  String getTime() {
+    final hours = this.time.hour.toString().padLeft(2, '0');
+    final mins = this.time.minute.toString().padLeft(2, '0');
+    return "$hours:$mins";
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("[SEARCH] ${_search.query} - ${_search.timestamp.toString()}"),
-    );
-  }
-}
-
-class SearchItem extends StatelessWidget {
-  final SearchString _search;
-
-  const SearchItem(this._search, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Slidable(
-      actionPane: SlidableScrollActionPane(),
-      secondaryActions: [
-        IconSlideAction(
-          caption: "Delete",
-          color: Colors.red,
-          icon: Icons.delete
-        )
-      ],
-      child:  ExpansionTile(
-        title: SearchItemHeader(_search),
-        expandedAlignment: Alignment.topCenter,
-        children: [ListTile(title: Text(_search.timestamp.toIso8601String()),)],
-      )
+      child: ListTile(
+        onTap: onTap,
+        contentPadding: EdgeInsets.zero,
+        title: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(getTime()),
+            ),
+            search,
+          ],
+        ),
+      ),
     );
   }
 }

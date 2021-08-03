@@ -1,39 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:jisho_study_tool/models/history/kanji_result.dart';
+import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
+import 'package:jisho_study_tool/bloc/navigation/navigation_bloc.dart';
+import 'package:jisho_study_tool/models/history/kanji_query.dart';
 
-class _KanjiSearchItemHeader extends StatelessWidget {
-  final KanjiResult result;
+import './search_item.dart';
 
-  const _KanjiSearchItemHeader(this.result, {Key? key}) : super(key: key);
+class _KanjiBox extends StatelessWidget {
+  final String kanji;
+
+  const _KanjiBox(this.kanji);
 
   @override
   Widget build(BuildContext context) {
-    return Text("[KANJI] ${result.kanji} - ${result.timestamp.toIso8601String()}");
+    return IntrinsicHeight(
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Center(
+            child: FittedBox(
+              child: Text(
+                kanji,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
 class KanjiSearchItem extends StatelessWidget {
-  final KanjiResult result;
+  final KanjiQuery result;
+  final DateTime timestamp;
 
-  const KanjiSearchItem(this.result,{Key? key}) : super(key: key);
+  const KanjiSearchItem({
+    required this.result,
+    required this.timestamp,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      child: ListTile(title: _KanjiSearchItemHeader(result)),
+      child: SearchItem(
+        onTap: () {
+          BlocProvider.of<NavigationBloc>(context).add(ChangePage(1));
+          BlocProvider.of<KanjiBloc>(context).add(GetKanji(this.result.kanji));
+        },
+        time: timestamp,
+        search: _KanjiBox(result.kanji),
+      ),
       actionPane: SlidableScrollActionPane(),
       secondaryActions: [
         IconSlideAction(
           caption: "Favourite",
           color: Colors.yellow,
-          icon: Icons.star
+          icon: Icons.star,
         ),
         IconSlideAction(
           caption: "Delete",
           color: Colors.red,
-          icon: Icons.delete
-        )
+          icon: Icons.delete,
+        ),
       ],
     );
   }
