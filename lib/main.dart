@@ -15,7 +15,7 @@ import 'package:jisho_study_tool/bloc/navigation/navigation_bloc.dart';
 import 'package:jisho_study_tool/view/screens/kanji/view.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
 import 'package:jisho_study_tool/view/screens/search/view.dart';
-
+import 'package:jisho_study_tool/view/screens/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -154,7 +154,7 @@ final List<_Page> pages = [
     ),
   ),
   _Page(
-    content: Container(),
+    content: SettingsView(),
     titleBar: Text("Settings"),
     item: BottomNavigationBarItem(
       label: 'Settings',
