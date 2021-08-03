@@ -4,6 +4,8 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 class Radical extends StatelessWidget {
   final jisho.Radical radical;
 
+  const Radical(this.radical);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +23,4 @@ class Radical extends StatelessWidget {
       ),
     );
   }
-
-  Radical(this.radical);
 }

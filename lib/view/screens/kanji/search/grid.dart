@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/view/components/kanji/kanji_grid.dart';
 import 'package:jisho_study_tool/view/components/kanji/kanji_search_bar.dart';
 

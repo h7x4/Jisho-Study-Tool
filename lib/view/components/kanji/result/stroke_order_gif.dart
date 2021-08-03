@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class StrokeOrderGif extends StatelessWidget {
   final String uri;
 
+  const StrokeOrderGif(this.uri);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +20,4 @@ class StrokeOrderGif extends StatelessWidget {
       ),
     );
   }
-
-  StrokeOrderGif(this.uri);
 }

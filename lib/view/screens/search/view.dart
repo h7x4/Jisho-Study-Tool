@@ -8,32 +8,30 @@ import 'package:jisho_study_tool/view/components/search/search_result_page/searc
 class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SearchBloc, SearchState>(
-        listener: (context, state) {},
-        child: BlocBuilder<SearchBloc, SearchState>(
-          builder: (context, state) {
-            if (state is SearchInitial)
-              return _InitialView();
-            else if (state is SearchLoading)
-              return LoadingScreen();
-            else if (state is SearchFinished) {
-              return WillPopScope(
-                child: ListView(
-                  children: state.results
-                      .map((result) => SearchResultCard(result))
-                      .toList(),
-                ),
-                onWillPop: () async {
-                  BlocProvider.of<SearchBloc>(context)
-                      .add(ReturnToInitialState());
-                      print('Popped');
-                  return false;
-                },
-              );
-            }
-            throw 'No such event found';
-          },
-        ));
+    return BlocConsumer<SearchBloc, SearchState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is SearchInitial)
+          return _InitialView();
+        else if (state is SearchLoading)
+          return LoadingScreen();
+        else if (state is SearchFinished) {
+          return WillPopScope(
+            child: ListView(
+              children: state.results
+                  .map((result) => SearchResultCard(result))
+                  .toList(),
+            ),
+            onWillPop: () async {
+              BlocProvider.of<SearchBloc>(context).add(ReturnToInitialState());
+              print('Popped');
+              return false;
+            },
+          );
+        }
+        throw 'No such event found';
+      },
+    );
   }
 }
 

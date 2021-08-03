@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class Rank extends StatelessWidget {
   final int rank;
 
+  const Rank(this.rank);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +23,4 @@ class Rank extends StatelessWidget {
       ),
     );
   }
-
-  Rank(this.rank);
 }

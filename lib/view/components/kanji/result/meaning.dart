@@ -5,6 +5,13 @@ class Meaning extends StatelessWidget {
   late final List<_MeaningCard> meaningCards;
   late final bool expandable;
 
+  Meaning(meaning) {
+    this.meanings = meaning.split(', ');
+    this.meaningCards =
+        meanings.map((m) => _MeaningCard(m)).toList();
+    this.expandable = (this.meanings.length > 6);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,17 +49,12 @@ class Meaning extends StatelessWidget {
       );
     }
   }
-
-  Meaning(meaning) {
-    this.meanings = meaning.split(', ');
-    this.meaningCards =
-        meanings.map((m) => _MeaningCard(m)).toList();
-    this.expandable = (this.meanings.length > 6);
-  }
 }
 
 class _MeaningCard extends StatelessWidget {
   final String meaning;
+
+  const _MeaningCard(this.meaning);
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,4 @@ class _MeaningCard extends StatelessWidget {
       ),
     );
   }
-
-  _MeaningCard(this.meaning);
 }

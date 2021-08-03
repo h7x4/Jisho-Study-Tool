@@ -3,7 +3,8 @@ import 'package:unofficial_jisho_api/api.dart';
 
 class OtherForms extends StatelessWidget {
   final List<JishoJapaneseWord> otherForms;
-  OtherForms(this.otherForms);
+
+  const OtherForms(this.otherForms);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class OtherForms extends StatelessWidget {
 
 class _KanaBox extends StatelessWidget {
   final JishoJapaneseWord word;
+
   const _KanaBox(this.word);
 
   @override

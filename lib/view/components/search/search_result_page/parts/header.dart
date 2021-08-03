@@ -3,6 +3,7 @@ import 'package:unofficial_jisho_api/api.dart';
 
 class JapaneseHeader extends StatelessWidget {
   final JishoJapaneseWord word;
+  
   const JapaneseHeader(this.word);
 
   @override

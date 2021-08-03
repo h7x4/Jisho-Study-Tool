@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageSelector extends StatefulWidget {
+  const LanguageSelector();
+
   @override
   _LanguageSelectorState createState() => new _LanguageSelectorState();
 }
@@ -44,7 +46,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
       isSelected: isSelected,
       children: <Widget> [
         _LanguageOption("Auto"),
-        _LanguageOption("Japanese"),
+        _LanguageOption("日本語"),
         _LanguageOption("English")
       ],
       selectedColor: Colors.blue,
@@ -64,7 +66,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 class _LanguageOption extends StatelessWidget {
   final String language;
 
-  _LanguageOption(this.language);
+  const _LanguageOption(this.language);
 
   @override
   Widget build(BuildContext context) {

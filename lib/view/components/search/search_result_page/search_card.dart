@@ -31,7 +31,7 @@ class SearchResultCard extends StatelessWidget {
               children: [
                 WKBadge(result.tags.firstWhere((tag) => tag.contains("wanikani"), orElse: () => '')),
                 JLPTBadge(result.jlpt.isNotEmpty ? result.jlpt[0] : ''),
-                CommonBadge(result.isCommon!)
+                CommonBadge(result.isCommon ?? false)
               ],
             )
           ],

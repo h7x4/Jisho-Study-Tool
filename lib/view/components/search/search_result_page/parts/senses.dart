@@ -3,6 +3,7 @@ import 'package:unofficial_jisho_api/parser.dart';
 
 class Senses extends StatelessWidget {
   final List<JishoWordSense> senses;
+  
   const Senses(this.senses);
 
   @override

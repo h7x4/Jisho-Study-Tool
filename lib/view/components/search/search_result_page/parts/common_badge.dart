@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:jisho_study_tool/view/components/search/search_result_page/parts/badge.dart';
 
 class CommonBadge extends StatelessWidget {
-  bool isCommon;
+  final bool isCommon;
 
-  CommonBadge(this.isCommon);
+  const CommonBadge(this.isCommon);
 
   @override
   Widget build(BuildContext context) {

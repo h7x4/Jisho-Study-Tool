@@ -43,6 +43,7 @@ class KanjiSearchOptionsBar extends StatelessWidget {
 class _IconButton extends StatelessWidget {
   final Widget icon;
   final void Function()? onPressed;
+
   const _IconButton({
     required this.icon,
     required this.onPressed,

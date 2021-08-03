@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class JlptLevel extends StatelessWidget {
   final String jlptLevel;
 
+  const JlptLevel(this.jlptLevel);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +23,4 @@ class JlptLevel extends StatelessWidget {
       ),
     );
   }
-
-  JlptLevel(this.jlptLevel);
 }

@@ -51,6 +51,7 @@ class Onyomi extends StatelessWidget {
 
 class _OnyomiCard extends StatelessWidget {
   final String onyomi;
+
   const _OnyomiCard(this.onyomi);
 
   @override

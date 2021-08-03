@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class Grade extends StatelessWidget {
   final String grade;
 
+  const Grade(this.grade);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,6 +22,4 @@ class Grade extends StatelessWidget {
       ),
     );
   }
-
-  Grade(this.grade);
 }
