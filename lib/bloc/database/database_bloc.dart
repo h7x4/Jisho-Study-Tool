@@ -1,8 +1,10 @@
 
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 
 import './database_event.dart';
 import './database_state.dart';
+
+export 'package:flutter_bloc/flutter_bloc.dart';
 
 export './database_event.dart';
 export './database_state.dart';

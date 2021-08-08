@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
 import 'package:jisho_study_tool/models/history/search.dart';
 import 'package:jisho_study_tool/view/components/history/kanji_search_item.dart';
@@ -7,6 +6,7 @@ import 'package:jisho_study_tool/view/components/history/phrase_search_item.dart
 import 'package:jisho_study_tool/view/components/history/date_divider.dart';
 
 import 'package:jisho_study_tool/objectbox.g.dart';
+import 'package:jisho_study_tool/view/components/opaque_box.dart';
 
 class HistoryView extends StatelessWidget {
   @override
@@ -23,50 +23,54 @@ class HistoryView extends StatelessWidget {
               .map((query) => query.find()),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (!snapshot.hasData) return Container();
-            return ListView.separated(
-              itemCount: snapshot.data.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) return Container();
-                Search search = snapshot.data[index - 1];
-                if (search.isKanji()) {
-                  return KanjiSearchItem(
-                    result: search.kanjiQuery.target!,
+            return OpaqueBox(
+              child: ListView.separated(
+                itemCount: snapshot.data.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) return Container();
+                  Search search = snapshot.data[index - 1];
+                  if (search.isKanji()) {
+                    return KanjiSearchItem(
+                      result: search.kanjiQuery.target!,
+                      timestamp: search.timestamp,
+                    );
+                  }
+                  return PhraseSearchItem(
+                    search: search.wordQuery.target!,
                     timestamp: search.timestamp,
                   );
-                }
-                return PhraseSearchItem(
-                  search: search.wordQuery.target!,
-                  timestamp: search.timestamp,
-                );
-              },
-              separatorBuilder: (context, index) {
-                Function roundToDay = (DateTime date) =>
-                    DateTime(date.year, date.month, date.day);
+                },
+                separatorBuilder: (context, index) {
+                  Function roundToDay = (DateTime date) =>
+                      DateTime(date.year, date.month, date.day);
 
-                Search search = snapshot.data[index];
-                DateTime searchDate = roundToDay(search.timestamp);
+                  Search search = snapshot.data[index];
+                  DateTime searchDate = roundToDay(search.timestamp);
 
-                bool newDate = true;
+                  bool newDate = true;
 
-                if (index != 0) {
-                  Search prevSearch = snapshot.data[index - 1];
+                  EdgeInsets? margin;
+                  if (index != 0) {
+                    Search prevSearch = snapshot.data[index - 1];
 
-                  DateTime prevSearchDate = roundToDay(prevSearch.timestamp);
-                  newDate = prevSearchDate != searchDate;
-                }
+                    DateTime prevSearchDate = roundToDay(prevSearch.timestamp);
+                    newDate = prevSearchDate != searchDate;
+                    margin = EdgeInsets.only(bottom: 10);
+                  }
 
-                if (newDate) {
-                  if (searchDate == roundToDay(DateTime.now()))
-                    return DateDivider(text: "Today");
-                  else if (searchDate ==
-                      roundToDay(
-                          DateTime.now().subtract(const Duration(days: 1))))
-                    return DateDivider(text: "Yesterday");
-                  return DateDivider(date: searchDate);
-                }
+                  if (newDate) {
+                    if (searchDate == roundToDay(DateTime.now()))
+                      return DateDivider(text: "Today", margin: margin);
+                    else if (searchDate ==
+                        roundToDay(
+                            DateTime.now().subtract(const Duration(days: 1))))
+                      return DateDivider(text: "Yesterday", margin: margin);
+                    return DateDivider(date: searchDate, margin: margin);
+                  }
 
-                return Divider();
-              },
+                  return Divider();
+                },
+              ),
             );
           },
         );

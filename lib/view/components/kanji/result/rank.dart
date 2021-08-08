@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
 
 class Rank extends StatelessWidget {
   final int rank;
@@ -8,18 +9,20 @@ class Rank extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _kanjiColors = BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
+
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Text(
         '${rank.toString()} / 2500',
         style: TextStyle(
-          color: Colors.white,
+          color: _kanjiColors.foreground,
           fontSize: 20.0,
         ),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: Colors.blue,
+        color: _kanjiColors.background,
       ),
     );
   }

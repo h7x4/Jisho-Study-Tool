@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
 class KanjiSearchBar extends StatefulWidget {
@@ -59,9 +58,8 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
       decoration: new InputDecoration(
         prefixIcon: Icon(Icons.search),
         hintText: 'Search',
-        fillColor: Colors.white,
-        filled: true,
-        
+        // fillColor: Colors.white,
+        // filled: true,        
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

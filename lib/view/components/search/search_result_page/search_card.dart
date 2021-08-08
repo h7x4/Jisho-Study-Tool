@@ -21,7 +21,10 @@ class SearchResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
     return ExpansionTile(
+      collapsedBackgroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
       title: 
       IntrinsicWidth(
         child: Row(

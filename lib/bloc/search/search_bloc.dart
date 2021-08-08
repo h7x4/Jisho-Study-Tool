@@ -11,6 +11,8 @@ import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
 import 'package:jisho_study_tool/services/jisho_api/jisho_search.dart';
 import 'package:unofficial_jisho_api/parser.dart';
 
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'search_event.dart';
 part 'search_state.dart';
 

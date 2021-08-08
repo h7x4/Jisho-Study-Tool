@@ -1,7 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc/bloc.dart';
 
 import './navigation_event.dart';
 import './navigation_state.dart';
+
+export 'package:flutter_bloc/flutter_bloc.dart';
 
 export './navigation_event.dart';
 export './navigation_state.dart'; 

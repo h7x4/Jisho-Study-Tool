@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/models/themes/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageSelector extends StatefulWidget {
@@ -43,13 +44,13 @@ class _LanguageSelectorState extends State<LanguageSelector> {
   @override
   Widget build(BuildContext context) {
     return ToggleButtons(
+      selectedColor: AppTheme.jishoGreen.background,
       isSelected: isSelected,
       children: <Widget> [
         _LanguageOption("Auto"),
         _LanguageOption("日本語"),
         _LanguageOption("English")
       ],
-      selectedColor: Colors.blue,
       onPressed: (int buttonIndex) {
         setState(() {
           for (var i in Iterable.generate(isSelected.length)) {

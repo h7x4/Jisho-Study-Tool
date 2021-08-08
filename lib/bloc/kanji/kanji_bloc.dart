@@ -11,6 +11,8 @@ import 'package:bloc/bloc.dart';
 import 'package:jisho_study_tool/services/jisho_api/kanji_search.dart';
 import 'package:jisho_study_tool/services/kanji_suggestions.dart';
 
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 export './kanji_event.dart';
 export './kanji_state.dart';
 

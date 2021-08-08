@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 part 'history_event.dart';
 part 'history_state.dart';
 

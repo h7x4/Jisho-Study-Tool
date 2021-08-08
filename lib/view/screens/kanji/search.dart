@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:animated_size_and_fade/animated_size_and_fade.dart';
 

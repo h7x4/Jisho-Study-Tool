@@ -1,22 +1,29 @@
-
 import 'package:flutter/material.dart';
-
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
+import 'package:jisho_study_tool/view/components/kanji/result/examples.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/grade.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/header.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/jlpt_level.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/meaning.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/radical.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/rank.dart';
 import 'package:jisho_study_tool/view/components/kanji/result/stroke_order_gif.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/onyomi.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/kunyomi.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/examples.dart';
+import 'package:jisho_study_tool/view/components/kanji/result/yomi_chips.dart';
 
 class KanjiResultCard extends StatelessWidget {
   late final String query;
   late final jisho.KanjiResultData resultData;
+
+  KanjiResultCard({required jisho.KanjiResult result}) {
+
+    query = result.query;
+
+    // TODO: Handle this kind of exception before widget is initialized
+    if (result.data == null)
+      throw Exception();
+    
+    resultData = result.data!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +54,9 @@ class KanjiResultCard extends StatelessWidget {
             ],
           ),
         ),
-        Meaning(resultData.meaning),
-        resultData.onyomi.length != 0 ? Onyomi(resultData.onyomi) : SizedBox.shrink(),
-        resultData.kunyomi.length != 0 ? Kunyomi(resultData.kunyomi) : SizedBox.shrink(),
+        YomiChips(resultData.meaning.split(', '), YomiType.meaning),
+        resultData.onyomi.length != 0 ? YomiChips(resultData.onyomi, YomiType.onyomi) : SizedBox.shrink(),
+        resultData.kunyomi.length != 0 ? YomiChips(resultData.kunyomi, YomiType.kunyomi) : SizedBox.shrink(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,16 +94,5 @@ class KanjiResultCard extends StatelessWidget {
         Examples(resultData.onyomiExamples, resultData.kunyomiExamples),
       ],
     );
-  }
-
-  KanjiResultCard({required jisho.KanjiResult result}) {
-
-    query = result.query;
-
-    // TODO: Handle this kind of exception before widget is initialized
-    if (result.data == null)
-      throw Exception();
-    
-    resultData = result.data!;
   }
 }
