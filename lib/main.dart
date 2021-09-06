@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
-import 'package:jisho_study_tool/view/screens/splash.dart';
+import 'package:jisho_study_tool/router.dart';
+import 'package:jisho_study_tool/view/components/common/splash.dart';
 import 'package:mdi/mdi.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -8,13 +9,10 @@ import 'package:path/path.dart';
 import 'package:jisho_study_tool/objectbox.g.dart';
 
 import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
-import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
-import 'package:jisho_study_tool/bloc/navigation/navigation_bloc.dart';
 
-import 'package:jisho_study_tool/view/screens/kanji/view.dart';
+import 'package:jisho_study_tool/view/screens/search/kanji_view.dart';
 import 'package:jisho_study_tool/view/screens/history.dart';
-import 'package:jisho_study_tool/view/screens/search/view.dart';
+import 'package:jisho_study_tool/view/screens/search/search_view.dart';
 import 'package:jisho_study_tool/view/screens/settings.dart';
 
 import 'models/themes/theme.dart';
@@ -60,20 +58,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => SearchBloc(_databaseBloc)),
-        BlocProvider(create: (context) => KanjiBloc(_databaseBloc)),
         BlocProvider(create: (context) => _databaseBloc),
-        BlocProvider(create: (context) => NavigationBloc()),
         BlocProvider(create: (context) => ThemeBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) {
+          if (!(dbConnected && themeState.prefsAreLoaded))
+            return SplashScreen();
+
           return MaterialApp(
             title: 'Jisho Study Tool',
             theme: themeState.theme.getMaterialTheme(),
-            home: dbConnected && themeState.prefsAreLoaded
-                ? Home()
-                : SplashScreen(),
+            initialRoute: '/',
+            onGenerateRoute: PageRouter.generateRoute,
           );
         },
       ),
@@ -81,45 +78,48 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int pageNum = 0;
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationBloc, NavigationState>(
-      builder: (context, navigationState) {
-        int selectedPage = (navigationState as NavigationPage).pageNum;
-        return BlocBuilder<ThemeBloc, ThemeState>(
-          builder: (context, themeState) {
-            return Scaffold(
-              appBar: AppBar(
-                title: pages[selectedPage].titleBar,
-                centerTitle: true,
-                backgroundColor: AppTheme.jishoGreen.background,
-                foregroundColor: AppTheme.jishoGreen.foreground,
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) {
+        return Scaffold(
+          appBar: AppBar(
+            title: pages[pageNum].titleBar,
+            centerTitle: true,
+            backgroundColor: AppTheme.jishoGreen.background,
+            foregroundColor: AppTheme.jishoGreen.foreground,
+          ),
+          body: Stack(
+            children: [
+              Positioned(
+                child: Image.asset(
+                    'assets/images/denshi_jisho_background_overlay.png'),
+                right: 30,
+                left: 100,
+                bottom: 30,
               ),
-              body: Stack(
-                children: [
-                  Positioned(
-                    child: Image.asset(
-                        'assets/images/denshi_jisho_background_overlay.png'),
-                    right: 30,
-                    left: 100,
-                    bottom: 30,
-                  ),
-                  pages[selectedPage].content,
-                ],
-              ),
-              bottomNavigationBar: BottomNavigationBar(
-                fixedColor: AppTheme.jishoGreen.background,
-                currentIndex: selectedPage,
-                onTap: (int index) => BlocProvider.of<NavigationBloc>(context)
-                    .add(ChangePage(index)),
-                items: pages.map((p) => p.item).toList(),
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                unselectedItemColor: themeState.theme.menuGreyDark.background,
-              ),
-            );
-          },
+              pages[pageNum].content,
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            fixedColor: AppTheme.jishoGreen.background,
+            currentIndex: pageNum,
+            onTap: (int index) => setState(() {
+              this.pageNum = index;
+            }),
+            items: pages.map((p) => p.item).toList(),
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            unselectedItemColor: themeState.theme.menuGreyDark.background,
+          ),
         );
       },
     );
@@ -149,7 +149,7 @@ final List<_Page> pages = [
   ),
   _Page(
     content: KanjiView(),
-    titleBar: KanjiViewBar(),
+    titleBar: Text('Kanji'),
     item: BottomNavigationBarItem(
         label: 'Kanji', icon: Icon(Mdi.ideogramCjk, size: 30)),
   ),

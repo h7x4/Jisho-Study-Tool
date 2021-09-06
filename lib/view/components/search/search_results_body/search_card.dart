@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/search/search_result_page/parts/common_badge.dart';
-import 'package:jisho_study_tool/view/components/search/search_result_page/parts/jlpt_badge.dart';
-import 'package:jisho_study_tool/view/components/search/search_result_page/parts/wanikani_badge.dart';
-
 import 'package:unofficial_jisho_api/api.dart';
 
+import './parts/common_badge.dart';
 import './parts/header.dart';
-import './parts/senses.dart';
+import './parts/jlpt_badge.dart';
 import './parts/other_forms.dart';
+import './parts/senses.dart';
+import './parts/wanikani_badge.dart';
 
 class SearchResultCard extends StatelessWidget {
   final JishoResult result;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/search/search_result_page/parts/badge.dart';
+import './badge.dart';
 
 class JLPTBadge extends StatelessWidget {
   final String jlptLevel;

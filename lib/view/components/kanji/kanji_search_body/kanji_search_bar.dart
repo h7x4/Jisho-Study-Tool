@@ -1,41 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
 class KanjiSearchBar extends StatefulWidget {
+  final Function(String)? onChanged;
 
-  const KanjiSearchBar();
+  KanjiSearchBar({this.onChanged, Key? key}) : super(key: key);
 
   @override
-  _KanjiSearchBarState createState() => new _KanjiSearchBarState();
+  KanjiSearchBarState createState() => new KanjiSearchBarState(this.onChanged);
 }
 
-enum TextFieldButton {clear, paste}
+enum TextFieldButton { clear, paste }
 
-class _KanjiSearchBarState extends State<KanjiSearchBar> {
+class KanjiSearchBarState extends State<KanjiSearchBar> {
   final TextEditingController textController = new TextEditingController();
   TextFieldButton button = TextFieldButton.paste;
+  final Function(String)? onChanged;
+
+  KanjiSearchBarState(this.onChanged);
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _getKanjiSuggestions(String text) =>
-      BlocProvider.of<KanjiBloc>(context).add(GetKanjiSuggestions(text));
-
-  void updateSuggestions() => _getKanjiSuggestions(textController.text);
-
-  void _clearText() {
-    textController.text = '';
-    updateSuggestions();
+  void runOnChanged() {
+      if (onChanged != null) onChanged!(textController.text);
   }
 
-  void _pasteText() async {
+  void clearText() {
+    textController.text = '';
+    runOnChanged();
+  }
+
+  void pasteText() async {
     ClipboardData? clipboardData = await Clipboard.getData('text/plain');
     if (clipboardData != null && clipboardData.text != null) {
       textController.text = clipboardData.text!;
-      updateSuggestions();
+      runOnChanged();
     }
   }
 
@@ -43,28 +45,31 @@ class _KanjiSearchBarState extends State<KanjiSearchBar> {
   Widget build(BuildContext context) {
     IconButton clearButton = IconButton(
       icon: Icon(Icons.clear),
-      onPressed: () => _clearText(),
+      onPressed: () => clearText(),
     );
 
     IconButton pasteButton = IconButton(
       icon: Icon(Icons.content_paste),
-      onPressed: () => _pasteText(),
+      onPressed: () => pasteText(),
     );
 
     return TextField(
       controller: textController,
-      onChanged: (text) => _getKanjiSuggestions(text),
+      onChanged: (text) {
+        if (this.onChanged != null) this.onChanged!(text);
+      },
       onSubmitted: (_) => {},
       decoration: new InputDecoration(
         prefixIcon: Icon(Icons.search),
         hintText: 'Search',
         // fillColor: Colors.white,
-        // filled: true,        
+        // filled: true,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         isDense: false,
-        suffixIcon: (button == TextFieldButton.clear) ? clearButton : pasteButton,
+        suffixIcon:
+            (button == TextFieldButton.clear) ? clearButton : pasteButton,
       ),
     );
   }

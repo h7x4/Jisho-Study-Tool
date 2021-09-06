@@ -9,7 +9,7 @@ class SplashScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(color: AppTheme.jishoGreen.background),
       child: Center(
-        child: Image.asset('assets/images/logo/logo_icon_transparent.png'),
+        child: Image(image: AssetImage('assets/images/logo/logo_icon_transparent.png'),)
       ),
     );
   }

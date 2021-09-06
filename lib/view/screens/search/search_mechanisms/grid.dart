@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_grid.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_search_bar.dart';
+import 'package:jisho_study_tool/view/components/kanji/kanji_search_body/kanji_grid.dart';
+import 'package:jisho_study_tool/view/components/kanji/kanji_search_body/kanji_search_bar.dart';
 
 class SearchGrid extends StatelessWidget {
   final List<String> suggestions;

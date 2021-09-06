@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
-import 'package:jisho_study_tool/bloc/navigation/navigation_bloc.dart';
 import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
 import 'package:jisho_study_tool/models/history/kanji_query.dart';
 import 'package:jisho_study_tool/models/themes/theme.dart';
@@ -58,8 +56,7 @@ class KanjiSearchItem extends StatelessWidget {
     return Slidable(
       child: SearchItem(
         onTap: () {
-          BlocProvider.of<NavigationBloc>(context).add(ChangePage(1));
-          BlocProvider.of<KanjiBloc>(context).add(GetKanji(this.result.kanji));
+          Navigator.pushNamed(context, '/kanjiSearch', arguments: this.result.kanji);
         },
         time: timestamp,
         search: _KanjiBox(result.kanji),

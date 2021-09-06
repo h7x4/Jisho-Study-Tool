@@ -41,6 +41,7 @@ flutter:
   
   assets:
     - assets/images/denshi_jisho_background_overlay.png
+    - assets/images/logo/
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 

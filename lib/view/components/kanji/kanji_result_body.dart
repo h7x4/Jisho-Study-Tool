@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
-import 'package:jisho_study_tool/view/components/kanji/result/examples.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/grade.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/header.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/jlpt_level.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/radical.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/rank.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/stroke_order_gif.dart';
-import 'package:jisho_study_tool/view/components/kanji/result/yomi_chips.dart';
+import './kanji_result_body/examples.dart';
+import './kanji_result_body/grade.dart';
+import './kanji_result_body/header.dart';
+import './kanji_result_body/jlpt_level.dart';
+import './kanji_result_body/radical.dart';
+import './kanji_result_body/rank.dart';
+import './kanji_result_body/stroke_order_gif.dart';
+import './kanji_result_body/yomi_chips.dart';
 
-class KanjiResultCard extends StatelessWidget {
+class KanjiResultBody extends StatelessWidget {
   late final String query;
   late final jisho.KanjiResultData resultData;
 
-  KanjiResultCard({required jisho.KanjiResult result}) {
+  KanjiResultBody({required jisho.KanjiResult result}) {
 
     query = result.query;
 

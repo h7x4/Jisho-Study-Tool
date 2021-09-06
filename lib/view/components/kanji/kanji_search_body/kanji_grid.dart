@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
 
 class KanjiGrid extends StatelessWidget {
@@ -33,27 +32,26 @@ class _GridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlocProvider.of<KanjiBloc>(context).add(GetKanji(kanji));
+        Navigator.pushNamed(context, '/kanjiSearch', arguments: kanji);
       },
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           final _menuColors = state.theme.menuGreyLight;
-          return 
-      Container(
-        decoration: BoxDecoration(
-          color: _menuColors.background,
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Container(
-          margin: EdgeInsets.all(10.0),
-          child: FittedBox(
-            child: Text(
-              kanji,
-              style: TextStyle(color: _menuColors.foreground),
+          return Container(
+            decoration: BoxDecoration(
+              color: _menuColors.background,
+              borderRadius: BorderRadius.circular(20.0),
             ),
-          ),
-        ),
-      );
+            child: Container(
+              margin: EdgeInsets.all(10.0),
+              child: FittedBox(
+                child: Text(
+                  kanji,
+                  style: TextStyle(color: _menuColors.foreground),
+                ),
+              ),
+            ),
+          );
         },
       ),
     );

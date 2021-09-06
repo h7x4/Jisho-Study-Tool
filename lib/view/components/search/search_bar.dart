@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
 import 'package:jisho_study_tool/view/components/search/language_selector.dart';
 
 class SearchBar extends StatelessWidget {
-
   const SearchBar();
 
   @override
@@ -13,10 +11,8 @@ class SearchBar extends StatelessWidget {
       child: Column(
         children: [
           TextField(
-            onSubmitted: (text) {
-              BlocProvider.of<SearchBloc>(context)
-                .add(GetSearchResults(text));
-              },
+            onSubmitted: (text) =>
+                Navigator.pushNamed(context, '/search', arguments: text),
             controller: TextEditingController(),
             decoration: InputDecoration(
               labelText: 'Search',

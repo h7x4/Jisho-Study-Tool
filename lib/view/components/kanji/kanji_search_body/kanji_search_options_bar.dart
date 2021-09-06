@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/kanji/kanji_bloc.dart';
 
 //TODO: Make buttons have an effect
 
@@ -20,18 +19,15 @@ class KanjiSearchOptionsBar extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onPressed: () =>
-                BlocProvider.of<KanjiBloc>(context).add(ReturnToInitialState()),
+            onPressed: () {}
           ),
           _IconButton(
             icon: Icon(Icons.category),
-            onPressed: () =>
-                BlocProvider.of<KanjiBloc>(context).add(ReturnToInitialState()),
+            onPressed: () {}
           ),
           _IconButton(
             icon: Icon(Icons.mode),
-            onPressed: () =>
-                BlocProvider.of<KanjiBloc>(context).add(ReturnToInitialState()),
+            onPressed: () {}
           ),
         ],
       ),
