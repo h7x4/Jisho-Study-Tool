@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
-import 'package:jisho_study_tool/models/themes/theme.dart';
+
+import '../../../bloc/theme/theme_bloc.dart';
+import '../../../models/themes/theme.dart';
 
 class DateDivider extends StatelessWidget {
   final String? text;
@@ -33,31 +34,31 @@ class DateDivider extends StatelessWidget {
     final int day = date.day;
     final String month = monthTable[date.month]!;
     final int year = date.year;
-    return "$day. $month $year";
+    return '$day. $month $year';
   }
 
   @override
   Widget build(BuildContext context) {
-    final Widget header = (this.text != null)
-        ? Text(this.text!)
-        : (this.date != null)
-            ? Text(getHumanReadableDate(this.date!))
-            : SizedBox.shrink();
+    final Widget header = (text != null)
+        ? Text(text!)
+        : (date != null)
+            ? Text(getHumanReadableDate(date!))
+            : const SizedBox.shrink();
 
     final ColorSet _menuColors =
         BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyNormal;
 
     return Container(
+      decoration: BoxDecoration(color: _menuColors.background),
+      padding: const EdgeInsets.symmetric(
+        vertical: 5,
+        horizontal: 10,
+      ),
+      margin: margin,
       child: DefaultTextStyle.merge(
         child: header,
         style: TextStyle(color: _menuColors.foreground),
       ),
-      decoration: BoxDecoration(color: _menuColors.background),
-      padding: EdgeInsets.symmetric(
-        vertical: 5,
-        horizontal: 10,
-      ),
-      margin: this.margin,
     );
   }
 }

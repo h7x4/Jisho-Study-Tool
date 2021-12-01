@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
 class Badge extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final Color color;
 
-  const Badge(this.child, this.color);
+  const Badge({this.child, required this.color, Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: FittedBox(
-        child: Center(
-          child: this.child
-        ),
-      ),
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       width: 30,
       height: 30,
-      margin: EdgeInsets.symmetric(horizontal: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: color
+        color: color,
+      ),
+      child: FittedBox(
+        child: Center(
+          child: child,
+        ),
       ),
     );  }
-
 }

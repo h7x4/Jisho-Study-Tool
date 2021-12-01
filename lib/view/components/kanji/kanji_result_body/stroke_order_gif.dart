@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
+
+import '../../../../bloc/theme/theme_bloc.dart';
 
 class StrokeOrderGif extends StatelessWidget {
   final String uri;
 
-  const StrokeOrderGif(this.uri);
+  const StrokeOrderGif({required this.uri, Key? key,}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     final _kanjiColors = BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20.0),
-      padding: EdgeInsets.all(5.0),
-      child: ClipRRect(
-        child: Image.network(uri),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+      margin: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         color: _kanjiColors.background,
         borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Image.network(uri),
       ),
     );
   }

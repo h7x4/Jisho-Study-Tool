@@ -1,18 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 export 'package:unofficial_jisho_api/api.dart' show KanjiResult;
 
 String? _convertGrade(String grade) {
   const conversionTable = {
-    "grade 1": "小1",
-    "grade 2": "小2",
-    "grade 3": "小3",
-    "grade 4": "小4",
-    "grade 5": "小5",
-    "grade 6": "小6",
-    "junior high": "中"
+    'grade 1': '小1',
+    'grade 2': '小2',
+    'grade 3': '小3',
+    'grade 4': '小4',
+    'grade 5': '小5',
+    'grade 6': '小6',
+    'junior high': '中'
   };
 
-  print('conversion run: $grade -> ${conversionTable[grade]}');
+  debugPrint('conversion run: $grade -> ${conversionTable[grade]}');
 
   return conversionTable[grade];
 }

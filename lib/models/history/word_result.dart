@@ -1,6 +1,6 @@
 import 'package:objectbox/objectbox.dart';
 
-import 'package:jisho_study_tool/models/history/word_query.dart';
+import 'word_query.dart';
 
 @Entity()
 class WordResult {

@@ -14,6 +14,7 @@ class LightThemeState extends ThemeState {
 
   const LightThemeState({this.prefsAreLoaded = false}) : super(prefsAreLoaded);
 
+  @override
   AppTheme get theme => LightTheme();
 }
 
@@ -22,5 +23,6 @@ class DarkThemeState extends ThemeState {
 
   const DarkThemeState({this.prefsAreLoaded = false}) : super(prefsAreLoaded);
 
+  @override
   AppTheme get theme => DarkTheme();
 }

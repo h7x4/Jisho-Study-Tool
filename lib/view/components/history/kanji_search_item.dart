@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
-import 'package:jisho_study_tool/models/history/kanji_query.dart';
-import 'package:jisho_study_tool/models/themes/theme.dart';
 
 import './search_item.dart';
+import '../../../bloc/theme/theme_bloc.dart';
+import '../../../models/history/kanji_query.dart';
+import '../../../models/themes/theme.dart';
 
 class _KanjiBox extends StatelessWidget {
   final String kanji;
@@ -19,7 +19,7 @@ class _KanjiBox extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: Container(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: _menuColors.background,
             borderRadius: BorderRadius.circular(10.0),

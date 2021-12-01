@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
-import 'package:jisho_study_tool/models/history/kanji_query.dart';
-import 'package:jisho_study_tool/models/history/search.dart';
-import 'package:jisho_study_tool/view/components/common/loading.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_result_body.dart';
-import 'package:jisho_study_tool/services/jisho_api/kanji_search.dart';
+
+import '../../../bloc/database/database_bloc.dart';
+import '../../../models/history/kanji_query.dart';
+import '../../../models/history/search.dart';
+import '../../../services/jisho_api/kanji_search.dart';
+import '../../components/common/loading.dart';
+import '../../components/kanji/kanji_result_body.dart';
 
 class KanjiResultPage extends StatelessWidget {
   final String kanjiSearchTerm;
   bool addedToDatabase = false;
 
-  KanjiResultPage({required this.kanjiSearchTerm, Key? key})
-      : super(key: key);
+  KanjiResultPage({required this.kanjiSearchTerm, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder(
-        future: fetchKanji(this.kanjiSearchTerm),
-        builder: (context, snapshot) {
+      body: FutureBuilder<KanjiResult>(
+        future: fetchKanji(kanjiSearchTerm),
+        builder: ( context, snapshot) {
           if (!snapshot.hasData) return LoadingScreen();
           if (snapshot.hasError) return ErrorWidget(snapshot.error!);
 
-          if (!this.addedToDatabase) {
+          if (!addedToDatabase) {
             (BlocProvider.of<DatabaseBloc>(context).state as DatabaseConnected)
                 .database
                 .box<Search>()
                 .put(Search(timestamp: DateTime.now())
                   ..kanjiQuery.target = KanjiQuery(
-                    kanji: this.kanjiSearchTerm,
-                  ));
-            this.addedToDatabase = true;
+                    kanji: kanjiSearchTerm,
+                  ),);
+            addedToDatabase = true;
           }
 
-          return KanjiResultBody(result: (snapshot.data as KanjiResult));
+          return KanjiResultBody(result: snapshot.data!);
         },
       ),
     );

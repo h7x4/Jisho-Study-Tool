@@ -9,7 +9,7 @@ class OpaqueBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-      child: this.child,
+      child: child,
     );
   }
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
+import '../../../../bloc/theme/theme_bloc.dart';
 
 class KanjiGrid extends StatelessWidget {
   final List<String> suggestions;
-  const KanjiGrid(this.suggestions);
+
+  const KanjiGrid({required this.suggestions, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 20.0,
         horizontal: 40.0,
       ),
@@ -43,7 +44,7 @@ class _GridItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Container(
-              margin: EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(10.0),
               child: FittedBox(
                 child: Text(
                   kanji,

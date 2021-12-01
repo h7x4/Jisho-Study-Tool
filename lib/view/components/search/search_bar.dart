@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/search/language_selector.dart';
+
+import 'language_selector.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar();
+  const SearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
           TextField(
@@ -21,10 +22,10 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
-          LanguageSelector()
+          const LanguageSelector()
         ],
       ),
     );

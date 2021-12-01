@@ -13,10 +13,12 @@ class SearchResultCard extends StatelessWidget {
   late final JishoJapaneseWord mainWord;
   late final List<JishoJapaneseWord> otherForms;
 
-  SearchResultCard(this.result) {
-    this.mainWord = result.japanese[0];
-    this.otherForms = result.japanese.sublist(1);
-  }
+  SearchResultCard({
+    required this.result,
+    Key? key,
+  })  : mainWord = result.japanese[0],
+        otherForms = result.japanese.sublist(1),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,34 +26,40 @@ class SearchResultCard extends StatelessWidget {
     return ExpansionTile(
       collapsedBackgroundColor: backgroundColor,
       backgroundColor: backgroundColor,
-      title: 
-      IntrinsicWidth(
+      title: IntrinsicWidth(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            JapaneseHeader(mainWord),
+            JapaneseHeader(word: mainWord),
             Row(
               children: [
-                WKBadge(result.tags.firstWhere((tag) => tag.contains("wanikani"), orElse: () => '')),
-                JLPTBadge(result.jlpt.isNotEmpty ? result.jlpt[0] : ''),
-                CommonBadge(result.isCommon ?? false)
+                WKBadge(
+                  result.tags.firstWhere(
+                    (tag) => tag.contains('wanikani'),
+                    orElse: () => '',
+                  ),
+                ),
+                JLPTBadge(
+                  jlptLevel: result.jlpt.isNotEmpty ? result.jlpt[0] : '',
+                ),
+                CommonBadge(isCommon: result.isCommon ?? false)
               ],
             )
           ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
       ),
       children: [
         Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: [
-              Senses(result.senses),
-              OtherForms(otherForms),
+              Senses(senses: result.senses),
+              OtherForms(forms: otherForms),
               // Text(result.toJson().toString()),
               // Text(result.attribution.toJson().toString()),
               // Text(result.japanese.map((e) => e.toJson().toString()).toList().toString()),
             ],
           ),
-          padding: EdgeInsets.symmetric(horizontal: 30),
         )
       ],
     );

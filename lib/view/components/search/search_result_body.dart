@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/search/search_results_body/search_card.dart';
 import 'package:unofficial_jisho_api/api.dart';
+
+import 'search_results_body/search_card.dart';
 
 class SearchResultsBody extends StatelessWidget {
   final List<JishoResult> results;
@@ -13,7 +14,7 @@ class SearchResultsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: results.map((result) => SearchResultCard(result)).toList(),
+      children: results.map((result) => SearchResultCard(result: result)).toList(),
     );
   }
 }

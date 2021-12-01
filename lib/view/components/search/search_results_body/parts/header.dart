@@ -3,21 +3,24 @@ import 'package:unofficial_jisho_api/api.dart';
 
 class JapaneseHeader extends StatelessWidget {
   final JishoJapaneseWord word;
-  
-  const JapaneseHeader(this.word);
+
+  const JapaneseHeader({
+    required this.word,
+    Key? key,
+  }) : super(key: key);
+
+  bool get hasFurigana => word.word != null && word.reading != null;
 
   @override
   Widget build(BuildContext context) {
-    final hasFurigana = (word.word != null && word.reading != null);
-
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(left: 10.0),
+      padding: const EdgeInsets.only(left: 10.0),
       child: Column(
         children: [
           // TODO: take a look at this logic
-          (hasFurigana) ? Text(word.reading!) : Text(''),
-          (hasFurigana) ? Text(word.word!) : Text(word.reading ?? word.word!),
+          hasFurigana ? Text(word.reading!) : const Text(''),
+          hasFurigana ? Text(word.word!) : Text(word.reading ?? word.word!),
         ],
       ),
     );

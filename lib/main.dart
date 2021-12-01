@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
-import 'package:jisho_study_tool/router.dart';
-import 'package:jisho_study_tool/view/components/common/splash.dart';
 import 'package:mdi/mdi.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
-import 'package:jisho_study_tool/objectbox.g.dart';
-
-import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
-
-import 'package:jisho_study_tool/view/screens/search/kanji_view.dart';
-import 'package:jisho_study_tool/view/screens/history.dart';
-import 'package:jisho_study_tool/view/screens/search/search_view.dart';
-import 'package:jisho_study_tool/view/screens/settings.dart';
-
+import 'bloc/database/database_bloc.dart';
+import 'bloc/theme/theme_bloc.dart';
 import 'models/themes/theme.dart';
+import 'objectbox.g.dart';
+import 'router.dart';
+import 'view/components/common/splash.dart';
+import 'view/screens/history.dart';
+import 'view/screens/search/kanji_view.dart';
+import 'view/screens/search/search_view.dart';
+import 'view/screens/settings.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 DatabaseBloc _databaseBloc = DatabaseBloc();
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -50,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _store.close();
-    _databaseBloc.add(DisconnectedFromDatabase());
+    _databaseBloc.add(const DisconnectedFromDatabase());
     super.dispose();
   }
 
@@ -64,13 +63,13 @@ class _MyAppState extends State<MyApp> {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, themeState) {
           if (!(dbConnected && themeState.prefsAreLoaded))
-            return SplashScreen();
+            return const SplashScreen();
 
           return MaterialApp(
             title: 'Jisho Study Tool',
             theme: themeState.theme.getMaterialTheme(),
             initialRoute: '/',
-            onGenerateRoute: PageRouter.generateRoute,
+            onGenerateRoute: generateRoute,
           );
         },
       ),
@@ -79,6 +78,8 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _HomeState();
 }
@@ -100,11 +101,12 @@ class _HomeState extends State<Home> {
           body: Stack(
             children: [
               Positioned(
-                child: Image.asset(
-                    'assets/images/denshi_jisho_background_overlay.png'),
                 right: 30,
                 left: 100,
                 bottom: 30,
+                child: Image.asset(
+                  'assets/images/denshi_jisho_background_overlay.png',
+                ),
               ),
               pages[pageNum].content,
             ],
@@ -112,8 +114,8 @@ class _HomeState extends State<Home> {
           bottomNavigationBar: BottomNavigationBar(
             fixedColor: AppTheme.jishoGreen.background,
             currentIndex: pageNum,
-            onTap: (int index) => setState(() {
-              this.pageNum = index;
+            onTap: (index) => setState(() {
+              pageNum = index;
             }),
             items: pages.map((p) => p.item).toList(),
             showSelectedLabels: false,
@@ -139,7 +141,7 @@ class _Page {
 }
 
 final List<_Page> pages = [
-  _Page(
+  const _Page(
     content: SearchView(),
     titleBar: Text('Search'),
     item: BottomNavigationBarItem(
@@ -147,15 +149,17 @@ final List<_Page> pages = [
       icon: Icon(Icons.search),
     ),
   ),
-  _Page(
+  const _Page(
     content: KanjiView(),
     titleBar: Text('Kanji'),
     item: BottomNavigationBarItem(
-        label: 'Kanji', icon: Icon(Mdi.ideogramCjk, size: 30)),
+      label: 'Kanji',
+      icon: Icon(Mdi.ideogramCjk, size: 30),
+    ),
   ),
-  _Page(
+  const _Page(
     content: HistoryView(),
-    titleBar: Text("History"),
+    titleBar: Text('History'),
     item: BottomNavigationBarItem(
       label: 'History',
       icon: Icon(Icons.history),
@@ -163,15 +167,15 @@ final List<_Page> pages = [
   ),
   _Page(
     content: Container(),
-    titleBar: Text("Saved"),
-    item: BottomNavigationBarItem(
+    titleBar: const Text('Saved'),
+    item: const BottomNavigationBarItem(
       label: 'Saved',
       icon: Icon(Icons.bookmark),
     ),
   ),
-  _Page(
+  const _Page(
     content: SettingsView(),
-    titleBar: Text("Settings"),
+    titleBar: Text('Settings'),
     item: BottomNavigationBarItem(
       label: 'Settings',
       icon: Icon(Icons.settings),

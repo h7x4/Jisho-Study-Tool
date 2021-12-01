@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
-class Examples extends StatelessWidget {
-  final List<YomiExample> onyomiExamples;
-  final List<YomiExample> kunyomiExamples;
+import '../../../../bloc/theme/theme_bloc.dart';
 
-  const Examples(
-    this.onyomiExamples,
-    this.kunyomiExamples,
-  );
+class Examples extends StatelessWidget {
+  final List<YomiExample> onyomi;
+  final List<YomiExample> kunyomi;
+
+  const Examples({
+    required this.onyomi,
+    required this.kunyomi,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +19,21 @@ class Examples extends StatelessWidget {
       children: [
         [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: const Text(
               'Examples:',
               style: TextStyle(fontSize: 20),
             ),
           )
         ],
-        onyomiExamples
+        onyomi
             .map((onyomiExample) => _Example(onyomiExample, _KanaType.onyomi))
             .toList(),
-        kunyomiExamples
+        kunyomi
             .map(
-                (kunyomiExample) => _Example(kunyomiExample, _KanaType.kunyomi))
+              (kunyomiExample) => _Example(kunyomiExample, _KanaType.kunyomi),
+            )
             .toList(),
       ].expand((list) => list).toList(),
     );
@@ -48,68 +51,66 @@ class _Example extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _themeData = BlocProvider.of<ThemeBloc>(context).state.theme;
-    final _kanaColors = kanaType == _KanaType.kunyomi ? _themeData.kunyomiColor : _themeData.onyomiColor;
+    final _kanaColors = kanaType == _KanaType.kunyomi
+        ? _themeData.kunyomiColor
+        : _themeData.onyomiColor;
     final _menuColors = _themeData.menuGreyNormal;
 
-    return  Container(
-      margin: EdgeInsets.symmetric(
+    return Container(
+      margin: const EdgeInsets.symmetric(
         vertical: 5.0,
         horizontal: 10.0,
       ),
       decoration: BoxDecoration(
-          color: _menuColors.background, borderRadius: BorderRadius.circular(10.0)),
+        color: _menuColors.background,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 10.0,
               horizontal: 10.0,
             ),
             decoration: BoxDecoration(
               color: _kanaColors.background,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10.0),
                 bottomLeft: Radius.circular(10.0),
               ),
             ),
             child: Column(
               children: [
-                Container(
-                  child: Text(
-                    yomiExample.reading,
-                    style: TextStyle(
-                      color: _kanaColors.foreground,
-                      fontSize: 15.0,
-                    ),
+                Text(
+                  yomiExample.reading,
+                  style: TextStyle(
+                    color: _kanaColors.foreground,
+                    fontSize: 15.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5.0,
                 ),
-                Container(
-                  child: Text(
-                    yomiExample.example,
-                    style: TextStyle(
-                      color: _kanaColors.foreground,
-                      fontSize: 20.0,
-                    ),
+                Text(
+                  yomiExample.example,
+                  style: TextStyle(
+                    color: _kanaColors.foreground,
+                    fontSize: 20.0,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15.0,
           ),
           Expanded(
             child: Wrap(
               children: [
-                Container(
-                  child: Text(
-                    yomiExample.meaning,
-                    style: TextStyle(
-                      color: _menuColors.foreground,
-                    ),
+                Text(
+                  yomiExample.meaning,
+                  style: TextStyle(
+                    color: _menuColors.foreground,
                   ),
                 )
               ],

@@ -16,15 +16,15 @@ class Search {
 
   Search({
     this.id = 0,
-    required this.timestamp
-  }); // {
+    required this.timestamp,
+  });
 
   bool isKanji() {  
   //   // TODO: better error message
-    if (this.wordQuery.target == null && this.kanjiQuery.target == null)
+    if (wordQuery.target == null && kanjiQuery.target == null)
       throw Exception();
     
-    return this.wordQuery.target == null;
+    return wordQuery.target == null;
   }
 
 }

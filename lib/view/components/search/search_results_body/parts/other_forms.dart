@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
-class OtherForms extends StatelessWidget {
-  final List<JishoJapaneseWord> otherForms;
+import '../../../../../bloc/theme/theme_bloc.dart';
 
-  const OtherForms(this.otherForms);
+class OtherForms extends StatelessWidget {
+  final List<JishoJapaneseWord> forms;
+
+  const OtherForms({required this.forms, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: this.otherForms.isNotEmpty
-            ? [
-                Text(
-                  'Other Forms',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: otherForms.map((form) => _KanaBox(form)).toList(),
-                ),
-              ]
-            : [],
-      ),
+    return Column(
+      children: forms.isNotEmpty
+          ? [
+              const Text(
+                'Other Forms',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: forms.map((form) => _KanaBox(form)).toList(),
+              ),
+            ]
+          : [],
     );
   }
 }
@@ -32,28 +31,19 @@ class _KanaBox extends StatelessWidget {
 
   const _KanaBox(this.word);
 
+  bool get hasFurigana => word.word != null;
+
   @override
   Widget build(BuildContext context) {
-    final hasFurigana = (word.word != null);
     final _menuColors =
         BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyLight;
 
     return Container(
-      child: DefaultTextStyle.merge(
-        child: Column(
-          children: [
-            // TODO: take a look at this logic
-            (hasFurigana) ? Text(word.reading ?? '') : Text(''),
-            (hasFurigana) ? Text(word.word!) : Text(word.reading ?? ''),
-          ],
-        ),
-        style: TextStyle(color: _menuColors.foreground),
-      ),
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 5.0,
         vertical: 5.0,
       ),
-      padding: EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         color: _menuColors.background,
         boxShadow: [
@@ -61,9 +51,19 @@ class _KanaBox extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 0.5,
-            offset: Offset(1, 1),
+            offset: const Offset(1, 1),
           ),
         ],
+      ),
+      child: DefaultTextStyle.merge(
+        child: Column(
+          children: [
+            // TODO: take a look at this logic
+            hasFurigana ? Text(word.reading ?? '') : const Text(''),
+            hasFurigana ? Text(word.word!) : Text(word.reading ?? ''),
+          ],
+        ),
+        style: TextStyle(color: _menuColors.foreground),
       ),
     );
   }

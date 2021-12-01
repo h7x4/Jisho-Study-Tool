@@ -4,16 +4,16 @@ import 'package:flutter/services.dart';
 class KanjiSearchBar extends StatefulWidget {
   final Function(String)? onChanged;
 
-  KanjiSearchBar({this.onChanged, Key? key}) : super(key: key);
+  const KanjiSearchBar({this.onChanged, Key? key}) : super(key: key);
 
   @override
-  KanjiSearchBarState createState() => new KanjiSearchBarState(this.onChanged);
+  KanjiSearchBarState createState() => KanjiSearchBarState(this.onChanged);
 }
 
 enum TextFieldButton { clear, paste }
 
 class KanjiSearchBarState extends State<KanjiSearchBar> {
-  final TextEditingController textController = new TextEditingController();
+  final TextEditingController textController = TextEditingController();
   TextFieldButton button = TextFieldButton.paste;
   final Function(String)? onChanged;
 
@@ -33,8 +33,8 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
     runOnChanged();
   }
 
-  void pasteText() async {
-    ClipboardData? clipboardData = await Clipboard.getData('text/plain');
+  Future<void> pasteText() async {
+    final ClipboardData? clipboardData = await Clipboard.getData('text/plain');
     if (clipboardData != null && clipboardData.text != null) {
       textController.text = clipboardData.text!;
       runOnChanged();
@@ -43,24 +43,24 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    IconButton clearButton = IconButton(
-      icon: Icon(Icons.clear),
+    final IconButton clearButton = IconButton(
+      icon: const Icon(Icons.clear),
       onPressed: () => clearText(),
     );
 
-    IconButton pasteButton = IconButton(
-      icon: Icon(Icons.content_paste),
+    final IconButton pasteButton = IconButton(
+      icon: const Icon(Icons.content_paste),
       onPressed: () => pasteText(),
     );
 
     return TextField(
       controller: textController,
       onChanged: (text) {
-        if (this.onChanged != null) this.onChanged!(text);
+        if (onChanged != null) onChanged!(text);
       },
       onSubmitted: (_) => {},
-      decoration: new InputDecoration(
-        prefixIcon: Icon(Icons.search),
+      decoration: InputDecoration(
+        prefixIcon: const Icon(Icons.search),
         hintText: 'Search',
         // fillColor: Colors.white,
         // filled: true,

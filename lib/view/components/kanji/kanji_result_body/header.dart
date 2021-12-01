@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
+
+import '../../../../bloc/theme/theme_bloc.dart';
 
 class Header extends StatelessWidget {
   final String kanji;
 
-  const Header(this.kanji);
+  const Header({
+    required this.kanji,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _kanjiColors = BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
+    final _kanjiColors =
+        BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
 
     return AspectRatio(
       aspectRatio: 1,

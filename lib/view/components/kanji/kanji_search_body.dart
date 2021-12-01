@@ -1,13 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:animated_size_and_fade/animated_size_and_fade.dart';
-import 'package:jisho_study_tool/services/kanji_suggestions.dart';
+import 'package:flutter/material.dart';
 
-import 'package:jisho_study_tool/view/components/kanji/kanji_search_body/kanji_grid.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_search_body/kanji_search_bar.dart';
-import 'package:jisho_study_tool/view/components/kanji/kanji_search_body/kanji_search_options_bar.dart';
+import '../../../services/kanji_suggestions.dart';
+import 'kanji_search_body/kanji_grid.dart';
+import 'kanji_search_body/kanji_search_bar.dart';
+import 'kanji_search_body/kanji_search_options_bar.dart';
 
 class KanjiSearchBody extends StatefulWidget {
-  KanjiSearchBody({Key? key}) : super(key: key);
+  const KanjiSearchBody({Key? key}) : super(key: key);
 
   @override
   _KanjiSearchBodyState createState() => _KanjiSearchBodyState();
@@ -28,16 +28,18 @@ class _KanjiSearchBodyState extends State<KanjiSearchBody>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
     );
 
     _searchbarMovementAnimation = AlignmentTween(
       begin: Alignment.center,
       end: Alignment.topCenter,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeInOut,
+      ),
+    );
   }
 
   @override
@@ -60,15 +62,15 @@ class _KanjiSearchBodyState extends State<KanjiSearchBody>
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Container(
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: AnimatedBuilder(
             animation: _searchbarMovementAnimation,
-            builder: (BuildContext context, _) {
+            builder: (context, _) {
               return Container(
                 alignment: _searchbarMovementAnimation.value,
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -83,17 +85,17 @@ class _KanjiSearchBodyState extends State<KanjiSearchBody>
                       child: KanjiSearchBar(
                         key: _kanjiSearchBarState,
                         onChanged: (text) => setState(() {
-                          this.suggestions = kanjiSuggestions(text);
+                          suggestions = kanjiSuggestions(text);
                         }),
                       ),
                     ),
                     AnimatedSizeAndFade(
                       vsync: this,
-                      child: _controller.value == 1
-                          ? KanjiGrid(this.suggestions)
-                          : KanjiSearchOptionsBar(),
                       fadeDuration: const Duration(milliseconds: 200),
                       sizeDuration: const Duration(milliseconds: 300),
+                      child: _controller.value == 1
+                          ? KanjiGrid(suggestions: suggestions)
+                          : const KanjiSearchOptionsBar(),
                     ),
                   ],
                 ),

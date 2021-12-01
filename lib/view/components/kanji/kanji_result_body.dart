@@ -14,14 +14,13 @@ class KanjiResultBody extends StatelessWidget {
   late final String query;
   late final jisho.KanjiResultData resultData;
 
-  KanjiResultBody({required jisho.KanjiResult result}) {
-
+  KanjiResultBody({required jisho.KanjiResult result, Key? key})
+      : super(key: key) {
     query = result.query;
 
     // TODO: Handle this kind of exception before widget is initialized
-    if (result.data == null)
-      throw Exception();
-    
+    if (result.data == null) throw Exception();
+
     resultData = result.data!;
   }
 
@@ -30,68 +29,72 @@ class KanjiResultBody extends StatelessWidget {
     return ListView(
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 30.0),
+          margin: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 30.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Flexible(
-                flex: 1,
+              const Flexible(
                 fit: FlexFit.tight,
                 child: Center(child: SizedBox()),
               ),
               Flexible(
-                flex: 1,
                 fit: FlexFit.tight,
-                child: Center(child: Header(query)),
+                child: Center(child: Header(kanji: query)),
               ),
               Flexible(
-                flex: 1,
                 fit: FlexFit.tight,
                 child: Center(
-                  child: (resultData.radical != null) ? Radical(resultData.radical!) : SizedBox(),
+                  child: (resultData.radical != null)
+                      ? Radical(radical: resultData.radical!)
+                      : const SizedBox(),
                 ),
               ),
             ],
           ),
         ),
-        YomiChips(resultData.meaning.split(', '), YomiType.meaning),
-        resultData.onyomi.length != 0 ? YomiChips(resultData.onyomi, YomiType.onyomi) : SizedBox.shrink(),
-        resultData.kunyomi.length != 0 ? YomiChips(resultData.kunyomi, YomiType.kunyomi) : SizedBox.shrink(),
+        YomiChips(yomi: resultData.meaning.split(', '), type: YomiType.meaning),
+        (resultData.onyomi.isNotEmpty)
+            ? YomiChips(yomi: resultData.onyomi, type: YomiType.onyomi)
+            : const SizedBox.shrink(),
+        (resultData.kunyomi.isNotEmpty)
+            ? YomiChips(yomi: resultData.kunyomi, type: YomiType.kunyomi)
+            : const SizedBox.shrink(),
         IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StrokeOrderGif(resultData.strokeOrderGifUri),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text("JLPT: ", style: TextStyle(fontSize: 20.0)),
-                        JlptLevel(resultData.jlptLevel ?? "⨉"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("Grade: ", style: TextStyle(fontSize: 20.0)),
-                        Grade(resultData.taughtIn ?? "⨉"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("Rank: ", style: TextStyle(fontSize: 20.0)),
-                        Rank(resultData.newspaperFrequencyRank ?? -1),
-                      ],
-                    ),
-                  ],
-                ),
+              StrokeOrderGif(uri: resultData.strokeOrderGifUri),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Text('JLPT: ', style: TextStyle(fontSize: 20.0)),
+                      JlptLevel(jlptLevel: resultData.jlptLevel ?? '⨉'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text('Grade: ', style: TextStyle(fontSize: 20.0)),
+                      Grade(grade: resultData.taughtIn ?? '⨉'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text('Rank: ', style: TextStyle(fontSize: 20.0)),
+                      Rank(rank: resultData.newspaperFrequencyRank ?? -1),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        Examples(resultData.onyomiExamples, resultData.kunyomiExamples),
+        Examples(
+          onyomi: resultData.onyomiExamples,
+          kunyomi: resultData.kunyomiExamples,
+        ),
       ],
     );
   }

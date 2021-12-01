@@ -4,22 +4,22 @@ import './badge.dart';
 class JLPTBadge extends StatelessWidget {
   final String jlptLevel;
 
-  const JLPTBadge(this.jlptLevel);
+  const JLPTBadge({
+    required this.jlptLevel,
+    Key? key,
+  }) : super(key: key);
 
-  String _extractJlptLevel(String jlptRaw) {
-    return jlptRaw.isNotEmpty ? jlptRaw.substring(5).toUpperCase() : '';
-  }
+  String get formattedJlptLevel =>
+      jlptLevel.isNotEmpty ? jlptLevel.substring(5).toUpperCase() : '';
 
   @override
   Widget build(BuildContext context) {
     return Badge(
-      Text(
-        _extractJlptLevel(this.jlptLevel),
-        style: TextStyle(
-          color: Colors.white
-        ),
+      color: jlptLevel.isNotEmpty ? Colors.blue : Colors.transparent,
+      child: Text(
+        formattedJlptLevel,
+        style: const TextStyle(color: Colors.white),
       ),
-      this.jlptLevel.isNotEmpty ? Colors.blue : Colors.transparent
     );
   }
 }

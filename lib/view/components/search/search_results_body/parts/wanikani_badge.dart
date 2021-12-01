@@ -14,13 +14,13 @@ class WKBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      Text(
+      child: Text(
         _extractWkLevel(this.wkLevel),
         style: TextStyle(
           color: Colors.white,
         ),
       ),
-      this.wkLevel.isNotEmpty ? Colors.red : Colors.transparent
+      color: this.wkLevel.isNotEmpty ? Colors.red : Colors.transparent
     );
   }
 }

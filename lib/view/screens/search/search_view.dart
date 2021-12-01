@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/view/components/search/search_bar.dart';
+import '../../components/search/search_bar.dart';
 
 class SearchView extends StatelessWidget {
+  const SearchView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const <Widget>[
         SearchBar(),
       ],
     );

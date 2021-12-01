@@ -1,4 +1,3 @@
-
 import 'package:objectbox/objectbox.dart';
 
 abstract class DatabaseState {

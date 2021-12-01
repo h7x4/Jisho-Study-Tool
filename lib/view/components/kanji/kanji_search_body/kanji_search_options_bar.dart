@@ -12,22 +12,22 @@ class KanjiSearchOptionsBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _IconButton(
-            icon: Text(
-              "部",
+            icon: const Text(
+              '部',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
               ),
             ),
-            onPressed: () {}
+            onPressed: () {},
           ),
           _IconButton(
-            icon: Icon(Icons.category),
-            onPressed: () {}
+            icon: const Icon(Icons.category),
+            onPressed: () {},
           ),
           _IconButton(
-            icon: Icon(Icons.mode),
-            onPressed: () {}
+            icon: const Icon(Icons.mode),
+            onPressed: () {},
           ),
         ],
       ),
