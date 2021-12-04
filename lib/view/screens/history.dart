@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:jisho_study_tool/view/components/common/loading.dart';
 import 'package:sembast/sembast.dart';
 
 import '../../models/history/search.dart';
@@ -37,11 +38,14 @@ class HistoryView extends StatelessWidget {
     return StreamBuilder<List<Search>>(
       stream: searchStream,
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
+        if (!snapshot.hasData) return const LoadingScreen();
+
+        final List<Search> data = snapshot.data!;
+        if (data.isEmpty)
           return const Center(
             child: Text('The history is empty.\nTry searching for something!'),
           );
-        final List<Search> data = snapshot.data!;
+
         return OpaqueBox(
           child: ListView.separated(
             itemCount: data.length + 1,
