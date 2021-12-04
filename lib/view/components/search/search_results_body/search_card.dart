@@ -34,7 +34,7 @@ class SearchResultCard extends StatelessWidget {
             Row(
               children: [
                 WKBadge(
-                  result.tags.firstWhere(
+                  level: result.tags.firstWhere(
                     (tag) => tag.contains('wanikani'),
                     orElse: () => '',
                   ),

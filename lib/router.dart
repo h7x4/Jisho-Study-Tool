@@ -12,13 +12,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const Home());
 
     case '/search':
-      final searchTerm = args as String;
+      final searchTerm = args! as String;
       return MaterialPageRoute(
         builder: (_) => SearchResultsPage(searchTerm: searchTerm),
       );
 
     case '/kanjiSearch':
-      final searchTerm = args as String;
+      final searchTerm = args! as String;
       return MaterialPageRoute(
         builder: (_) => KanjiResultPage(kanjiSearchTerm: searchTerm),
       );

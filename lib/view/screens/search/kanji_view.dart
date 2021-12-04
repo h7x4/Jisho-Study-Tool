@@ -8,6 +8,6 @@ class KanjiView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KanjiSearchBody();
+    return const KanjiSearchBody();
   }
 }

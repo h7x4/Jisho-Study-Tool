@@ -54,26 +54,26 @@ class KanjiSearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      child: SearchItem(
-        onTap: () {
-          Navigator.pushNamed(context, '/kanjiSearch', arguments: this.result.kanji);
-        },
-        time: timestamp,
-        search: _KanjiBox(result.kanji),
-      ),
-      actionPane: SlidableScrollActionPane(),
-      secondaryActions: [
+      actionPane: const SlidableScrollActionPane(),
+      secondaryActions: const [
         IconSlideAction(
-          caption: "Favourite",
+          caption: 'Favourite',
           color: Colors.yellow,
           icon: Icons.star,
         ),
         IconSlideAction(
-          caption: "Delete",
+          caption: 'Delete',
           color: Colors.red,
           icon: Icons.delete,
         ),
       ],
+      child: SearchItem(
+        onTap: () {
+          Navigator.pushNamed(context, '/kanjiSearch', arguments: result.kanji);
+        },
+        time: timestamp,
+        search: _KanjiBox(result.kanji),
+      ),
     );
   }
 }

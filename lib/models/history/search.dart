@@ -1,5 +1,4 @@
 import 'package:sembast/sembast.dart';
-import 'package:sembast/timestamp.dart';
 
 import './kanji_query.dart';
 import './word_query.dart';

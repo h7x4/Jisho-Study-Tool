@@ -7,7 +7,7 @@ class KanjiSearchBar extends StatefulWidget {
   const KanjiSearchBar({this.onChanged, Key? key}) : super(key: key);
 
   @override
-  KanjiSearchBarState createState() => KanjiSearchBarState(this.onChanged);
+  KanjiSearchBarState createState() => KanjiSearchBarState();
 }
 
 enum TextFieldButton { clear, paste }
@@ -15,9 +15,6 @@ enum TextFieldButton { clear, paste }
 class KanjiSearchBarState extends State<KanjiSearchBar> {
   final TextEditingController textController = TextEditingController();
   TextFieldButton button = TextFieldButton.paste;
-  final Function(String)? onChanged;
-
-  KanjiSearchBarState(this.onChanged);
 
   @override
   void initState() {
@@ -25,7 +22,7 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
   }
 
   void runOnChanged() {
-      if (onChanged != null) onChanged!(textController.text);
+    if (widget.onChanged != null) widget.onChanged!(textController.text);
   }
 
   void clearText() {
@@ -56,7 +53,7 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
     return TextField(
       controller: textController,
       onChanged: (text) {
-        if (onChanged != null) onChanged!(text);
+        if (widget.onChanged != null) widget.onChanged!(text);
       },
       onSubmitted: (_) => {},
       decoration: InputDecoration(

@@ -4,24 +4,22 @@ part of 'theme_bloc.dart';
 abstract class ThemeState {
   final bool prefsAreLoaded;
 
-  const ThemeState(this.prefsAreLoaded);
+  const ThemeState({required this.prefsAreLoaded});
 
   AppTheme get theme;
 }
 
 class LightThemeState extends ThemeState {
-  final bool prefsAreLoaded;
-
-  const LightThemeState({this.prefsAreLoaded = false}) : super(prefsAreLoaded);
+  const LightThemeState({bool prefsAreLoaded = false})
+      : super(prefsAreLoaded: prefsAreLoaded);
 
   @override
   AppTheme get theme => LightTheme();
 }
 
 class DarkThemeState extends ThemeState {
-  final bool prefsAreLoaded;
-
-  const DarkThemeState({this.prefsAreLoaded = false}) : super(prefsAreLoaded);
+  const DarkThemeState({bool prefsAreLoaded = false})
+      : super(prefsAreLoaded: prefsAreLoaded);
 
   @override
   AppTheme get theme => DarkTheme();
