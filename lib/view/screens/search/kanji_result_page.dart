@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
 
-import '../../../bloc/database/database_bloc.dart';
 import '../../../models/history/kanji_query.dart';
 import '../../../models/history/search.dart';
 import '../../../services/jisho_api/kanji_search.dart';
@@ -19,18 +20,18 @@ class KanjiResultPage extends StatelessWidget {
       appBar: AppBar(),
       body: FutureBuilder<KanjiResult>(
         future: fetchKanji(kanjiSearchTerm),
-        builder: ( context, snapshot) {
-          if (!snapshot.hasData) return LoadingScreen();
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return const LoadingScreen();
           if (snapshot.hasError) return ErrorWidget(snapshot.error!);
 
           if (!addedToDatabase) {
-            (BlocProvider.of<DatabaseBloc>(context).state as DatabaseConnected)
-                .database
-                .box<Search>()
-                .put(Search(timestamp: DateTime.now())
-                  ..kanjiQuery.target = KanjiQuery(
-                    kanji: kanjiSearchTerm,
-                  ),);
+            Search.store.add(
+              GetIt.instance.get<Database>(),
+              Search.fromKanjiQuery(
+                timestamp: DateTime.now(),
+                kanjiQuery: KanjiQuery(kanji: kanjiSearchTerm),
+              ).toJson(),
+            );
             addedToDatabase = true;
           }
 

@@ -1,13 +1,13 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../bloc/database/database_bloc.dart';
 import '../../bloc/theme/theme_bloc.dart';
 import '../../models/history/search.dart';
 import '../../models/themes/theme.dart';
-import '../../objectbox.g.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -41,9 +41,18 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   /// Update stored preferences with values from setting page state
-  void _updatePrefs() {
+  Future<void> _updatePrefs() async {
     prefs.setBool('darkThemeEnabled', darkThemeEnabled);
     prefs.setBool('autoThemeEnabled', autoThemeEnabled);
+  }
+
+  Future<void> clearHistory(context) async {
+    final bool userIsSure = await confirm(context);
+
+    if (userIsSure) {
+      final Database db = GetIt.instance.get<Database>();
+      await Search.store.delete(db);
+    }
   }
 
   @override
@@ -133,12 +142,11 @@ class _SettingsViewState extends State<SettingsView> {
               title: 'Export Data',
               enabled: false,
             ),
-            const SettingsTile(
-              leading: Icon(Icons.delete),
+            SettingsTile(
+              leading: const Icon(Icons.delete),
               title: 'Clear History',
-              onPressed: _clearHistory,
-              titleTextStyle: TextStyle(color: Colors.red),
-              enabled: false,
+              onPressed: clearHistory,
+              titleTextStyle: const TextStyle(color: Colors.red),
             ),
             SettingsTile(
               leading: const Icon(Icons.delete),
@@ -152,16 +160,4 @@ class _SettingsViewState extends State<SettingsView> {
       ],
     );
   }
-}
-
-void _clearHistory(context) {
-  confirm(context).then((userIsSure) {
-    if (userIsSure) {
-      final Store db =
-          (BlocProvider.of<DatabaseBloc>(context).state as DatabaseConnected)
-              .database;
-      // db.box<Search>().query().build().find()
-      db.box<Search>().removeAll();
-    }
-  });
 }

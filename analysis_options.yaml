@@ -1,6 +1,5 @@
 analyzer:
   exclude:
-    - "lib/objectbox.g.dart"
 
 linter:
   rules:

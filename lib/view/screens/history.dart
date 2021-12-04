@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
 
-import '../../bloc/database/database_bloc.dart';
 import '../../models/history/search.dart';
-import '../../objectbox.g.dart';
 import '../components/history/date_divider.dart';
 import '../components/history/kanji_search_item.dart';
 import '../components/history/phrase_search_item.dart';
@@ -11,60 +11,63 @@ import '../components/opaque_box.dart';
 class HistoryView extends StatelessWidget {
   const HistoryView({Key? key}) : super(key: key);
 
+  Database get _db => GetIt.instance.get<Database>();
+
+  Stream<List<Search>> get searchStream => Search.store
+          .query(
+            finder: Finder(
+              sortOrders: [SortOrder('timestamp', false)],
+            ),
+          )
+          .onSnapshots(_db)
+          .map((snapshot) {
+        return snapshot
+            .map<Search?>(
+              (snap) => (snap.value != null)
+                  ? Search.fromJson(snap.value! as Map<String, Object?>)
+                  : null,
+            )
+            .where((s) => s != null)
+            .map<Search>((s) => s!)
+            .toList();
+      });
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DatabaseBloc, DatabaseState>(
-      builder: (context, state) {
-        if (state is DatabaseDisconnected) {
-          throw DatabaseNotConnectedException();
-        }
-
-        return StreamBuilder<List<Search>>(
-          stream: getAsyncStream(state),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Container();
-            }
-
-            final List<Search> data = snapshot.data!;
-            return OpaqueBox(
-              child: ListView.separated(
-                itemCount: data.length + 1,
-                itemBuilder: historyEntryWithData(data),
-                separatorBuilder: historyEntrySeparatorWithData(data),
-              ),
-            );
-          },
+    return StreamBuilder<List<Search>>(
+      stream: searchStream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
+          return const Center(
+            child: Text('The history is empty.\nTry searching for something!'),
+          );
+        final List<Search> data = snapshot.data!;
+        return OpaqueBox(
+          child: ListView.separated(
+            itemCount: data.length + 1,
+            itemBuilder: historyEntryWithData(data),
+            separatorBuilder: historyEntrySeparatorWithData(data),
+          ),
         );
       },
     );
   }
 
-  Stream<List<Search>> getAsyncStream(DatabaseState state) =>
-      ((state as DatabaseConnected).database.box<Search>().query()
-            ..order(Search_.timestamp, flags: Order.descending))
-          .watch(triggerImmediately: true)
-          .map((query) => query.find());
-
   Widget Function(BuildContext, int) historyEntryWithData(List<Search> data) =>
       (context, index) {
-        if (index == 0) {
-          return Container();
-        }
+        if (index == 0) return Container();
 
         final Search search = data[index - 1];
 
-        if (search.isKanji()) {
-          return KanjiSearchItem(
-            result: search.kanjiQuery.target!,
-            timestamp: search.timestamp,
-          );
-        } else {
-          return PhraseSearchItem(
-            search: search.wordQuery.target!,
-            timestamp: search.timestamp,
-          );
-        }
+        return (search.isKanji)
+            ? KanjiSearchItem(
+                result: search.kanjiQuery!,
+                timestamp: search.timestamp,
+              )
+            : PhraseSearchItem(
+                search: search.wordQuery!,
+                timestamp: search.timestamp,
+              );
       };
 
   DateTime roundToDay(DateTime date) =>

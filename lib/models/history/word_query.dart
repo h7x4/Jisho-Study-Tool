@@ -1,19 +1,17 @@
-import 'package:objectbox/objectbox.dart';
-
 import './word_result.dart';
 
-@Entity()
 class WordQuery {
-  int id;
-
-  String query;
+  final String query;
 
   // TODO: Link query with results that the user clicks onto.
-  @Backlink()
-  final chosenResults = ToMany<WordResult>();
+  // final List<WordResult> chosenResults;
 
   WordQuery({
-    this.id = 0,
     required this.query,
   });
+
+  Map<String, Object?> toJson() => {'query': query};
+
+  factory WordQuery.fromJson(Map<String, dynamic> json) =>
+      WordQuery(query: json['query'] as String);
 }

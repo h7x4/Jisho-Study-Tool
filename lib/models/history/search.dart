@@ -1,30 +1,43 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:sembast/sembast.dart';
+import 'package:sembast/timestamp.dart';
 
 import './kanji_query.dart';
 import './word_query.dart';
 
-@Entity()
 class Search {
-  int id;
+  final DateTime timestamp;
+  final WordQuery? wordQuery;
+  final KanjiQuery? kanjiQuery;
 
-  @Property(type: PropertyType.date)
-  late final DateTime timestamp;
-
-  final wordQuery = ToOne<WordQuery>();
-
-  final kanjiQuery = ToOne<KanjiQuery>();
-
-  Search({
-    this.id = 0,
+  Search.fromKanjiQuery({
     required this.timestamp,
-  });
+    required KanjiQuery this.kanjiQuery,
+  }) : wordQuery = null;
 
-  bool isKanji() {  
-  //   // TODO: better error message
-    if (wordQuery.target == null && kanjiQuery.target == null)
-      throw Exception();
-    
-    return wordQuery.target == null;
-  }
+  Search.fromWordQuery({
+    required this.timestamp,
+    required WordQuery this.wordQuery,
+  }) : kanjiQuery = null;
 
+  bool get isKanji => wordQuery == null;
+
+  Map<String, Object?> toJson() => {
+        'timestamp': timestamp.millisecondsSinceEpoch,
+        'wordQuery': wordQuery?.toJson(),
+        'kanjiQuery': kanjiQuery?.toJson(),
+      };
+
+  factory Search.fromJson(Map<String, dynamic> json) =>
+      json['wordQuery'] != null
+          ? Search.fromWordQuery(
+              timestamp:
+                  DateTime.fromMillisecondsSinceEpoch(json['timestamp'] as int),
+              wordQuery: WordQuery.fromJson(json['wordQuery']),
+            )
+          : Search.fromKanjiQuery(
+              timestamp: DateTime.fromMillisecondsSinceEpoch(json['timestamp'] as int),
+              kanjiQuery: KanjiQuery.fromJson(json['kanjiQuery']),
+            );
+
+  static StoreRef<int, Object?> get store => intMapStoreFactory.store('search');
 }

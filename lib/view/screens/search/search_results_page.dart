@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
 
-import '../../../bloc/database/database_bloc.dart';
 import '../../../models/history/search.dart';
 import '../../../models/history/word_query.dart';
 import '../../../services/jisho_api/jisho_search.dart';
@@ -23,20 +24,18 @@ class SearchResultsPage extends StatelessWidget {
       body: FutureBuilder<JishoAPIResult>(
         future: results,
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return LoadingScreen();
+          if (!snapshot.hasData) return const LoadingScreen();
           if (snapshot.hasError || snapshot.data!.data == null)
             return ErrorWidget(snapshot.error!);
 
           if (!addedToDatabase) {
-            (BlocProvider.of<DatabaseBloc>(context).state as DatabaseConnected)
-                .database
-                .box<Search>()
-                .put(
-                  Search(timestamp: DateTime.now())
-                    ..wordQuery.target = WordQuery(
-                      query: searchTerm,
-                    ),
-                );
+            Search.store.add(
+              GetIt.instance.get<Database>(),
+              Search.fromWordQuery(
+                timestamp: DateTime.now(),
+                wordQuery: WordQuery(query: searchTerm),
+              ).toJson(),
+            );
             addedToDatabase = true;
           }
 
