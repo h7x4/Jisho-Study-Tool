@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/themes/theme.dart';
@@ -13,24 +12,20 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  bool prefsAreLoaded = false;
-
   ThemeBloc() : super(const LightThemeState()) {
-    SharedPreferences.getInstance().then((prefs) {
-      prefsAreLoaded = true;
-      add(
-        SetTheme(
-          themeIsDark: prefs.getBool('darkThemeEnabled') ?? false,
-        ),
-      );
-    });
-  }
+    on<SetTheme>(
+      (event, emit) => emit(
+        event.themeIsDark ? const DarkThemeState() : const LightThemeState(),
+      ),
+    );
 
-  @override
-  Stream<ThemeState> mapEventToState(ThemeEvent event) async* {
-    if (event is SetTheme)
-      yield event.themeIsDark
-          ? DarkThemeState(prefsAreLoaded: prefsAreLoaded)
-          : LightThemeState(prefsAreLoaded: prefsAreLoaded);
+    add(
+      SetTheme(
+        themeIsDark: GetIt.instance
+                .get<SharedPreferences>()
+                .getBool('darkThemeEnabled') ??
+            false,
+      ),
+    );
   }
 }

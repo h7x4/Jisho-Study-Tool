@@ -17,14 +17,19 @@ class PhraseSearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      actionPane: const SlidableScrollActionPane(),
-      secondaryActions: const [
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+
+        SlidableAction(
+          label: 'Delete',
+          backgroundColor: Colors.red,
           icon: Icons.delete,
+          onPressed: (_) {},
         ),
-      ],
+        ],
+
+      ),
       child: SearchItem(
         onTap: () => Navigator.pushNamed(
           context,

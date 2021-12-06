@@ -90,7 +90,6 @@ class _KanjiSearchBodyState extends State<KanjiSearchBody>
                       ),
                     ),
                     AnimatedSizeAndFade(
-                      vsync: this,
                       fadeDuration: const Duration(milliseconds: 200),
                       sizeDuration: const Duration(milliseconds: 300),
                       child: _controller.value == 1

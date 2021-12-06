@@ -13,7 +13,8 @@ class _KanjiBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorSet _menuColors = BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyLight;
+    final ColorSet _menuColors =
+        BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyLight;
 
     return IntrinsicHeight(
       child: AspectRatio(
@@ -54,19 +55,23 @@ class KanjiSearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      actionPane: const SlidableScrollActionPane(),
-      secondaryActions: const [
-        IconSlideAction(
-          caption: 'Favourite',
-          color: Colors.yellow,
-          icon: Icons.star,
-        ),
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-        ),
-      ],
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            label: 'Favourite',
+            backgroundColor: Colors.yellow,
+            icon: Icons.star,
+            onPressed: (_) {},
+          ),
+          SlidableAction(
+            label: 'Delete',
+            backgroundColor: Colors.red,
+            icon: Icons.delete,
+            onPressed: (_) {},
+          ),
+        ],
+      ),
       child: SearchItem(
         onTap: () {
           Navigator.pushNamed(context, '/kanjiSearch', arguments: result.kanji);

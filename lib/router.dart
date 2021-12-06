@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+import 'view/home.dart';
 import 'view/screens/search/kanji_result_page.dart';
 import 'view/screens/search/search_results_page.dart';
 
-Route<dynamic> generateRoute(RouteSettings settings) {
+Route<Widget> generateRoute(RouteSettings settings) {
   final args = settings.arguments;
 
   switch (settings.name) {

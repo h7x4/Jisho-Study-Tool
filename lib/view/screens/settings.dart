@@ -17,7 +17,7 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  late final SharedPreferences prefs;
+  final SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
 
   bool darkThemeEnabled = false;
   bool autoThemeEnabled = false;
@@ -25,19 +25,8 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   void initState() {
     super.initState();
-
-    SharedPreferences.getInstance().then((prefs) {
-      this.prefs = prefs;
-      _getPrefs();
-    });
-  }
-
-  /// Get stored preferences and set setting page state accordingly
-  void _getPrefs() {
-    setState(() {
-      darkThemeEnabled = prefs.getBool('darkThemeEnabled') ?? darkThemeEnabled;
-      autoThemeEnabled = prefs.getBool('autoThemeEnabled') ?? autoThemeEnabled;
-    });
+    darkThemeEnabled = prefs.getBool('darkThemeEnabled') ?? darkThemeEnabled;
+    autoThemeEnabled = prefs.getBool('autoThemeEnabled') ?? autoThemeEnabled;
   }
 
   /// Update stored preferences with values from setting page state
