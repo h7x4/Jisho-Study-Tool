@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/search/search_bloc.dart';
-import 'package:jisho_study_tool/view/components/search/language_selector.dart';
+
+import 'language_selector.dart';
 
 class SearchBar extends StatelessWidget {
-
-  const SearchBar();
+  const SearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
           TextField(
-            onSubmitted: (text) {
-              BlocProvider.of<SearchBloc>(context)
-                .add(GetSearchResults(text));
-              },
+            onSubmitted: (text) =>
+                Navigator.pushNamed(context, '/search', arguments: text),
             controller: TextEditingController(),
             decoration: InputDecoration(
               labelText: 'Search',
@@ -25,10 +22,8 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 10.0,
-          ),
-          LanguageSelector()
+          const SizedBox(height: 10.0),
+          const LanguageSelector()
         ],
       ),
     );

@@ -13,26 +13,24 @@ class SearchItem extends StatelessWidget {
   }) : super(key: key);
 
   String getTime() {
-    final hours = this.time.hour.toString().padLeft(2, '0');
-    final mins = this.time.minute.toString().padLeft(2, '0');
-    return "$hours:$mins";
+    final hours = time.hour.toString().padLeft(2, '0');
+    final mins = time.minute.toString().padLeft(2, '0');
+    return '$hours:$mins';
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        onTap: onTap,
-        contentPadding: EdgeInsets.zero,
-        title: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(getTime()),
-            ),
-            search,
-          ],
-        ),
+    return ListTile(
+      onTap: onTap,
+      contentPadding: EdgeInsets.zero,
+      title: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(getTime()),
+          ),
+          search,
+        ],
       ),
     );
   }

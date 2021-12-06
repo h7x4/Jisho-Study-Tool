@@ -1,22 +1,23 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/bloc/database/database_bloc.dart';
-import 'package:jisho_study_tool/bloc/theme/theme_bloc.dart';
-import 'package:jisho_study_tool/models/history/search.dart';
-import 'package:jisho_study_tool/models/themes/theme.dart';
-import 'package:jisho_study_tool/objectbox.g.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sembast/sembast.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../bloc/theme/theme_bloc.dart';
+import '../../models/history/search.dart';
+import '../../models/themes/theme.dart';
+
 class SettingsView extends StatefulWidget {
-  SettingsView({Key? key}) : super(key: key);
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   _SettingsViewState createState() => _SettingsViewState();
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  late final SharedPreferences prefs;
+  final SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
 
   bool darkThemeEnabled = false;
   bool autoThemeEnabled = false;
@@ -24,41 +25,41 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   void initState() {
     super.initState();
-
-    SharedPreferences.getInstance().then((prefs) {
-      this.prefs = prefs;
-      _getPrefs();
-    });
-  }
-
-  /// Get stored preferences and set setting page state accordingly
-  void _getPrefs() {
-    setState(() {
-      darkThemeEnabled = prefs.getBool('darkThemeEnabled') ?? darkThemeEnabled;
-      autoThemeEnabled = prefs.getBool('autoThemeEnabled') ?? autoThemeEnabled;
-    });
+    darkThemeEnabled = prefs.getBool('darkThemeEnabled') ?? darkThemeEnabled;
+    autoThemeEnabled = prefs.getBool('autoThemeEnabled') ?? autoThemeEnabled;
   }
 
   /// Update stored preferences with values from setting page state
-  void _updatePrefs() async {
-    await prefs.setBool('darkThemeEnabled', darkThemeEnabled);
-    await prefs.setBool('autoThemeEnabled', autoThemeEnabled);
+  Future<void> _updatePrefs() async {
+    prefs.setBool('darkThemeEnabled', darkThemeEnabled);
+    prefs.setBool('autoThemeEnabled', autoThemeEnabled);
   }
 
+  Future<void> clearHistory(context) async {
+    final bool userIsSure = await confirm(context);
+
+    if (userIsSure) {
+      final Database db = GetIt.instance.get<Database>();
+      await Search.store.delete(db);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final TextStyle _titleTextStyle = TextStyle(
-        color: BlocProvider.of<ThemeBloc>(context).state is DarkThemeState
-            ? AppTheme.jishoGreen.background
-            : null);
+      color: BlocProvider.of<ThemeBloc>(context).state is DarkThemeState
+          ? AppTheme.jishoGreen.background
+          : null,
+    );
 
     return SettingsList(
       backgroundColor: Colors.transparent,
-      contentPadding: EdgeInsets.symmetric(vertical: 10),
-      sections: [
+      contentPadding: const EdgeInsets.symmetric(vertical: 10),
+      sections: <SettingsSection>[
         SettingsSection(
           title: 'Theme',
           titleTextStyle: _titleTextStyle,
-          tiles: [
+          tiles: <SettingsTile>[
             SettingsTile.switchTile(
               title: 'Automatically determine theme',
               onToggle: (b) {
@@ -74,7 +75,8 @@ class _SettingsViewState extends State<SettingsView> {
             SettingsTile.switchTile(
               title: 'Dark Theme',
               onToggle: (b) {
-                BlocProvider.of<ThemeBloc>(context).add(SetTheme(themeIsDark: b));
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(SetTheme(themeIsDark: b));
                 setState(() {
                   darkThemeEnabled = b;
                 });
@@ -89,7 +91,7 @@ class _SettingsViewState extends State<SettingsView> {
         SettingsSection(
           title: 'Cache',
           titleTextStyle: _titleTextStyle,
-          tiles: [
+          tiles: <SettingsTile>[
             SettingsTile.switchTile(
               title: 'Cache grade 1-7 kanji',
               switchValue: false,
@@ -123,39 +125,28 @@ class _SettingsViewState extends State<SettingsView> {
         SettingsSection(
           title: 'Data',
           titleTextStyle: _titleTextStyle,
-          tiles: [
-            SettingsTile(
+          tiles: <SettingsTile>[
+            const SettingsTile(
               leading: Icon(Icons.file_download),
               title: 'Export Data',
               enabled: false,
             ),
             SettingsTile(
-              leading: Icon(Icons.delete),
+              leading: const Icon(Icons.delete),
               title: 'Clear History',
-              onPressed: _clearHistory,
-              titleTextStyle: TextStyle(color: Colors.red),
-              enabled: false,
+              onPressed: clearHistory,
+              titleTextStyle: const TextStyle(color: Colors.red),
             ),
             SettingsTile(
-              leading: Icon(Icons.delete),
+              leading: const Icon(Icons.delete),
               title: 'Clear Favourites',
               onPressed: (c) {},
-              titleTextStyle: TextStyle(color: Colors.red),
+              titleTextStyle: const TextStyle(color: Colors.red),
               enabled: false,
             )
           ],
         ),
       ],
     );
-  }
-}
-
-void _clearHistory(context) async {
-  if (await confirm(context)) {
-    Store db =
-        (BlocProvider.of<DatabaseBloc>(context).state as DatabaseConnected)
-            .database;
-    // db.box<Search>().query().build().find()
-    db.box<Search>().removeAll();
   }
 }
