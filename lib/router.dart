@@ -23,6 +23,9 @@ Route<Widget> generateRoute(RouteSettings settings) {
         builder: (_) => KanjiResultPage(kanjiSearchTerm: searchTerm),
       );
 
+    case '/kanjiSearch/draw':
+      return MaterialPageRoute(builder: (_) => const KanjiDrawingSearch());
+
     default:
       return MaterialPageRoute(
         builder: (_) => const Text('ERROR: this route does not exist'),

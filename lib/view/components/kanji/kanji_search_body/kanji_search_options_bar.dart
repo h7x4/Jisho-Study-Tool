@@ -27,7 +27,7 @@ class KanjiSearchOptionsBar extends StatelessWidget {
           ),
           _IconButton(
             icon: const Icon(Icons.mode),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, '/kanjiSearch/draw'),
           ),
         ],
       ),
