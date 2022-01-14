@@ -19,7 +19,7 @@ class KanjiSearchOptionsBar extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.pushNamed(context, '/kanjiSearch/radicals'),
           ),
           _IconButton(
             icon: const Icon(Icons.category),
