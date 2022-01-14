@@ -1,13 +1,12 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sembast/sembast.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../bloc/theme/theme_bloc.dart';
 import '../../models/history/search.dart';
-import '../../models/themes/theme.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -126,8 +125,8 @@ class _SettingsViewState extends State<SettingsView> {
           title: 'Data',
           titleTextStyle: _titleTextStyle,
           tiles: <SettingsTile>[
-            const SettingsTile(
-              leading: Icon(Icons.file_download),
+            SettingsTile(
+              leading: const Icon(Icons.file_download),
               title: 'Export Data',
               enabled: false,
             ),
