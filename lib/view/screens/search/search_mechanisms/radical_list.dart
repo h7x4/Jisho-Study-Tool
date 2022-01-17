@@ -59,14 +59,11 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
   }
 
   Widget radicalGridElement(String radical, {bool isNumber = false}) {
-    // final theme = BlocProvider.of<ThemeBloc>(context).state.theme;
-    final theme = LightTheme();
-
     final color = isNumber
-        ? theme.menuGreyDark
+        ? LightTheme.defaultMenuGreyDark
         : radicalToggles[radical]!
             ? AppTheme.jishoGreen
-            : theme.menuGreyNormal;
+            : LightTheme.defaultMenuGreyNormal;
 
     return InkWell(
       onTap: isNumber
@@ -123,7 +120,7 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
           .toList();
 
   Widget kanjiGridElement(String kanji) {
-    final color = LightTheme().menuGreyNormal;
+    const color = LightTheme.defaultMenuGreyNormal;
     return InkWell(
       onTap: () => Navigator.popAndPushNamed(
         context,

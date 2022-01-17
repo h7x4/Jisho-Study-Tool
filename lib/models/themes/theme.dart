@@ -4,6 +4,8 @@ part 'light.dart';
 part 'dark.dart';
 
 abstract class AppTheme {
+  const AppTheme();
+
   static const ColorSet jishoGreen = ColorSet(
     foreground: Colors.white,
     background: Color(0xFF3EDD00),

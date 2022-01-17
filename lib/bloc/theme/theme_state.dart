@@ -11,12 +11,12 @@ class LightThemeState extends ThemeState {
   const LightThemeState();
 
   @override
-  AppTheme get theme => LightTheme();
+  AppTheme get theme => const LightTheme();
 }
 
 class DarkThemeState extends ThemeState {
   const DarkThemeState();
 
   @override
-  AppTheme get theme => DarkTheme();
+  AppTheme get theme => const DarkTheme();
 }
