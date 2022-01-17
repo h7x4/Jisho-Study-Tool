@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//TODO: Make buttons have an effect
+import '../../../../bloc/theme/theme_bloc.dart';
 
 class KanjiSearchOptionsBar extends StatelessWidget {
   const KanjiSearchOptionsBar({Key? key}) : super(key: key);
@@ -12,19 +12,16 @@ class KanjiSearchOptionsBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _IconButton(
-            icon: const Text(
-              '部',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-            ),
-            onPressed: () => Navigator.pushNamed(context, '/kanjiSearch/radicals'),
+            icon: const Icon(Icons.pie_chart),
+            onPressed: () =>
+                Navigator.pushNamed(context, '/kanjiSearch/radicals'),
           ),
+          const SizedBox(width: 10,),
           _IconButton(
-            icon: const Icon(Icons.category),
-            onPressed: () {},
+            icon: const Icon(Icons.school),
+            onPressed: () => Navigator.pushNamed(context, '/kanjiSearch/grade'),
           ),
+          const SizedBox(width: 10,),
           _IconButton(
             icon: const Icon(Icons.mode),
             onPressed: () => Navigator.pushNamed(context, '/kanjiSearch/draw'),
@@ -47,6 +44,11 @@ class _IconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: onPressed, icon: icon);
+    return IconButton(
+      onPressed: onPressed,
+      icon: icon,
+      iconSize: 30,
+      color: BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyDark.background,
+    );
   }
 }
