@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../bloc/theme/theme_bloc.dart';
-import '../../../../services/jisho_api/radicals.dart';
+import '../../../../data/radicals.dart';
 import '../../../../services/jisho_api/radicals_search.dart';
 
 class KanjiRadicalSearch extends StatefulWidget {
