@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../services/romaji_transliteration.dart';
+import '../../../settings.dart';
 
 enum YomiType {
   onyomi,
@@ -68,9 +70,10 @@ class YomiChips extends StatelessWidget {
           ),
         ),
       );
-
+  
   Widget yomiWrapper(BuildContext context) {
     final yomiCards = yomi
+        .map((y) => romajiEnabled ? transliterateKanaToLatin(y) : y)
         .map((y) => yomiCard(yomi: y, colors: type.getColors(context)))
         .toList();
 

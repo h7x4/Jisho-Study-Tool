@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import '../../../../bloc/theme/theme_bloc.dart';
+import '../../../../services/romaji_transliteration.dart';
+import '../../../../settings.dart';
 
 class OtherForms extends StatelessWidget {
   final List<JishoJapaneseWord> forms;
@@ -37,6 +39,12 @@ class _KanaBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final _menuColors =
         BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyLight;
+    
+    final String? wordReading = word.reading == null
+        ? null
+        : (romajiEnabled
+            ? transliterateKanaToLatin(word.reading!)
+            : word.reading!);
 
     return Container(
       margin: const EdgeInsets.symmetric(
@@ -58,9 +66,9 @@ class _KanaBox extends StatelessWidget {
       child: DefaultTextStyle.merge(
         child: Column(
           children: [
-            // TODO: take a look at this logic
-            hasFurigana ? Text(word.reading ?? '') : const Text(''),
-            hasFurigana ? Text(word.word!) : Text(word.reading ?? ''),
+            // See header.dart for more details about this logic
+            hasFurigana ? Text(wordReading ?? '') : const Text(''),
+            hasFurigana ? Text(word.word!) : Text(wordReading ?? word.word!),
           ],
         ),
         style: TextStyle(color: _menuColors.foreground),

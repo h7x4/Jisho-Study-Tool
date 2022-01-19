@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../services/romaji_transliteration.dart';
+import '../../../settings.dart';
 
 class Examples extends StatelessWidget {
   final List<YomiExample> onyomi;
   final List<YomiExample> kunyomi;
 
   const Examples({
+    Key? key,
     required this.onyomi,
     required this.kunyomi,
-    Key? key,
   }) : super(key: key);
 
   @override
@@ -87,6 +89,7 @@ class _Kana extends StatelessWidget {
     required this.example,
   }) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -102,7 +105,7 @@ class _Kana extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            example.reading,
+            romajiEnabled ? transliterateKanaToLatin(example.reading) : example.reading,
             style: TextStyle(
               color: colors.foreground,
               fontSize: 15.0,
