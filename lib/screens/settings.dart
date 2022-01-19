@@ -1,10 +1,10 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/theme/theme_bloc.dart';
 import '../models/history/search.dart';
+import '../settings.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -14,33 +14,12 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  final SharedPreferences prefs = GetIt.instance.get<SharedPreferences>();
-
-  bool romajiEnabled = false;
-
-  bool darkThemeEnabled = false;
-  bool autoThemeEnabled = false;
-
-  @override
-  void initState() {
-    super.initState();
-    romajiEnabled = prefs.getBool('romajiEnabled') ?? romajiEnabled;
-    darkThemeEnabled = prefs.getBool('darkThemeEnabled') ?? darkThemeEnabled;
-    autoThemeEnabled = prefs.getBool('autoThemeEnabled') ?? autoThemeEnabled;
-  }
-
-  /// Update stored preferences with values from setting page state
-  Future<void> _updatePrefs() async {
-    prefs.setBool('romajiEnabled', romajiEnabled);
-    prefs.setBool('darkThemeEnabled', darkThemeEnabled);
-    prefs.setBool('autoThemeEnabled', autoThemeEnabled);
-  }
+  final Database db = GetIt.instance.get<Database>();
 
   Future<void> clearHistory(context) async {
     final bool userIsSure = await confirm(context);
 
     if (userIsSure) {
-      final Database db = GetIt.instance.get<Database>();
       await Search.store.delete(db);
     }
   }
@@ -63,9 +42,10 @@ class _SettingsViewState extends State<SettingsView> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               title: 'Use romaji',
-              onToggle: (b) {}, //TODO: implement
+              onToggle: (b) {
+                setState(() => romajiEnabled = b);
+              },
               switchValue: romajiEnabled,
-              enabled: false,
               switchActiveColor: AppTheme.jishoGreen.background,
             ),
           ],
@@ -77,10 +57,7 @@ class _SettingsViewState extends State<SettingsView> {
             SettingsTile.switchTile(
               title: 'Automatically determine theme',
               onToggle: (b) {
-                setState(() {
-                  autoThemeEnabled = b;
-                });
-                _updatePrefs();
+                setState(() => autoThemeEnabled = b);
               },
               switchValue: autoThemeEnabled,
               enabled: false,
@@ -91,10 +68,7 @@ class _SettingsViewState extends State<SettingsView> {
               onToggle: (b) {
                 BlocProvider.of<ThemeBloc>(context)
                     .add(SetTheme(themeIsDark: b));
-                setState(() {
-                  darkThemeEnabled = b;
-                });
-                _updatePrefs();
+                setState(() => darkThemeEnabled = b);
               },
               switchValue: darkThemeEnabled,
               enabled: !autoThemeEnabled,
