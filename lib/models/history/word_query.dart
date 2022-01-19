@@ -1,4 +1,3 @@
-import './word_result.dart';
 
 class WordQuery {
   final String query;

@@ -9,7 +9,7 @@ import 'package:sembast/sembast_io.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bloc/theme/theme_bloc.dart';
-import 'router.dart';
+import 'routing/router.dart';
 
 Future<void> setupDatabase() async {
   final Directory appDocDir = await getApplicationDocumentsDirectory();

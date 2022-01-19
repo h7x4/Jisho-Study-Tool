@@ -3,6 +3,9 @@ import 'package:sembast/sembast.dart';
 import './kanji_query.dart';
 import './word_query.dart';
 
+export 'package:get_it/get_it.dart';
+export 'package:sembast/sembast.dart';
+
 class Search {
   final DateTime timestamp;
   final WordQuery? wordQuery;

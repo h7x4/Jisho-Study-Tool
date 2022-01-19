@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 export 'package:unofficial_jisho_api/api.dart' show KanjiResult;
 
@@ -12,8 +11,6 @@ String? _convertGrade(String grade) {
     'grade 6': '小6',
     'junior high': '中'
   };
-
-  debugPrint('conversion run: $grade -> ${conversionTable[grade]}');
 
   return conversionTable[grade];
 }
