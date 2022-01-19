@@ -24,6 +24,18 @@ class _SettingsViewState extends State<SettingsView> {
     }
   }
 
+  // ignore: avoid_positional_boolean_parameters
+  void toggleAutoTheme(bool b) {
+    final bool newThemeIsDark = b
+        ? WidgetsBinding.instance!.window.platformBrightness == Brightness.dark
+        : darkThemeEnabled;
+
+    BlocProvider.of<ThemeBloc>(context)
+        .add(SetTheme(themeIsDark: newThemeIsDark));
+
+    setState(() => autoThemeEnabled = b);
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextStyle _titleTextStyle = TextStyle(
@@ -56,11 +68,8 @@ class _SettingsViewState extends State<SettingsView> {
           tiles: <SettingsTile>[
             SettingsTile.switchTile(
               title: 'Automatically determine theme',
-              onToggle: (b) {
-                setState(() => autoThemeEnabled = b);
-              },
+              onToggle: toggleAutoTheme,
               switchValue: autoThemeEnabled,
-              enabled: false,
               switchActiveColor: AppTheme.jishoGreen.background,
             ),
             SettingsTile.switchTile(

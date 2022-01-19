@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/themes/theme.dart';
+import '../../settings.dart';
 
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:jisho_study_tool/models/themes/theme.dart';
@@ -19,12 +19,12 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       ),
     );
 
+    final bool autoThemeIsDark =
+        SchedulerBinding.instance!.window.platformBrightness == Brightness.dark;
+
     add(
       SetTheme(
-        themeIsDark: GetIt.instance
-                .get<SharedPreferences>()
-                .getBool('darkThemeEnabled') ??
-            false,
+        themeIsDark: autoThemeEnabled ? autoThemeIsDark : darkThemeEnabled,
       ),
     );
   }
