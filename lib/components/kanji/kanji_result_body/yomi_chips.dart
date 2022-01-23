@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../routing/routes.dart';
 import '../../../services/romaji_transliteration.dart';
 import '../../../settings.dart';
 
@@ -50,24 +51,29 @@ class YomiChips extends StatelessWidget {
   bool get isExpandable => yomi.length > 6;
 
   Widget yomiCard({
+    required BuildContext context,
     required String yomi,
     required ColorSet colors,
   }) =>
-      Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        padding: const EdgeInsets.symmetric(
-          vertical: 10.0,
-          horizontal: 10.0,
-        ),
-        decoration: BoxDecoration(
-          color: colors.background,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Text(
-          yomi,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: colors.foreground,
+      InkWell(
+        onTap: () =>
+            Navigator.pushNamed(context, Routes.search, arguments: yomi),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.symmetric(
+            vertical: 10.0,
+            horizontal: 10.0,
+          ),
+          decoration: BoxDecoration(
+            color: colors.background,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Text(
+            yomi,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: colors.foreground,
+            ),
           ),
         ),
       );
@@ -75,12 +81,19 @@ class YomiChips extends StatelessWidget {
   Widget yomiWrapper(BuildContext context) {
     final yomiCards = yomi
         .map((y) => romajiEnabled ? transliterateKanaToLatin(y) : y)
-        .map((y) => yomiCard(yomi: y, colors: type.getColors(context)))
+        .map(
+          (y) => yomiCard(
+            context: context,
+            yomi: y,
+            colors: type.getColors(context),
+          ),
+        )
         .toList();
 
     final yomiCardsWithTitle = <Widget>[
       if (type != YomiType.meaning)
         yomiCard(
+          context: context,
           yomi: type == YomiType.kunyomi ? 'Kun:' : 'On:',
           colors: ColorSet(
             foreground: type.getColors(context).background,
@@ -101,7 +114,11 @@ class YomiChips extends StatelessWidget {
     else
       return ExpansionTile(
         title: Center(
-          child: yomiCard(yomi: type.title, colors: type.getColors(context)),
+          child: yomiCard(
+            context: context,
+            yomi: type.title,
+            colors: type.getColors(context),
+          ),
         ),
         children: [
           const SizedBox(height: 20.0),

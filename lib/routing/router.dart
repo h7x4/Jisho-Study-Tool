@@ -34,7 +34,8 @@ Route<Widget> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => const KanjiGradeSearch());
 
     case Routes.kanjiSearchRadicals:
-      return MaterialPageRoute(builder: (_) => const KanjiRadicalSearch());
+      final prechosenRadical = args as String?;
+      return MaterialPageRoute(builder: (_) => KanjiRadicalSearch(prechosenRadical: prechosenRadical));
 
     // TODO: Add more specific error screens.
     case Routes.errorNotFound:

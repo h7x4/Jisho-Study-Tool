@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../routing/routes.dart';
 import '../../../services/romaji_transliteration.dart';
 import '../../../settings.dart';
 
@@ -73,7 +74,14 @@ class _Example extends StatelessWidget {
             child: IntrinsicHeight(
               child: Row(
                 children: [
-                  _Kana(colors: kanaColors, example: yomiExample),
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      Routes.search,
+                      arguments: yomiExample.example,
+                    ),
+                    child: _Kana(colors: kanaColors, example: yomiExample),
+                  ),
                   _ExampleText(colors: menuColors, example: yomiExample)
                 ],
               ),

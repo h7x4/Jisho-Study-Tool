@@ -6,7 +6,9 @@ import '../../../../routing/routes.dart';
 import '../../../../services/jisho_api/radicals_search.dart';
 
 class KanjiRadicalSearch extends StatefulWidget {
-  const KanjiRadicalSearch({Key? key}) : super(key: key);
+  final String? prechosenRadical;
+
+  const KanjiRadicalSearch({Key? key, this.prechosenRadical}) : super(key: key);
 
   @override
   _KanjiRadicalSearchState createState() => _KanjiRadicalSearchState();
@@ -24,6 +26,15 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
   Map<String, bool> allowedToggles = {
     for (final String r in radicals.values.expand((l) => l)) r: true
   };
+
+  @override
+  void initState() {
+    if (widget.prechosenRadical != null &&
+        radicalToggles.containsKey(widget.prechosenRadical))
+      radicalToggles[widget.prechosenRadical!] = true;
+      updateSuggestions();
+    super.initState();
+  }
 
   void resetRadicalToggles() => radicalToggles.forEach((k, _) {
         radicalToggles[k] = false;
