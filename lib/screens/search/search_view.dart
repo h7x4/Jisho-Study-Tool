@@ -8,9 +8,7 @@ class SearchView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
-        SearchBar(),
-      ],
+      children: <Widget>[SearchBar()],
     );
   }
 }
