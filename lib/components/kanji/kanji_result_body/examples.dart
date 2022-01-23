@@ -122,7 +122,7 @@ class _Kana extends StatelessWidget {
             style: TextStyle(
               color: colors.foreground,
               fontSize: 15.0,
-            ),
+            ).merge(!romajiEnabled ? japaneseFont.textStyle : null),
           ),
           const SizedBox(height: 5.0),
           Text(
@@ -130,7 +130,7 @@ class _Kana extends StatelessWidget {
             style: TextStyle(
               color: colors.foreground,
               fontSize: 20.0,
-            ),
+            ).merge(japaneseFont.textStyle),
           ),
         ],
       ),

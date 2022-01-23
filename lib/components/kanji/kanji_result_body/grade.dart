@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../settings.dart';
 
 class Grade extends StatelessWidget {
   final String? grade;
@@ -28,7 +29,7 @@ class Grade extends StatelessWidget {
               style: TextStyle(
                 color: colors.foreground,
                 fontSize: 20.0,
-              ),
+              ).merge(japaneseFont.textStyle),
             ),
           );
         },

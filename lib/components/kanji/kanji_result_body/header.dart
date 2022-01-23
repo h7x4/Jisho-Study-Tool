@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../settings.dart';
 
 class Header extends StatelessWidget {
   final String kanji;
@@ -25,7 +26,8 @@ class Header extends StatelessWidget {
               ),
               child: Text(
                 kanji,
-                style: TextStyle(fontSize: 70.0, color: colors.foreground),
+                style: TextStyle(fontSize: 70.0, color: colors.foreground)
+                    .merge(japaneseFont.textStyle),
               ),
             );
           },

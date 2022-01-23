@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../bloc/theme/theme_bloc.dart';
 import '../../../../routing/routes.dart';
+import '../../../../settings.dart';
 
 class KanjiRow extends StatelessWidget {
   final List<String> kanji;
@@ -32,7 +33,7 @@ class KanjiRow extends StatelessWidget {
                       style: TextStyle(
                         color: colors.foreground,
                         fontSize: fontSize,
-                      ),
+                      ).merge(japaneseFont.textStyle),
                     ),
                   ),
                 );

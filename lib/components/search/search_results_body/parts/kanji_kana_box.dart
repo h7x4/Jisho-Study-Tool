@@ -65,6 +65,10 @@ class KanjiKanaBox extends StatelessWidget {
                     style: TextStyle(
                       fontSize: fFontsize,
                       color: colors.foreground,
+                    ).merge(
+                      romajiEnabled && autoTransliterateRomaji
+                          ? null
+                          : japaneseFont.textStyle,
                     ),
                   )
                 : Text(
@@ -77,9 +81,10 @@ class KanjiKanaBox extends StatelessWidget {
 
             DefaultTextStyle.merge(
               child: hasFurigana
-                  ? Text(word.word!)
+                  ? Text(word.word ?? word.reading!)
                   : Text(wordReading ?? word.word!),
-              style: TextStyle(fontSize: kanjiFontsize),
+              style: TextStyle(fontSize: kanjiFontsize)
+                  .merge(japaneseFont.textStyle),
             ),
             if (romajiEnabled && showRomajiBelow)
               Text(

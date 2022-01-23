@@ -54,6 +54,7 @@ class YomiChips extends StatelessWidget {
     required BuildContext context,
     required String yomi,
     required ColorSet colors,
+    TextStyle? extraTextStyle,
   }) =>
       InkWell(
         onTap: () =>
@@ -73,7 +74,7 @@ class YomiChips extends StatelessWidget {
             style: TextStyle(
               fontSize: 20.0,
               color: colors.foreground,
-            ),
+            ).merge(extraTextStyle),
           ),
         ),
       );
@@ -86,6 +87,9 @@ class YomiChips extends StatelessWidget {
             context: context,
             yomi: y,
             colors: type.getColors(context),
+            extraTextStyle: type != YomiType.meaning && !romajiEnabled
+                ? japaneseFont.textStyle
+                : null,
           ),
         )
         .toList();

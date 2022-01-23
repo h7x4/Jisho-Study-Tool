@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 
 import '../bloc/theme/theme_bloc.dart';
+import '../components/common/denshi_jisho_background.dart';
 import 'debug.dart';
 import 'history.dart';
 import 'search/kanji_view.dart';
@@ -30,19 +31,7 @@ class _HomeState extends State<Home> {
             backgroundColor: AppTheme.jishoGreen.background,
             foregroundColor: AppTheme.jishoGreen.foreground,
           ),
-          body: Stack(
-            children: [
-              Positioned(
-                right: 30,
-                left: 100,
-                bottom: 30,
-                child: Image.asset(
-                  'assets/images/denshi_jisho_background_overlay.png',
-                ),
-              ),
-              pages[pageNum].content,
-            ],
-          ),
+          body: DenshiJishoBackground(child: pages[pageNum].content),
           bottomNavigationBar: BottomNavigationBar(
             fixedColor: AppTheme.jishoGreen.background,
             currentIndex: pageNum,
@@ -103,8 +92,8 @@ class _HomeState extends State<Home> {
         if (kDebugMode) ...[
           const _Page(
             content: DebugView(),
-            titleBar:  Text('Debug Page'),
-            item:  BottomNavigationBarItem(
+            titleBar: Text('Debug Page'),
+            item: BottomNavigationBarItem(
               label: 'Debug',
               icon: Icon(Icons.biotech),
             ),

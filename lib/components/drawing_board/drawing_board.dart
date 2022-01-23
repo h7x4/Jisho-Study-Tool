@@ -3,6 +3,7 @@ import 'package:signature/signature.dart';
 
 import '../../bloc/theme/theme_bloc.dart';
 import '../../services/handwriting.dart';
+import '../../settings.dart';
 
 class DrawingBoard extends StatefulWidget {
   final Function(String)? onSuggestionChosen;
@@ -112,7 +113,7 @@ class _DrawingBoardState extends State<DrawingBoard> {
                   style: TextStyle(
                     fontSize: fontSize,
                     color: colors.foreground,
-                  ),
+                  ).merge(japaneseFont.textStyle),
                 ),
               ),
             );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/themes/theme.dart';
 import '../../routing/routes.dart';
+import '../../settings.dart';
 import 'language_selector.dart';
 
 class SearchBar extends StatelessWidget {
@@ -24,6 +25,7 @@ class SearchBar extends StatelessWidget {
           TextField(
             onSubmitted: (text) => _search(context, text),
             controller: controller,
+            style: japaneseFont.textStyle,
             decoration: InputDecoration(
               labelText: 'Search',
               border: OutlineInputBorder(

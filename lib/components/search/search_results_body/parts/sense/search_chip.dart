@@ -5,11 +5,13 @@ import '../../../../../models/themes/theme.dart';
 class SearchChip extends StatelessWidget {
   final String text;
   final ColorSet colors;
+  final TextStyle? extraTextStyle;
 
   const SearchChip({
     Key? key,
     required this.text,
     this.colors = LightTheme.defaultMenuGreyNormal,
+    this.extraTextStyle,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class SearchChip extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(color: colors.foreground),
+          style: TextStyle(color: colors.foreground).merge(extraTextStyle),
         ),
       );
 }

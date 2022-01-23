@@ -3,6 +3,7 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 import '../../../bloc/theme/theme_bloc.dart';
 import '../../../routing/routes.dart';
+import '../../../settings.dart';
 
 class Radical extends StatelessWidget {
   final jisho.Radical radical;
@@ -30,7 +31,7 @@ class Radical extends StatelessWidget {
                 style: TextStyle(
                   color: colors.foreground,
                   fontSize: 40.0,
-                ),
+                ).merge(japaneseFont.textStyle),
               ),
             ),
           );

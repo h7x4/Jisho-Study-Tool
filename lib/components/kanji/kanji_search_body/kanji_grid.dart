@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../bloc/theme/theme_bloc.dart';
 import '../../../routing/routes.dart';
+import '../../../settings.dart';
 
 class KanjiGrid extends StatelessWidget {
   final List<String> suggestions;
@@ -49,7 +50,9 @@ class _GridItem extends StatelessWidget {
               child: FittedBox(
                 child: Text(
                   kanji,
-                  style: TextStyle(color: _menuColors.foreground),
+                  style: japaneseFont.textStyle.merge(
+                    TextStyle(color: _menuColors.foreground),
+                  ),
                 ),
               ),
             ),

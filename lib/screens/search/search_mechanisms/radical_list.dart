@@ -4,6 +4,7 @@ import '../../../../bloc/theme/theme_bloc.dart';
 import '../../../../data/radicals.dart';
 import '../../../../routing/routes.dart';
 import '../../../../services/jisho_api/radicals_search.dart';
+import '../../../settings.dart';
 
 class KanjiRadicalSearch extends StatefulWidget {
   final String? prechosenRadical;
@@ -32,7 +33,7 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
     if (widget.prechosenRadical != null &&
         radicalToggles.containsKey(widget.prechosenRadical))
       radicalToggles[widget.prechosenRadical!] = true;
-      updateSuggestions();
+    updateSuggestions();
     super.initState();
   }
 
@@ -162,47 +163,50 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Choose by radicals')),
-      body: Column(
-        children: [
-          Expanded(
-            child: (suggestions.isEmpty)
-                ? Center(
-                    child: BlocBuilder<ThemeBloc, ThemeState>(
-                      builder: (context, state) => Text(
-                        'Toggle a radical to start',
-                        style: TextStyle(
-                          fontSize: fontSize * 0.8,
-                          color: state.theme.menuGreyNormal.background,
+      body: DefaultTextStyle.merge(
+        style: japaneseFont.textStyle,
+        child: Column(
+          children: [
+            Expanded(
+              child: (suggestions.isEmpty)
+                  ? Center(
+                      child: BlocBuilder<ThemeBloc, ThemeState>(
+                        builder: (context, state) => Text(
+                          'Toggle a radical to start',
+                          style: TextStyle(
+                            fontSize: fontSize * 0.8,
+                            color: state.theme.menuGreyNormal.background,
+                          ),
                         ),
                       ),
+                    )
+                  : GridView.count(
+                      crossAxisCount: 6,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      padding: const EdgeInsets.all(10),
+                      children:
+                          suggestions.map((s) => kanjiGridElement(s)).toList(),
                     ),
-                  )
-                : GridView.count(
-                    crossAxisCount: 6,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    padding: const EdgeInsets.all(10),
-                    children:
-                        suggestions.map((s) => kanjiGridElement(s)).toList(),
-                  ),
-          ),
-          Divider(
-            color: AppTheme.jishoGreen.background,
-            thickness: 3,
-            height: 30,
-            indent: 5,
-            endIndent: 5,
-          ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 6,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              padding: const EdgeInsets.all(10),
-              children: radicalGridElements,
             ),
-          ),
-        ],
+            Divider(
+              color: AppTheme.jishoGreen.background,
+              thickness: 3,
+              height: 30,
+              indent: 5,
+              endIndent: 5,
+            ),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 6,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                padding: const EdgeInsets.all(10),
+                children: radicalGridElements,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

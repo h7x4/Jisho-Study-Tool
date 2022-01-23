@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../settings.dart';
+
 class KanjiSearchBar extends StatefulWidget {
   final Function(String)? onChanged;
 
@@ -52,6 +54,7 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
       controller: textController,
       onChanged: (text) => onChanged(),
       onSubmitted: (_) => {},
+      style: japaneseFont.textStyle,
       decoration: InputDecoration(
         hintText: 'Search',
         border: OutlineInputBorder(
