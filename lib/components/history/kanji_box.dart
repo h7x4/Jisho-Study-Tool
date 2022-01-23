@@ -19,18 +19,17 @@ class KanjiBox extends StatelessWidget {
               final colors = state.theme.menuGreyLight;
               return Container(
                 padding: const EdgeInsets.all(5),
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: colors.background,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Center(
-                  child: FittedBox(
-                    child: Text(
-                      kanji,
-                      style: TextStyle(
-                        color: colors.foreground,
-                        fontSize: 25,
-                      ),
+                child: FittedBox(
+                  child: Text(
+                    kanji,
+                    style: TextStyle(
+                      color: colors.foreground,
+                      fontSize: 25,
                     ),
                   ),
                 ),

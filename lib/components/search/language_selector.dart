@@ -33,8 +33,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 
   Widget _languageOption(String language) => 
     Container(
+      alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-      child: Center(child: Text(language)),
+      child: Text(language),
     );
 
   @override

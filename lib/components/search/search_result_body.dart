@@ -14,7 +14,9 @@ class SearchResultsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: results.map((result) => SearchResultCard(result: result)).toList(),
+      children: [
+        for (final result in results) SearchResultCard(result: result)
+      ],
     );
   }
 }

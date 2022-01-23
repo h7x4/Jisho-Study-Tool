@@ -60,6 +60,17 @@ class _SettingsViewState extends State<SettingsView> {
                     switchValue: romajiEnabled,
                     switchActiveColor: AppTheme.jishoGreen.background,
                   ),
+                  SettingsTile.switchTile(
+                    title: 'Extensive search',
+                    onToggle: (b) {
+                      setState(() => extensiveSearchEnabled = b);
+                    },
+                    switchValue: extensiveSearchEnabled,
+                    switchActiveColor: AppTheme.jishoGreen.background,
+                    subtitle:
+                        'Gathers extra data when searching for words, at the expense of having to wait for extra word details',
+                    subtitleMaxLines: 3,
+                  ),
                 ],
               ),
               SettingsSection(
