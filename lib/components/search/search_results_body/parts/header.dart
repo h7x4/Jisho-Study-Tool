@@ -31,8 +31,23 @@ class JapaneseHeader extends StatelessWidget {
           // If that's not the case, then the word is usually present in wordReading.
           // However, there are some exceptions where the reading is placed in word.
           // I have no clue why this might be the case.
-          hasFurigana ? Text(wordReading!) : const Text(''),
-          hasFurigana ? Text(word.word!) : Text(wordReading ?? word.word!),
+          hasFurigana
+              ? Text(
+                  wordReading!,
+                  style: romajiEnabled ? null : japaneseFont.textStyle,
+                )
+              : const Text(''),
+          hasFurigana
+              ? Text(
+                  word.word!,
+                  style: japaneseFont.textStyle,
+                )
+              : Text(
+                  wordReading ?? word.word!,
+                  style: wordReading != null && romajiEnabled
+                      ? null
+                      : japaneseFont.textStyle,
+                ),
         ],
       ),
     );

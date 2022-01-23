@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/themes/theme.dart';
+import '../../settings.dart';
 
 class LanguageSelector extends StatefulWidget {
   const LanguageSelector({Key? key}) : super(key: key);
@@ -31,11 +32,11 @@ class _LanguageSelectorState extends State<LanguageSelector> {
       ?.map((s) => s == '1')
       .toList();
 
-  Widget _languageOption(String language) => 
+  Widget _languageOption(String language, {TextStyle? style}) => 
     Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-      child: Text(language),
+      child: Text(language, style: style,),
     );
 
   @override
@@ -43,9 +44,9 @@ class _LanguageSelectorState extends State<LanguageSelector> {
     return ToggleButtons(
       selectedColor: AppTheme.jishoGreen.background,
       isSelected: isSelected,
-      children: <Widget>[
+      children: [
         _languageOption('Auto'),
-        _languageOption('日本語'),
+        _languageOption('日本語', style: japaneseFont.textStyle),
         _languageOption('English')
       ],
       onPressed: (buttonIndex) {

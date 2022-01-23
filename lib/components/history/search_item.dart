@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../models/history/search.dart';
+import '../../settings.dart';
 
 class SearchItem extends StatelessWidget {
   final DateTime time;
@@ -67,7 +68,10 @@ class SearchItem extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(getTime()),
               ),
-              search,
+              DefaultTextStyle.merge(
+                style: japaneseFont.textStyle,
+                child: search,
+              ),
             ],
           ),
         ),

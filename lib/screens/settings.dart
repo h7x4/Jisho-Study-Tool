@@ -1,8 +1,10 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
+import 'package:mdi/mdi.dart';
 
 import '../bloc/theme/theme_bloc.dart';
+import '../components/common/denshi_jisho_background.dart';
 import '../models/history/search.dart';
 import '../settings.dart';
 
@@ -36,12 +38,42 @@ class _SettingsViewState extends State<SettingsView> {
     setState(() => autoThemeEnabled = b);
   }
 
+  Future<int?> Function(BuildContext) _chooseFromList({
+    required List<String> list,
+    int? chosen,
+    String? title,
+  }) =>
+      (context) => Navigator.push<int>(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Scaffold(
+                appBar: AppBar(title: title == null ? null : Text(title)),
+                body: DenshiJishoBackground(
+                  child: ListView.builder(
+                    itemBuilder: (context, i) => ListTile(
+                      title: Text(list[i]),
+                      trailing: (chosen != null && chosen == i)
+                          ? const Icon(Icons.check)
+                          : null,
+                      onTap: () => Navigator.pop(context, i),
+                    ),
+                    itemCount: list.length,
+                  ),
+                ),
+              ),
+            ),
+          );
+
   @override
   Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           final TextStyle _titleTextStyle = TextStyle(
             color:
                 state is DarkThemeState ? AppTheme.jishoGreen.background : null,
+          );
+
+          const SettingsTileTheme theme = SettingsTileTheme(
+            horizontalTitleGap: 0,
           );
 
           return SettingsList(
@@ -54,21 +86,48 @@ class _SettingsViewState extends State<SettingsView> {
                 tiles: <SettingsTile>[
                   SettingsTile.switchTile(
                     title: 'Use romaji',
+                    leading: const Icon(Mdi.alphabetical),
                     onToggle: (b) {
                       setState(() => romajiEnabled = b);
                     },
                     switchValue: romajiEnabled,
+                    theme: theme,
                     switchActiveColor: AppTheme.jishoGreen.background,
                   ),
                   SettingsTile.switchTile(
                     title: 'Extensive search',
+                    leading: const Icon(Icons.downloading),
                     onToggle: (b) {
                       setState(() => extensiveSearchEnabled = b);
                     },
                     switchValue: extensiveSearchEnabled,
+                    theme: theme,
                     switchActiveColor: AppTheme.jishoGreen.background,
-                    subtitle:
-                        'Gathers extra data when searching for words, at the expense of having to wait for extra word details',
+                    // subtitle:
+                    //     'Gathers extra data when searching for words, at the expense of having to wait for extra word details.',
+                    // subtitleWidget:
+                    trailing: const Icon(Icons.info),
+                    subtitleMaxLines: 3,
+                  ),
+                  SettingsTile(
+                    title: 'Japanese font',
+                    leading: const Icon(Icons.format_size),
+                    onPressed: (context) async {
+                      final int? i = await _chooseFromList(
+                        list: [
+                          for (final font in JapaneseFont.values) font.name
+                        ],
+                        chosen: japaneseFont.index,
+                      )(context);
+                      if (i != null)
+                        setState(() {
+                          japaneseFont = JapaneseFont.values[i];
+                        });
+                    },
+                    theme: theme,
+                    trailing: Text(japaneseFont.name),
+                    // subtitle:
+                    //     'Which font to use for japanese text. This might be useful if your phone shows kanji with a Chinese font.',
                     subtitleMaxLines: 3,
                   ),
                 ],
@@ -78,13 +137,16 @@ class _SettingsViewState extends State<SettingsView> {
                 titleTextStyle: _titleTextStyle,
                 tiles: <SettingsTile>[
                   SettingsTile.switchTile(
-                    title: 'Automatically determine theme',
+                    title: 'Automatic theme',
+                    leading: const Icon(Icons.brightness_auto),
                     onToggle: toggleAutoTheme,
                     switchValue: autoThemeEnabled,
+                    theme: theme,
                     switchActiveColor: AppTheme.jishoGreen.background,
                   ),
                   SettingsTile.switchTile(
                     title: 'Dark Theme',
+                    leading: const Icon(Icons.dark_mode),
                     onToggle: (b) {
                       BlocProvider.of<ThemeBloc>(context)
                           .add(SetTheme(themeIsDark: b));
@@ -92,6 +154,7 @@ class _SettingsViewState extends State<SettingsView> {
                     },
                     switchValue: darkThemeEnabled,
                     enabled: !autoThemeEnabled,
+                    theme: theme,
                     switchActiveColor: AppTheme.jishoGreen.background,
                   ),
                 ],

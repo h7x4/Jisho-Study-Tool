@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
+import '../../../../../settings.dart';
+
 class SupplementalInfo extends StatelessWidget {
   final JishoWordSense sense;
   final List<String>? supplementalInfo;
@@ -42,6 +44,6 @@ class SupplementalInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DefaultTextStyle.merge(
         child: Column(children: _body),
-        style: TextStyle(color: color),
+        style: TextStyle(color: color).merge(japaneseFont.textStyle),
       );
 }

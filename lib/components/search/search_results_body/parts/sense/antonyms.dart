@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../models/themes/theme.dart';
 import '../../../../../routing/routes.dart';
+import '../../../../../settings.dart';
 import 'search_chip.dart';
 
 class Antonyms extends StatelessWidget {
@@ -41,6 +42,7 @@ class Antonyms extends StatelessWidget {
                 child: SearchChip(
                   text: antonym,
                   colors: colors,
+                  extraTextStyle: japaneseFont.textStyle,
                 ),
               ),
           ],

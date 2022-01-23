@@ -5,6 +5,7 @@ import '../../../../data/grades.dart';
 import '../../../../models/themes/theme.dart';
 import '../../../../routing/routes.dart';
 import '../../../components/common/loading.dart';
+import '../../../settings.dart';
 
 class KanjiGradeSearch extends StatefulWidget {
   const KanjiGradeSearch({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _GridItem extends StatelessWidget {
           style: TextStyle(
             color: color.foreground,
             fontSize: 25,
-          ),
+          ).merge(japaneseFont.textStyle),
         ),
       ),
     );
