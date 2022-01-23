@@ -9,6 +9,7 @@ import './parts/senses.dart';
 import './parts/wanikani_badge.dart';
 import '../../../settings.dart';
 import 'parts/audio_player.dart';
+import 'parts/kanji.dart';
 import 'parts/links.dart';
 import 'parts/notes.dart';
 
@@ -54,6 +55,13 @@ class _SearchResultCardState extends State<SearchResultCard> {
     return jlpt.last;
   }
 
+  List<String> get kanji =>
+    RegExp(r'(\p{Script=Hani})', unicode: true)
+        .allMatches(widget.result.japanese.map((w) => '${w.word ?? ""}${w.reading ?? ""}').join())
+        .map((match) => match.group(0)!)
+        .toSet()
+        .toList();
+
   Widget get _header => IntrinsicWidth(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,6 +105,10 @@ class _SearchResultCardState extends State<SearchResultCard> {
             if (extendedData != null && extendedData.notes.isNotEmpty) ...[
               const SizedBox(height: 20),
               Notes(notes: extendedData.notes),
+            ],
+            if (kanji.isNotEmpty) ...[
+              const SizedBox(height: 20),
+              KanjiRow(kanji: kanji),
             ],
             if (links.isNotEmpty || hasAttribution) ...[
               const SizedBox(height: 20),
