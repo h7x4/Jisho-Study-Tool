@@ -29,8 +29,11 @@ class _GridItem extends StatelessWidget {
         ? () => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(text)),
             )
-        : () =>
-            Navigator.popAndPushNamed(context, Routes.kanjiSearch, arguments: text);
+        : () => Navigator.popAndPushNamed(
+              context,
+              Routes.kanjiSearch,
+              arguments: text,
+            );
 
     return InkWell(
       onTap: onTap,
@@ -61,8 +64,10 @@ class _KanjiGradeSearchState extends State<KanjiGradeSearch> {
             sortedByStrokes.map<int, List<Widget>>(
               (strokeCount, kanji) => MapEntry(
                 strokeCount,
-                [_GridItem(text: strokeCount.toString(), isNumber: true)] +
-                    kanji.map((k) => _GridItem(text: k)).toList(),
+                [
+                  _GridItem(text: strokeCount.toString(), isNumber: true),
+                  ...kanji.map((k) => _GridItem(text: k)).toList(),
+                ],
               ),
             ),
           ),

@@ -91,8 +91,7 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
     );
   }
 
-  List<Widget> get radicalGridElements =>
-      <Widget>[
+  List<Widget> get radicalGridElements => <Widget>[
         IconButton(
           onPressed: () => setState(() {
             suggestions.clear();
@@ -103,22 +102,25 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
           color: AppTheme.jishoGreen.background,
           iconSize: fontSize * 1.3,
         ),
-      ] +
-      radicals
-          .map(
-            (key, value) => MapEntry(
-              key,
-              value
-                  .where((r) => allowedToggles[r]!)
-                  .map((r) => radicalGridElement(r))
-                  .toList()
-                ..insert(0, radicalGridElement(key.toString(), isNumber: true)),
-            ),
-          )
-          .values
-          .where((element) => element.length != 1)
-          .expand((l) => l)
-          .toList();
+        ...radicals
+            .map(
+              (key, value) => MapEntry(
+                key,
+                value
+                    .where((r) => allowedToggles[r]!)
+                    .map((r) => radicalGridElement(r))
+                    .toList()
+                  ..insert(
+                    0,
+                    radicalGridElement(key.toString(), isNumber: true),
+                  ),
+              ),
+            )
+            .values
+            .where((element) => element.length != 1)
+            .expand((l) => l)
+            .toList()
+      ];
 
   Widget kanjiGridElement(String kanji) {
     const color = LightTheme.defaultMenuGreyNormal;

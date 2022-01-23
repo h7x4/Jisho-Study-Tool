@@ -23,22 +23,23 @@ class Examples extends StatelessWidget {
         onyomi.map((onEx) => _Example(onEx, _KanaType.onyomi)).toList() +
             kunyomi.map((kunEx) => _Example(kunEx, _KanaType.kunyomi)).toList();
 
-    const noExamplesWidget = [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Text('No Examples', style: textStyle),
-      )
-    ];
+    const noExamplesWidget = Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Text('No Examples', style: textStyle),
+    );
 
     return Column(
       children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.centerLeft,
-              child: const Text('Examples:', style: textStyle),
-            )
-          ] +
-          (onyomi.isEmpty && kunyomi.isEmpty ? noExamplesWidget : yomiWidgets),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          alignment: Alignment.centerLeft,
+          child: const Text('Examples:', style: textStyle),
+        ),
+        if (onyomi.isEmpty && kunyomi.isEmpty)
+          noExamplesWidget
+        else
+          ...yomiWidgets
+      ],
     );
   }
 }
@@ -89,7 +90,6 @@ class _Kana extends StatelessWidget {
     required this.example,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,7 +105,9 @@ class _Kana extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            romajiEnabled ? transliterateKanaToLatin(example.reading) : example.reading,
+            romajiEnabled
+                ? transliterateKanaToLatin(example.reading)
+                : example.reading,
             style: TextStyle(
               color: colors.foreground,
               fontSize: 15.0,

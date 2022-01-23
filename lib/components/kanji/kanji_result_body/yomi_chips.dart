@@ -70,7 +70,7 @@ class YomiChips extends StatelessWidget {
           ),
         ),
       );
-  
+
   Widget yomiWrapper(BuildContext context) {
     final yomiCards = yomi
         .map((y) => romajiEnabled ? transliterateKanaToLatin(y) : y)
@@ -78,16 +78,16 @@ class YomiChips extends StatelessWidget {
         .toList();
 
     final yomiCardsWithTitle = <Widget>[
-          if (type != YomiType.meaning)
-            yomiCard(
-              yomi: type == YomiType.kunyomi ? 'Kun:' : 'On:',
-              colors: ColorSet(
-                foreground: type.getColors(context).background,
-                background: const Color(0x000000ff),
-              ),
-            ),
-        ] +
-        yomiCards;
+      if (type != YomiType.meaning)
+        yomiCard(
+          yomi: type == YomiType.kunyomi ? 'Kun:' : 'On:',
+          colors: ColorSet(
+            foreground: type.getColors(context).background,
+            background: Colors.transparent,
+          ),
+        ),
+      ...yomiCards
+    ];
 
     final wrap = Wrap(
       runSpacing: 10.0,
