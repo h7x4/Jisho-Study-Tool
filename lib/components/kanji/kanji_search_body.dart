@@ -93,9 +93,17 @@ class _KanjiSearchBodyState extends State<KanjiSearchBody>
                     AnimatedSizeAndFade(
                       fadeDuration: const Duration(milliseconds: 200),
                       sizeDuration: const Duration(milliseconds: 300),
-                      child: _controller.value == 1
+                      child: (_controller.value == 1 && suggestions.isNotEmpty)
                           ? KanjiGrid(suggestions: suggestions)
-                          : const KanjiSearchOptionsBar(),
+                          : (_controller.value == 1)
+                              ? const Text(
+                                  'Type a kanji to start searching',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                )
+                              : const KanjiSearchOptionsBar(),
                     ),
                   ],
                 ),

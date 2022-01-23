@@ -53,7 +53,6 @@ class KanjiSearchBarState extends State<KanjiSearchBar> {
       onChanged: (text) => onChanged(),
       onSubmitted: (_) => {},
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.search),
         hintText: 'Search',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
