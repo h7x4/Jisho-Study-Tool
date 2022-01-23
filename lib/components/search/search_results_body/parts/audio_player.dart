@@ -28,6 +28,12 @@ class _AudioPlayerState extends State<AudioPlayer> {
   bool _isPlaying(ja.PlayerState? state) => state != null && state.playing;
 
   @override
+  void initState() {
+    player.setUrl(widget.audio.uri);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (_, state) {
@@ -69,11 +75,5 @@ class _AudioPlayerState extends State<AudioPlayer> {
         );
       },
     );
-  }
-
-  @override
-  void initState() {
-    player.setUrl(widget.audio.uri);
-    super.initState();
   }
 }

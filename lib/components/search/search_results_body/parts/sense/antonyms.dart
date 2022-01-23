@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/routing/routes.dart';
 
 import '../../../../../models/themes/theme.dart';
+import '../../../../../routing/routes.dart';
 import 'search_chip.dart';
 
 class Antonyms extends StatelessWidget {
   final List<String> antonyms;
+  final ColorSet colors;
 
   const Antonyms({
     Key? key,
     required this.antonyms,
+    this.colors = const ColorSet(
+      foreground: Colors.white,
+      background: Colors.blue,
+    ),
   }) : super(key: key);
 
   @override
@@ -25,20 +30,20 @@ class Antonyms extends StatelessWidget {
         Wrap(
           spacing: 5,
           runSpacing: 5,
-          children: antonyms
-              .map(
-                (a) => InkWell(
-                  onTap: () => Navigator.pushNamed(context, Routes.search, arguments: a),
-                  child: SearchChip(
-                    text: a,
-                    colors: const ColorSet(
-                      foreground: Colors.white,
-                      background: Colors.blue,
-                    ),
-                  ),
+          children: [
+            for (final antonym in antonyms)
+              InkWell(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.search,
+                  arguments: antonym,
                 ),
-              )
-              .toList(),
+                child: SearchChip(
+                  text: antonym,
+                  colors: colors,
+                ),
+              ),
+          ],
         )
       ],
     );

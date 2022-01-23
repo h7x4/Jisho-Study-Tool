@@ -4,8 +4,11 @@ class Badge extends StatelessWidget {
   final Widget? child;
   final Color color;
 
-  const Badge({this.child, required this.color, Key? key,}) : super(key: key);
-
+  const Badge({
+    Key? key,
+    this.child,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +21,7 @@ class Badge extends StatelessWidget {
         shape: BoxShape.circle,
         color: color,
       ),
-      child: FittedBox(
-        child: Center(
-          child: child,
-        ),
-      ),
-    );  }
+      child: FittedBox(child: child),
+    );
+  }
 }

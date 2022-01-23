@@ -25,29 +25,27 @@ class Sentences extends StatelessWidget {
           children: [
             Wrap(
               runSpacing: 10,
-              children: [
-                ...sentence.pieces
-                    .map(
-                      (p) => JishoJapaneseWord(
-                        word: p.unlifted,
-                        reading: p.lifted,
-                      ),
-                    )
-                    .map(
-                      (word) => KanjiKanaBox(
-                        word: word,
-                        showRomajiBelow: true,
-                        margin: EdgeInsets.zero,
-                        padding: EdgeInsets.zero,
-                        centerFurigana: false,
-                        autoTransliterateRomaji: false,
-                        kanjiFontsize: 15,
-                        furiganaFontsize: 12,
-                        colors: colors,
-                      ),
-                    )
-                    .toList(),
-              ],
+              children: sentence.pieces
+                  .map(
+                    (p) => JishoJapaneseWord(
+                      word: p.unlifted,
+                      reading: p.lifted,
+                    ),
+                  )
+                  .map(
+                    (word) => KanjiKanaBox(
+                      word: word,
+                      showRomajiBelow: true,
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      centerFurigana: false,
+                      autoTransliterateRomaji: false,
+                      kanjiFontsize: 15,
+                      furiganaFontsize: 12,
+                      colors: colors,
+                    ),
+                  )
+                  .toList(),
             ),
             Divider(
               height: 20,
@@ -63,9 +61,6 @@ class Sentences extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: sentences.map((s) => _sentence(s)).toList(),
-    );
-  }
+  Widget build(BuildContext context) =>
+      Column(children: [for (final s in sentences) _sentence(s)]);
 }

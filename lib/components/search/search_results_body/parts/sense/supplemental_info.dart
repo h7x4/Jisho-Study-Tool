@@ -18,7 +18,7 @@ class SupplementalInfo extends StatelessWidget {
     if (restrictions.isNotEmpty)
       restrictions[0] = 'Only applies to ${restrictions[0]}';
 
-    final List<String> combinedInfo = sense.tags + restrictions;
+    final List<String> combinedInfo = sense.tags + sense.info + restrictions;
 
     return Text(
       combinedInfo.join(', '),
@@ -32,8 +32,10 @@ class SupplementalInfo extends StatelessWidget {
     return [
       if (sense.source.isNotEmpty)
         Text('From ${sense.source[0].language} ${sense.source[0].word}'),
-      if (sense.tags.isNotEmpty || sense.restrictions.isNotEmpty) _info(sense),
-      if (sense.info.isNotEmpty) Text(sense.info.join(', '))
+      if (sense.tags.isNotEmpty ||
+          sense.restrictions.isNotEmpty ||
+          sense.info.isNotEmpty)
+        _info(sense),
     ];
   }
 

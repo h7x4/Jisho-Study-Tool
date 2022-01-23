@@ -41,7 +41,7 @@ class _SearchResultCardState extends State<SearchResultCard> {
           : Future(() => null);
 
   List<JishoSenseLink> get links =>
-      widget.result.senses.map((s) => s.links).expand((l) => l).toList();
+      [for (final sense in widget.result.senses) ...sense.links];
 
   bool get hasAttribution =>
       widget.result.attribution.jmdict ||
@@ -55,12 +55,15 @@ class _SearchResultCardState extends State<SearchResultCard> {
     return jlpt.last;
   }
 
-  List<String> get kanji =>
-    RegExp(r'(\p{Script=Hani})', unicode: true)
-        .allMatches(widget.result.japanese.map((w) => '${w.word ?? ""}${w.reading ?? ""}').join())
-        .map((match) => match.group(0)!)
-        .toSet()
-        .toList();
+  List<String> get kanji => RegExp(r'(\p{Script=Hani})', unicode: true)
+      .allMatches(
+        widget.result.japanese
+            .map((w) => '${w.word ?? ""}${w.reading ?? ""}')
+            .join(),
+      )
+      .map((match) => match.group(0)!)
+      .toSet()
+      .toList();
 
   Widget get _header => IntrinsicWidth(
         child: Row(
@@ -83,6 +86,10 @@ class _SearchResultCardState extends State<SearchResultCard> {
         ),
       );
 
+  static const _margin = SizedBox(height: 20);
+
+  List<Widget> _withMargin(Widget w) => [_margin, w];
+
   Widget _body({PhrasePageScrapeResultData? extendedData}) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         child: Column(
@@ -98,25 +105,18 @@ class _SearchResultCardState extends State<SearchResultCard> {
               senses: widget.result.senses,
               extraData: extendedData?.meanings,
             ),
-            if (widget.otherForms.isNotEmpty) ...[
-              const SizedBox(height: 20),
-              OtherForms(forms: widget.otherForms),
-            ],
-            if (extendedData != null && extendedData.notes.isNotEmpty) ...[
-              const SizedBox(height: 20),
-              Notes(notes: extendedData.notes),
-            ],
-            if (kanji.isNotEmpty) ...[
-              const SizedBox(height: 20),
-              KanjiRow(kanji: kanji),
-            ],
-            if (links.isNotEmpty || hasAttribution) ...[
-              const SizedBox(height: 20),
-              Links(
-                links: links,
-                attribution: widget.result.attribution,
-              ),
-            ]
+            if (widget.otherForms.isNotEmpty)
+              ..._withMargin(OtherForms(forms: widget.otherForms)),
+            if (extendedData != null && extendedData.notes.isNotEmpty)
+              ..._withMargin(Notes(notes: extendedData.notes)),
+            if (kanji.isNotEmpty) ..._withMargin(KanjiRow(kanji: kanji)),
+            if (links.isNotEmpty || hasAttribution)
+              ..._withMargin(
+                Links(
+                  links: links,
+                  attribution: widget.result.attribution,
+                ),
+              )
           ],
         ),
       );

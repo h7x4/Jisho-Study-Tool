@@ -14,34 +14,20 @@ class Senses extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    final List<Widget> senseWidgets = senses
-        .asMap()
-        .map(
-          (k, v) => MapEntry(
-            v,
-            extraData?.firstWhereOrNull(
-              (m) => m.definition == v.englishDefinitions.join('; '),
+  List<Widget> get _senseWidgets => [
+        for (int i = 0; i < senses.length; i++)
+          Sense(
+            index: i,
+            sense: senses[i],
+            meaning: extraData?.firstWhereOrNull(
+              (m) => m.definition == senses[i].englishDefinitions.join('; '),
             ),
           ),
-        )
-        .entries
-        .toList()
-        .asMap()
-        .entries
-        .map(
-          (e) => Sense(
-            index: e.key,
-            sense: e.value.key,
-            meaning: e.value.value,
-          ),
-        )
-        .toList();
+      ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: senseWidgets,
-    );
-  }
+  @override
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: _senseWidgets,
+      );
 }

@@ -68,7 +68,8 @@ final Map<RegExp, Widget Function(String)> _patterns = {
       _wiki(link: l, isJapanese: false),
   RegExp(r'^Read “.+” on Japanese Wikipedia$'): (l) =>
       _wiki(link: l, isJapanese: true),
-  RegExp(r'^Read “.+” on DBpedia$'): _dbpedia,
+  // DBpedia comes through attribution.
+  // RegExp(r'^Read “.+” on DBpedia$'): _dbpedia,
 };
 
 class Links extends StatelessWidget {
@@ -86,24 +87,34 @@ class Links extends StatelessWidget {
 
     // Copy sense.links so that it doesn't need to be modified.
     final List<JishoSenseLink> newLinks = List.from(links);
+    final List<String> newStringLinks = [for (final l in newLinks) l.url];
 
     final Map<RegExp, int> matches = {};
     for (int i = 0; i < newLinks.length; i++)
       for (final RegExp p in _patterns.keys)
         if (p.hasMatch(newLinks[i].text)) matches[p] = i;
 
-    final List<String> newStringLinks = newLinks.map((l) => l.url).toList();
-
     final List<Widget> icons = [
-      ...matches.entries
-          .map((m) => _patterns[m.key]!(newStringLinks[m.value]))
-          .toList(),
+      ...[
+        for (final match in matches.entries)
+          _patterns[match.key]!(newStringLinks[match.value])
+      ],
       if (attribution.dbpedia != null) _dbpedia(attribution.dbpedia!)
     ];
 
     (matches.values.toList()..sort()).reversed.forEach(newLinks.removeAt);
-    final List<Widget> otherLinks =
-        newLinks.map((e) => Text('[${e.text} -> ${e.url}]')).toList();
+
+    final List<Widget> otherLinks = [
+      for (final link in newLinks) ...[
+        InkWell(
+          onTap: () => _launch(link.url),
+          child: Text(
+            link.text,
+            style: const TextStyle(color: Colors.blue),
+          ),
+        )
+      ]
+    ];
 
     return [
       const Text('Links:', style: TextStyle(fontWeight: FontWeight.bold)),

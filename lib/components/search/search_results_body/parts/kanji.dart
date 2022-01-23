@@ -55,18 +55,17 @@ class KanjiRow extends StatelessWidget {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: kanji
-              .map(
-                (k) => InkWell(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    Routes.kanjiSearch,
-                    arguments: k,
-                  ),
-                  child: _kanjiBox(k),
+          children: [
+            for (final k in kanji)
+              InkWell(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.kanjiSearch,
+                  arguments: k,
                 ),
+                child: _kanjiBox(k),
               )
-              .toList(),
+          ],
         ),
       ],
     );

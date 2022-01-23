@@ -18,8 +18,9 @@ class EnglishDefinitions extends StatelessWidget {
         runSpacing: 10.0,
         spacing: 5,
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: englishDefinitions
-            .map((def) => SearchChip(text: def, colors: colors))
-            .toList(),
+        children: [
+          for (final def in englishDefinitions)
+            SearchChip(text: def, colors: colors)
+        ],
       );
 }
