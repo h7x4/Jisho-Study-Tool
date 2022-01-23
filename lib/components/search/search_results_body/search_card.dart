@@ -47,6 +47,13 @@ class _SearchResultCardState extends State<SearchResultCard> {
       widget.result.attribution.jmnedict ||
       (widget.result.attribution.dbpedia != null);
 
+  String? get jlptLevel {
+    if (widget.result.jlpt.isEmpty) return null;
+    final jlpt = List.from(widget.result.jlpt);
+    jlpt.sort();
+    return jlpt.last;
+  }
+
   Widget get _header => IntrinsicWidth(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,11 +67,7 @@ class _SearchResultCardState extends State<SearchResultCard> {
                     orElse: () => '',
                   ),
                 ),
-                // TODO: find the lowest level in the list.
-                JLPTBadge(
-                  jlptLevel:
-                      widget.result.jlpt.isEmpty ? null : widget.result.jlpt[0],
-                ),
+                JLPTBadge(jlptLevel: jlptLevel),
                 CommonBadge(isCommon: widget.result.isCommon ?? false)
               ],
             )
@@ -83,22 +86,18 @@ class _SearchResultCardState extends State<SearchResultCard> {
               AudioPlayer(audio: extendedData.audio.first),
               const SizedBox(height: 10),
             ],
-
             Senses(
               senses: widget.result.senses,
               extraData: extendedData?.meanings,
             ),
-
             if (widget.otherForms.isNotEmpty) ...[
               const SizedBox(height: 20),
               OtherForms(forms: widget.otherForms),
             ],
-
             if (extendedData != null && extendedData.notes.isNotEmpty) ...[
               const SizedBox(height: 20),
               Notes(notes: extendedData.notes),
             ],
-
             if (links.isNotEmpty || hasAttribution) ...[
               const SizedBox(height: 20),
               Links(
