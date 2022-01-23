@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/routing/routes.dart';
 
 import '../../../../../models/themes/theme.dart';
 import 'search_chip.dart';
@@ -26,11 +27,14 @@ class Antonyms extends StatelessWidget {
           runSpacing: 5,
           children: antonyms
               .map(
-                (a) => SearchChip(
-                  text: a,
-                  colors: const ColorSet(
-                    foreground: Colors.white,
-                    background: Colors.blue,
+                (a) => InkWell(
+                  onTap: () => Navigator.pushNamed(context, Routes.search, arguments: a),
+                  child: SearchChip(
+                    text: a,
+                    colors: const ColorSet(
+                      foreground: Colors.white,
+                      background: Colors.blue,
+                    ),
                   ),
                 ),
               )
