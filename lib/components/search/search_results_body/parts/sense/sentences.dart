@@ -36,6 +36,7 @@ class Sentences extends StatelessWidget {
                     .map(
                       (word) => KanjiKanaBox(
                         word: word,
+                        showRomajiBelow: true,
                         margin: EdgeInsets.zero,
                         padding: EdgeInsets.zero,
                         centerFurigana: false,
