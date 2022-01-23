@@ -31,7 +31,7 @@ class KanjiResultBody extends StatelessWidget {
           children: [
             const Flexible(
               fit: FlexFit.tight,
-              child: Center(child: SizedBox()),
+              child: SizedBox(),
             ),
             Flexible(
               fit: FlexFit.tight,

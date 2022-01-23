@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 import '../../../bloc/theme/theme_bloc.dart';
+import '../../../routing/routes.dart';
 
 class Radical extends StatelessWidget {
   final jisho.Radical radical;
@@ -16,17 +17,20 @@ class Radical extends StatelessWidget {
         builder: (context, state) {
           final colors = state.theme.kanjiResultColor;
 
-          return Container(
-            padding: const EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: colors.background,
-            ),
-            child: Text(
-              radical.symbol,
-              style: TextStyle(
-                color: colors.foreground,
-                fontSize: 40.0,
+          return InkWell(
+            onTap: () => Navigator.pushNamed(context, Routes.kanjiSearchRadicals, arguments: radical.symbol),
+            child: Container(
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: colors.background,
+              ),
+              child: Text(
+                radical.symbol,
+                style: TextStyle(
+                  color: colors.foreground,
+                  fontSize: 40.0,
+                ),
               ),
             ),
           );

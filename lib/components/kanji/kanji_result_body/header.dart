@@ -18,15 +18,14 @@ class Header extends StatelessWidget {
             final colors = state.theme.kanjiResultColor;
 
             return Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: colors.background,
               ),
-              child: Center(
-                child: Text(
-                  kanji,
-                  style: TextStyle(fontSize: 70.0, color: colors.foreground),
-                ),
+              child: Text(
+                kanji,
+                style: TextStyle(fontSize: 70.0, color: colors.foreground),
               ),
             );
           },
