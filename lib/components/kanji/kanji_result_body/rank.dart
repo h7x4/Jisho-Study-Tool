@@ -13,24 +13,25 @@ class Rank extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final colors =
-        BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          final colors = state.theme.kanjiResultColor;
 
-    return Container(
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        shape: (rank == null) ? BoxShape.circle : BoxShape.rectangle,
-        borderRadius: (rank == null) ? null : BorderRadius.circular(10.0),
-        color: colors.background,
-      ),
-      child: Text(
-        rank != null ? '${rank.toString()} / 2500' : ifNullChar,
-        style: TextStyle(
-          color: colors.foreground,
-          fontSize: 20.0,
-        ),
-      ),
-    );
-  }
+          return Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              shape: (rank == null) ? BoxShape.circle : BoxShape.rectangle,
+              borderRadius: (rank == null) ? null : BorderRadius.circular(10.0),
+              color: colors.background,
+            ),
+            child: Text(
+              rank != null ? '${rank.toString()} / 2500' : ifNullChar,
+              style: TextStyle(
+                color: colors.foreground,
+                fontSize: 20.0,
+              ),
+            ),
+          );
+        },
+      );
 }

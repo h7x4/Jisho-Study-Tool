@@ -95,23 +95,28 @@ class _DrawingBoardState extends State<DrawingBoard> {
 
   Widget kanjiChip(String kanji) => InkWell(
         onTap: () => widget.onSuggestionChosen?.call(kanji),
-        child: Container(
-          height: fontSize + 2 * suggestionCirclePadding,
-          width: fontSize + 2 * suggestionCirclePadding,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: BlocProvider.of<ThemeBloc>(context)
-                .state
-                .theme
-                .menuGreyLight
-                .background,
-          ),
-          child: Center(
-            child: Text(
-              kanji,
-              style: const TextStyle(fontSize: fontSize),
-            ),
-          ),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            final colors = state.theme.menuGreyLight;
+
+            return Container(
+              height: fontSize + 2 * suggestionCirclePadding,
+              width: fontSize + 2 * suggestionCirclePadding,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: colors.background,
+              ),
+              child: Center(
+                child: Text(
+                  kanji,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    color: colors.foreground,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       );
 

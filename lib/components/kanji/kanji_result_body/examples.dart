@@ -23,22 +23,23 @@ class Examples extends StatelessWidget {
         onyomi.map((onEx) => _Example(onEx, _KanaType.onyomi)).toList() +
             kunyomi.map((kunEx) => _Example(kunEx, _KanaType.kunyomi)).toList();
 
-    const noExamplesWidget = [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: Text('No Examples', style: textStyle),
-      )
-    ];
+    const noExamplesWidget = Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Text('No Examples', style: textStyle),
+    );
 
     return Column(
       children: <Widget>[
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.centerLeft,
-              child: const Text('Examples:', style: textStyle),
-            )
-          ] +
-          (onyomi.isEmpty && kunyomi.isEmpty ? noExamplesWidget : yomiWidgets),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          alignment: Alignment.centerLeft,
+          child: const Text('Examples:', style: textStyle),
+        ),
+        if (onyomi.isEmpty && kunyomi.isEmpty)
+          noExamplesWidget
+        else
+          ...yomiWidgets
+      ],
     );
   }
 }
@@ -52,31 +53,34 @@ class _Example extends StatelessWidget {
   const _Example(this.yomiExample, this.kanaType);
 
   @override
-  Widget build(BuildContext context) {
-    final theme = BlocProvider.of<ThemeBloc>(context).state.theme;
-    final menuColors = theme.menuGreyNormal;
-    final kanaColors =
-        kanaType == _KanaType.kunyomi ? theme.kunyomiColor : theme.onyomiColor;
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          final theme = state.theme;
+          final menuColors = theme.menuGreyNormal;
+          final kanaColors = kanaType == _KanaType.kunyomi
+              ? theme.kunyomiColor
+              : theme.onyomiColor;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 10.0,
-      ),
-      decoration: BoxDecoration(
-        color: menuColors.background,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            _Kana(colors: kanaColors, example: yomiExample),
-            _ExampleText(colors: menuColors, example: yomiExample)
-          ],
-        ),
-      ),
-    );
-  }
+          return Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 10.0,
+            ),
+            decoration: BoxDecoration(
+              color: menuColors.background,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  _Kana(colors: kanaColors, example: yomiExample),
+                  _ExampleText(colors: menuColors, example: yomiExample)
+                ],
+              ),
+            ),
+          );
+        },
+      );
 }
 
 class _Kana extends StatelessWidget {
@@ -88,7 +92,6 @@ class _Kana extends StatelessWidget {
     required this.colors,
     required this.example,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +108,9 @@ class _Kana extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            romajiEnabled ? transliterateKanaToLatin(example.reading) : example.reading,
+            romajiEnabled
+                ? transliterateKanaToLatin(example.reading)
+                : example.reading,
             style: TextStyle(
               color: colors.foreground,
               fontSize: 15.0,

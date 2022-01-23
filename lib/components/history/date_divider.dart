@@ -36,23 +36,23 @@ class DateDivider extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final Widget header =
-        (text != null) ? Text(text!) : Text(getHumanReadableDate(date!));
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          final colors = state.theme.menuGreyNormal;
 
-    final ColorSet _menuColors =
-        BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyNormal;
-
-    return Container(
-      decoration: BoxDecoration(color: _menuColors.background),
-      padding: const EdgeInsets.symmetric(
-        vertical: 5,
-        horizontal: 10,
-      ),
-      child: DefaultTextStyle.merge(
-        child: header,
-        style: TextStyle(color: _menuColors.foreground),
-      ),
-    );
-  }
+          return Container(
+            decoration: BoxDecoration(color: colors.background),
+            padding: const EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: 10,
+            ),
+            child: DefaultTextStyle.merge(
+              child: (text != null)
+                  ? Text(text!)
+                  : Text(getHumanReadableDate(date!)),
+              style: TextStyle(color: colors.foreground),
+            ),
+          );
+        },
+      );
 }
