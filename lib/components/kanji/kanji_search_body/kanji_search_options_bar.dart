@@ -20,12 +20,14 @@ class KanjiSearchOptionsBar extends StatelessWidget {
           const SizedBox(width: 10),
           _IconButton(
             icon: const Icon(Icons.school),
-            onPressed: () => Navigator.pushNamed(context, Routes.kanjiSearchGrade),
+            onPressed: () =>
+                Navigator.pushNamed(context, Routes.kanjiSearchGrade),
           ),
           const SizedBox(width: 10),
           _IconButton(
             icon: const Icon(Icons.mode),
-            onPressed: () => Navigator.pushNamed(context, Routes.kanjiSearchDraw),
+            onPressed: () =>
+                Navigator.pushNamed(context, Routes.kanjiSearchDraw),
           ),
         ],
       ),
@@ -44,12 +46,12 @@ class _IconButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: icon,
-      iconSize: 30,
-      color: BlocProvider.of<ThemeBloc>(context).state.theme.menuGreyDark.background,
-    );
-  }
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) => IconButton(
+          onPressed: onPressed,
+          icon: icon,
+          iconSize: 30,
+          color: state.theme.menuGreyDark.background,
+        ),
+      );
 }

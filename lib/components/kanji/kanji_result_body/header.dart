@@ -11,24 +11,25 @@ class Header extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final colors =
-        BlocProvider.of<ThemeBloc>(context).state.theme.kanjiResultColor;
+  Widget build(BuildContext context) => AspectRatio(
+        aspectRatio: 1,
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            final colors = state.theme.kanjiResultColor;
 
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: colors.background,
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: colors.background,
+              ),
+              child: Center(
+                child: Text(
+                  kanji,
+                  style: TextStyle(fontSize: 70.0, color: colors.foreground),
+                ),
+              ),
+            );
+          },
         ),
-        child: Center(
-          child: Text(
-            kanji,
-            style: TextStyle(fontSize: 70.0, color: colors.foreground),
-          ),
-        ),
-      ),
-    );
-  }
+      );
 }

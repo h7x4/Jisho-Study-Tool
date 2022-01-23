@@ -156,15 +156,13 @@ class _KanjiRadicalSearchState extends State<KanjiRadicalSearch> {
           Expanded(
             child: (suggestions.isEmpty)
                 ? Center(
-                    child: Text(
-                      'Toggle a radical to start',
-                      style: TextStyle(
-                        fontSize: fontSize * 0.8,
-                        color: BlocProvider.of<ThemeBloc>(context)
-                            .state
-                            .theme
-                            .menuGreyNormal
-                            .background,
+                    child: BlocBuilder<ThemeBloc, ThemeState>(
+                      builder: (context, state) => Text(
+                        'Toggle a radical to start',
+                        style: TextStyle(
+                          fontSize: fontSize * 0.8,
+                          color: state.theme.menuGreyNormal.background,
+                        ),
                       ),
                     ),
                   )

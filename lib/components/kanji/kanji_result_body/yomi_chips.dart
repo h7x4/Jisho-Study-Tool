@@ -23,6 +23,7 @@ extension on YomiType {
   }
 
   ColorSet getColors(BuildContext context) {
+    // TODO: convert this into a blocbuilder or bloclistener
     final theme = BlocProvider.of<ThemeBloc>(context).state.theme;
 
     switch (this) {

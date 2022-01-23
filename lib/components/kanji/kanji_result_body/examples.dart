@@ -53,31 +53,34 @@ class _Example extends StatelessWidget {
   const _Example(this.yomiExample, this.kanaType);
 
   @override
-  Widget build(BuildContext context) {
-    final theme = BlocProvider.of<ThemeBloc>(context).state.theme;
-    final menuColors = theme.menuGreyNormal;
-    final kanaColors =
-        kanaType == _KanaType.kunyomi ? theme.kunyomiColor : theme.onyomiColor;
+  Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          final theme = state.theme;
+          final menuColors = theme.menuGreyNormal;
+          final kanaColors = kanaType == _KanaType.kunyomi
+              ? theme.kunyomiColor
+              : theme.onyomiColor;
 
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 10.0,
-      ),
-      decoration: BoxDecoration(
-        color: menuColors.background,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            _Kana(colors: kanaColors, example: yomiExample),
-            _ExampleText(colors: menuColors, example: yomiExample)
-          ],
-        ),
-      ),
-    );
-  }
+          return Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: 5.0,
+              horizontal: 10.0,
+            ),
+            decoration: BoxDecoration(
+              color: menuColors.background,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  _Kana(colors: kanaColors, example: yomiExample),
+                  _ExampleText(colors: menuColors, example: yomiExample)
+                ],
+              ),
+            ),
+          );
+        },
+      );
 }
 
 class _Kana extends StatelessWidget {
