@@ -22,12 +22,13 @@ class OtherForms extends StatelessWidget {
               Wrap(
                 children: forms
                     .map(
-                      (form) => KanjiKanaBox(
-                        word: form,
-                        colors: BlocProvider.of<ThemeBloc>(context)
-                            .state
-                            .theme
-                            .menuGreyLight,
+                      (form) => BlocBuilder<ThemeBloc, ThemeState>(
+                        builder: (context, state) {
+                          return KanjiKanaBox(
+                            word: form,
+                            colors: state.theme.menuGreyLight,
+                          );
+                        },
                       ),
                     )
                     .toList(),
