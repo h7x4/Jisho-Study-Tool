@@ -16,7 +16,7 @@ class OtherForms extends StatelessWidget {
       children: forms.isNotEmpty
           ? [
               const Text(
-                'Other Forms',
+                'Other Forms:',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Wrap(

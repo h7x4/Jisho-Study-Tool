@@ -20,18 +20,17 @@ class KanjiBox extends StatelessWidget {
         aspectRatio: 1,
         child: Container(
           padding: const EdgeInsets.all(5),
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             color: menuColors.background,
             borderRadius: BorderRadius.circular(10.0),
           ),
-          child: Center(
-            child: FittedBox(
-              child: Text(
-                kanji,
-                style: TextStyle(
-                  color: menuColors.foreground,
-                  fontSize: 25,
-                ),
+          child: FittedBox(
+            child: Text(
+              kanji,
+              style: TextStyle(
+                color: menuColors.foreground,
+                fontSize: 25,
               ),
             ),
           ),
