@@ -30,14 +30,15 @@ class Sense extends StatelessWidget {
     return supplementalInfo;
   }
 
-  List<String> get _supplementalWithoutAntonyms =>
-      _removeAntonyms(List.from(meaning?.supplemental ?? []));
+  List<String>? get _supplementalWithoutAntonyms =>
+  (meaning == null) ? null : 
+      _removeAntonyms(List.from(meaning!.supplemental));
 
   bool get hasSupplementalInfo =>
       sense.info.isNotEmpty ||
       sense.source.isNotEmpty ||
       sense.tags.isNotEmpty ||
-      _supplementalWithoutAntonyms.isNotEmpty;
+      (_supplementalWithoutAntonyms?.isNotEmpty ?? false);
 
   @override
   Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
