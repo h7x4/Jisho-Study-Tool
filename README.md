@@ -39,7 +39,7 @@ You can also search for kanji by trying to draw it.
 There's also grade based search, and radical based search.
 The data returned usually includes the kanjis radical, meanings, pronounciations, stroke order, some statistics and example usage.
 
-# Development environment
+## Development environment
 
 To set up a development environment, I would suggest heading over to [flutter.dev][flutter-get-started] and following the installation instructions.
 
