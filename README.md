@@ -11,15 +11,15 @@ A japanese dictionary with features for making studying the language easier. For
 ## Screenshots
 
 <p align="center">
-  <img src=".github/screenshots/search.png" width="200"/>
-  <img src=".github/screenshots/kanji_search.png" width="200"/> 
-  <img src=".github/screenshots/radical_search.png" width="200"/>
+  <img src=".github/screenshots/search.png" width="300"/>
+  <img src=".github/screenshots/kanji_search.png" width="300"/> 
+  <img src=".github/screenshots/radical_search.png" width="300"/>
 </p>
 
 <p align="center">
-  <img src=".github/screenshots/search_result.png" width="200"/>
-  <img src=".github/screenshots/kanji_result.png" width="200"/> 
-  <img src=".github/screenshots/draw_search.png" width="200"/>
+  <img src=".github/screenshots/search_result.png" width="300"/>
+  <img src=".github/screenshots/kanji_result.png" width="300"/> 
+  <img src=".github/screenshots/draw_search.png" width="300"/>
 </p>
 
 [See all screenshots][screenshots]
