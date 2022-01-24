@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../screens/home.dart';
+import '../screens/info/about.dart';
+import '../screens/info/licenses.dart';
 import '../screens/search/kanji_result_page.dart';
 import '../screens/search/search_mechanisms/drawing.dart';
 import '../screens/search/search_mechanisms/grade_list.dart';
@@ -35,7 +37,14 @@ Route<Widget> generateRoute(RouteSettings settings) {
 
     case Routes.kanjiSearchRadicals:
       final prechosenRadical = args as String?;
-      return MaterialPageRoute(builder: (_) => KanjiRadicalSearch(prechosenRadical: prechosenRadical));
+      return MaterialPageRoute(
+        builder: (_) => KanjiRadicalSearch(prechosenRadical: prechosenRadical),
+      );
+
+    case Routes.about:
+      return MaterialPageRoute(builder: (_) => const AboutView());
+    case Routes.aboutLicenses:
+      return MaterialPageRoute(builder: (_) => const LicensesView());
 
     // TODO: Add more specific error screens.
     case Routes.errorNotFound:

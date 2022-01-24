@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:unofficial_jisho_api/api.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-Future<void> _launch(String url) async {
-  if (await canLaunch(url)) {
-    launch(url);
-  } else {
-    debugPrint('Could not open url: $url');
-  }
-}
+import '../../../../services/open_webpage.dart';
 
 final BoxDecoration _iconStyle = BoxDecoration(
   color: Colors.white,
@@ -30,7 +23,7 @@ Widget _wiki({
             decoration: _iconStyle,
             margin: EdgeInsets.fromLTRB(0, 0, 10, isJapanese ? 12 : 10),
             child: IconButton(
-              onPressed: () => _launch(link),
+              onPressed: () => open_webpage(link),
               icon: SvgPicture.asset('assets/images/wikipedia.svg'),
             ),
           ),
@@ -56,7 +49,7 @@ Widget _wiki({
 Widget _dbpedia(String link) => Container(
       decoration: _iconStyle,
       child: IconButton(
-        onPressed: () => _launch(link),
+        onPressed: () => open_webpage(link),
         icon: Image.asset(
           'assets/images/dbpedia.png',
         ),
@@ -107,7 +100,7 @@ class Links extends StatelessWidget {
     final List<Widget> otherLinks = [
       for (final link in newLinks) ...[
         InkWell(
-          onTap: () => _launch(link.url),
+          onTap: () => open_webpage(link.url),
           child: Text(
             link.text,
             style: const TextStyle(color: Colors.blue),
