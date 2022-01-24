@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,6 +28,16 @@ Future<void> setupSharedPreferences() async {
   GetIt.instance.registerSingleton<SharedPreferences>(prefs);
 }
 
+void registerExtraLicenses() => LicenseRegistry.addLicense(() async* {
+      final jsonString = await rootBundle.loadString('assets/licenses.json');
+      final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+      for (final license in jsonData.entries)
+        yield LicenseEntryWithLineBreaks(
+          [license.key],
+          await rootBundle.loadString(license.value as String),
+        );
+    });
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -32,6 +45,8 @@ Future<void> main() async {
     setupDatabase(),
     setupSharedPreferences(),
   ]);
+
+  registerExtraLicenses();
 
   runApp(const MyApp());
 }

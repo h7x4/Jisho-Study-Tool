@@ -6,6 +6,8 @@ import 'package:mdi/mdi.dart';
 import '../bloc/theme/theme_bloc.dart';
 import '../components/common/denshi_jisho_background.dart';
 import '../models/history/search.dart';
+import '../routing/routes.dart';
+import '../services/open_webpage.dart';
 import '../settings.dart';
 
 class SettingsView extends StatefulWidget {
@@ -159,40 +161,41 @@ class _SettingsViewState extends State<SettingsView> {
                   ),
                 ],
               ),
-              SettingsSection(
-                title: 'Cache',
-                titleTextStyle: _titleTextStyle,
-                tiles: <SettingsTile>[
-                  SettingsTile.switchTile(
-                    title: 'Cache grade 1-7 kanji',
-                    switchValue: false,
-                    onToggle: (v) {},
-                    enabled: false,
-                    switchActiveColor: AppTheme.jishoGreen.background,
-                  ),
-                  SettingsTile.switchTile(
-                    title: 'Cache grade standard kanji',
-                    switchValue: false,
-                    onToggle: (v) {},
-                    enabled: false,
-                    switchActiveColor: AppTheme.jishoGreen.background,
-                  ),
-                  SettingsTile.switchTile(
-                    title: 'Cache all favourites',
-                    switchValue: false,
-                    onToggle: (v) {},
-                    enabled: false,
-                    switchActiveColor: AppTheme.jishoGreen.background,
-                  ),
-                  SettingsTile.switchTile(
-                    title: 'Cache all searches',
-                    switchValue: false,
-                    onToggle: (v) {},
-                    enabled: false,
-                    switchActiveColor: AppTheme.jishoGreen.background,
-                  ),
-                ],
-              ),
+              // TODO: This will be left commented until caching is implemented
+              // SettingsSection(
+              //   title: 'Cache',
+              //   titleTextStyle: _titleTextStyle,
+              //   tiles: <SettingsTile>[
+              //     SettingsTile.switchTile(
+              //       title: 'Cache grade 1-7 kanji',
+              //       switchValue: false,
+              //       onToggle: (v) {},
+              //       enabled: false,
+              //       switchActiveColor: AppTheme.jishoGreen.background,
+              //     ),
+              //     SettingsTile.switchTile(
+              //       title: 'Cache grade standard kanji',
+              //       switchValue: false,
+              //       onToggle: (v) {},
+              //       enabled: false,
+              //       switchActiveColor: AppTheme.jishoGreen.background,
+              //     ),
+              //     SettingsTile.switchTile(
+              //       title: 'Cache all favourites',
+              //       switchValue: false,
+              //       onToggle: (v) {},
+              //       enabled: false,
+              //       switchActiveColor: AppTheme.jishoGreen.background,
+              //     ),
+              //     SettingsTile.switchTile(
+              //       title: 'Cache all searches',
+              //       switchValue: false,
+              //       onToggle: (v) {},
+              //       enabled: false,
+              //       switchActiveColor: AppTheme.jishoGreen.background,
+              //     ),
+              //   ],
+              // ),
               SettingsSection(
                 title: 'Data',
                 titleTextStyle: _titleTextStyle,
@@ -217,6 +220,32 @@ class _SettingsViewState extends State<SettingsView> {
                   )
                 ],
               ),
+              SettingsSection(
+                title: 'Info',
+                titleTextStyle: _titleTextStyle,
+                tiles: <SettingsTile>[
+                  SettingsTile(
+                    leading: const Icon(Icons.info),
+                    title: 'About',
+                    onPressed: (c) =>
+                        Navigator.pushNamed(context, Routes.about),
+                  ),
+                  SettingsTile(
+                    leading: Image.asset(
+                      'assets/images/logo/logo_icon_transparent_green.png',
+                      width: 30,
+                    ),
+                    title: 'Jisho',
+                    onPressed: (c) => open_webpage('https://jisho.org/about'),
+                  ),
+                  SettingsTile(
+                    leading: const Icon(Icons.copyright),
+                    title: 'Licenses',
+                    onPressed: (c) =>
+                        Navigator.pushNamed(context, Routes.aboutLicenses),
+                  ),
+                ],
+              )
             ],
           );
         },
