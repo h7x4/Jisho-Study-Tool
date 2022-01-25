@@ -2,38 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../../bloc/theme/theme_bloc.dart';
 
-class DateDivider extends StatelessWidget {
-  final String? text;
-  final DateTime? date;
+class TextDivider extends StatelessWidget {
+  final String text;
 
-  const DateDivider({
-    this.text,
-    this.date,
+  const TextDivider({
     Key? key,
-  })  : assert((text == null) ^ (date == null)),
-        super(key: key);
-
-  String getHumanReadableDate(DateTime date) {
-    const List<String> monthTable = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    final int day = date.day;
-    final String month = monthTable[date.month - 1];
-    final int year = date.year;
-    return '$day. $month $year';
-  }
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BlocBuilder<ThemeBloc, ThemeState>(
@@ -47,9 +22,7 @@ class DateDivider extends StatelessWidget {
               horizontal: 10,
             ),
             child: DefaultTextStyle.merge(
-              child: (text != null)
-                  ? Text(text!)
-                  : Text(getHumanReadableDate(date!)),
+              child: Text(text),
               style: TextStyle(color: colors.foreground),
             ),
           );

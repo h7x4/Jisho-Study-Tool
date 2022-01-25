@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import '../screens/home.dart';
 import '../screens/info/about.dart';
 import '../screens/info/licenses.dart';
-import '../screens/search/kanji_result_page.dart';
+import '../screens/search/result_page.dart';
 import '../screens/search/search_mechanisms/drawing.dart';
 import '../screens/search/search_mechanisms/grade_list.dart';
 import '../screens/search/search_mechanisms/radical_list.dart';
-import '../screens/search/search_results_page.dart';
 import 'routes.dart';
 
 Route<Widget> generateRoute(RouteSettings settings) {
@@ -20,13 +19,13 @@ Route<Widget> generateRoute(RouteSettings settings) {
     case Routes.search:
       final searchTerm = args! as String;
       return MaterialPageRoute(
-        builder: (_) => SearchResultsPage(searchTerm: searchTerm),
+        builder: (_) => ResultPage(searchTerm: searchTerm, isKanji: false),
       );
 
     case Routes.kanjiSearch:
       final searchTerm = args! as String;
       return MaterialPageRoute(
-        builder: (_) => KanjiResultPage(kanjiSearchTerm: searchTerm),
+        builder: (_) => ResultPage(searchTerm: searchTerm, isKanji: true),
       );
 
     case Routes.kanjiSearchDraw:
