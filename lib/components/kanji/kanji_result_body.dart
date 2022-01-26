@@ -39,11 +39,9 @@ class KanjiResultBody extends StatelessWidget {
             ),
             Flexible(
               fit: FlexFit.tight,
-              child: Center(
-                child: (resultData.radical != null)
-                    ? Radical(radical: resultData.radical!)
-                    : const SizedBox(),
-              ),
+              child: (resultData.radical != null)
+                  ? Center(child: Radical(radical: resultData.radical!))
+                  : const SizedBox(),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import '../../../../data/grades.dart';
 import '../../../../models/themes/theme.dart';
 import '../../../../routing/routes.dart';
 import '../../../components/common/loading.dart';
+import '../../../components/common/square.dart';
 import '../../../settings.dart';
 
 class KanjiGradeSearch extends StatefulWidget {
@@ -30,26 +31,28 @@ class _GridItem extends StatelessWidget {
         ? () => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(text)),
             )
-        : () => Navigator.popAndPushNamed(
+        : () => Navigator.pushNamed(
               context,
               Routes.kanjiSearch,
               arguments: text,
             );
 
-    return InkWell(
+    return Square(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.all(10),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           color: color.background,
         ),
-        alignment: Alignment.center,
         child: Text(
           text,
-          style: TextStyle(
-            color: color.foreground,
-            fontSize: 25,
-          ).merge(japaneseFont.textStyle),
+          style: Theme.of(context)
+              .textTheme
+              .headline5
+              ?.merge(TextStyle(color: color.foreground))
+              .merge(japaneseFont.textStyle),
         ),
       ),
     );
@@ -78,29 +81,27 @@ class _KanjiGradeSearchState extends State<KanjiGradeSearch> {
 
   Future<Widget> get makeGrids async => SingleChildScrollView(
         child: Column(
-          children: (await Future.wait(
+          children: await Future.wait(
             grades.keys.map(
               (grade) async => ExpansionTile(
                 title: Text(grade == 7 ? 'Junior Highschool' : 'Grade $grade'),
                 maintainState: true,
                 children: [
-                  GridView.count(
-                    crossAxisCount: 6,
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
+                  Padding(
                     padding: const EdgeInsets.all(10),
-                    children: (await gradeWidgets)[grade]!
-                        .values
-                        .expand((l) => l)
-                        .toList(),
-                  )
+                    child: Wrap(
+                      runSpacing: 10,
+                      spacing: 10,
+                      children: (await gradeWidgets)[grade]!
+                          .values
+                          .expand((l) => l)
+                          .toList(),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ))
-              .toList(),
+          ),
         ),
       );
 

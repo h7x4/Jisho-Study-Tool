@@ -27,7 +27,18 @@ class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leadingWidth: 100,
+        leading: Row(
+          children: [
+            const BackButton(),
+            CloseButton(
+              onPressed: () =>
+                  Navigator.popUntil(context, (route) => route.isFirst),
+            ),
+          ],
+        ),
+      ),
       body: FutureBuilder(
         future: widget.isKanji
             ? fetchKanji(widget.searchTerm)

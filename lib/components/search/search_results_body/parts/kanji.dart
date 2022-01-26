@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../bloc/theme/theme_bloc.dart';
 import '../../../../routing/routes.dart';
 import '../../../../settings.dart';
+import '../../../common/square.dart';
 
 class KanjiRow extends StatelessWidget {
   final List<String> kanji;
@@ -13,33 +14,33 @@ class KanjiRow extends StatelessWidget {
     this.fontSize = 20,
   }) : super(key: key);
 
-  Widget _kanjiBox(String kanji) => UnconstrainedBox(
-        child: IntrinsicHeight(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: BlocBuilder<ThemeBloc, ThemeState>(
-              builder: (context, state) {
-                final colors = state.theme.menuGreyLight;
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: colors.background,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: FittedBox(
-                    child: Text(
-                      kanji,
-                      style: TextStyle(
-                        color: colors.foreground,
-                        fontSize: fontSize,
-                      ).merge(japaneseFont.textStyle),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+  Widget _kanjiBox(BuildContext context, String kanji) => Square(
+        onTap: () => Navigator.pushNamed(
+          context,
+          Routes.kanjiSearch,
+          arguments: kanji,
+        ),
+        child: BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            final colors = state.theme.menuGreyLight;
+            return Container(
+              padding: const EdgeInsets.all(10),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: colors.background,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: FittedBox(
+                child: Text(
+                  kanji,
+                  style: TextStyle(
+                    color: colors.foreground,
+                    fontSize: fontSize,
+                  ).merge(japaneseFont.textStyle),
+                ),
+              ),
+            );
+          },
         ),
       );
 
@@ -57,15 +58,7 @@ class KanjiRow extends StatelessWidget {
           spacing: 10,
           runSpacing: 10,
           children: [
-            for (final k in kanji)
-              InkWell(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  Routes.kanjiSearch,
-                  arguments: k,
-                ),
-                child: _kanjiBox(k),
-              )
+            for (final k in kanji) _kanjiBox(context, k),
           ],
         ),
       ],

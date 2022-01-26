@@ -73,6 +73,7 @@ class AboutView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: IconButton(
+                        color: Colors.white,
                         iconSize: 50,
                         onPressed: () => open_webpage(
                           'https://github.com/h7x4ABk3g/Jisho-Study-Tool',

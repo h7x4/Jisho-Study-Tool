@@ -76,6 +76,10 @@ class KanjiKanaBox extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.transparent,
                       fontSize: fFontsize,
+                    ).merge(
+                      romajiEnabled && autoTransliterateRomaji
+                          ? null
+                          : japaneseFont.textStyle,
                     ),
                   ),
 

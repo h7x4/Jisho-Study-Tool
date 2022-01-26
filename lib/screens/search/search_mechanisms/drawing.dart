@@ -15,7 +15,7 @@ class KanjiDrawingSearch extends StatelessWidget {
           Expanded(child: Column()),
           DrawingBoard(
             onlyOneCharacterSuggestions: true,
-            onSuggestionChosen: (suggestion) => Navigator.popAndPushNamed(
+            onSuggestionChosen: (suggestion) => Navigator.pushNamed(
               context,
               Routes.kanjiSearch,
               arguments: suggestion,
