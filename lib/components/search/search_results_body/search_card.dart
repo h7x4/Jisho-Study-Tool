@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/services/kanji_regex.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import './parts/common_badge.dart';
@@ -55,7 +56,7 @@ class _SearchResultCardState extends State<SearchResultCard> {
     return jlpt.last;
   }
 
-  List<String> get kanji => RegExp(r'(\p{Script=Hani})', unicode: true)
+  List<String> get kanji => kanjiRegex
       .allMatches(
         widget.result.japanese
             .map((w) => '${w.word ?? ""}${w.reading ?? ""}')

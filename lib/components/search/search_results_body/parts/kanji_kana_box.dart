@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jisho_study_tool/services/kanji_regex.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
 import '../../../../models/themes/theme.dart';
@@ -34,8 +35,8 @@ class KanjiKanaBox extends StatelessWidget {
 
   bool get hasFurigana => word.reading != null;
 
-  String get kana => '${word.reading ?? ""}${word.word ?? ""}'
-      .replaceAll(RegExp(r'\p{Script=Hani}', unicode: true), '');
+  String get kana =>
+      '${word.reading ?? ""}${word.word ?? ""}'.replaceAll(kanjiRegex, '');
 
   @override
   Widget build(BuildContext context) {
