@@ -32,6 +32,7 @@ class SearchResultCard extends StatefulWidget {
 
 class _SearchResultCardState extends State<SearchResultCard> {
   PhrasePageScrapeResultData? extraData;
+  bool? extraDataSearchFailed;
 
   Future<PhrasePageScrapeResult?> _scrape(JishoResult result) =>
       (!(result.japanese[0].word == null && result.japanese[0].reading == null))
@@ -133,18 +134,19 @@ class _SearchResultCardState extends State<SearchResultCard> {
         if (extensiveSearchEnabled && extraData == null) {
           final data = await _scrape(widget.result);
           setState(() {
-            extraData = (data != null && data.found) ? data.data : null;
+            extraDataSearchFailed = !(data?.found ?? false);
+            extraData = !extraDataSearchFailed! ? data!.data : null;
           });
         }
       },
       title: _header,
       children: [
-        if (extensiveSearchEnabled && extraData == null)
+        if (extensiveSearchEnabled && extraDataSearchFailed == null)
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Center(child: CircularProgressIndicator()),
           )
-        else if (extraData != null)
+        else if (!extraDataSearchFailed!)
           _body(extendedData: extraData)
         else
           _body()
