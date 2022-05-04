@@ -86,3 +86,35 @@ Future<void> addSearchToDatabase({
             .toJson(),
   );
 }
+
+List<Search> mergeSearches(List<Search> a, List<Search> b) {
+  final List<Search> result = [...a];
+
+  for (final Search search in b) {
+    late final Iterable<Search> matchingEntry;
+    if (search.isKanji) {
+      matchingEntry =
+          result.where((e) => e.kanjiQuery?.kanji == search.kanjiQuery!.kanji);
+    } else {
+      matchingEntry =
+          result.where((e) => e.wordQuery?.query == search.wordQuery!.query);
+    }
+
+    if (matchingEntry.isEmpty) {
+      result.add(search);
+      continue;
+    }
+
+    final timestamps = [...matchingEntry.first.timestamps];
+    matchingEntry.first.timestamps.clear();
+    matchingEntry.first.timestamps.addAll(
+      (timestamps
+            ..addAll(search.timestamps)
+            ..sort())
+          .toSet()
+          .toList(),
+    );
+  }
+
+  return result;
+}
