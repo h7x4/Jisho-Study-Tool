@@ -17,7 +17,7 @@ class DenshiJishoBackground extends StatelessWidget {
           left: 100,
           bottom: 30,
           child: Image.asset(
-            'assets/images/denshi_jisho_background_overlay.png',
+            'assets/images/components/denshi_jisho_background_overlay.png',
           ),
         ),
         child,

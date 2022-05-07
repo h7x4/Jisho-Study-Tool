@@ -45,11 +45,13 @@ flutter_icons:
 
 flutter:
   uses-material-design: true
-  
+
   assets:
     - assets/
     - assets/fonts/
     - assets/images/
+    - assets/images/components/
+    - assets/images/links/
     - assets/images/logo/
     - assets/licenses/
 
@@ -61,7 +63,7 @@ flutter:
 
     - family: Noto Sans CJK
       fonts:
-        - asset: assets/fonts/NotoSansCJK-Regular.ttc 
+        - asset: assets/fonts/NotoSansCJK-Regular.ttc
 
     - family: Noto Serif CJK
       fonts:

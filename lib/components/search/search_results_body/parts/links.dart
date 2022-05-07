@@ -24,7 +24,7 @@ Widget _wiki({
             margin: EdgeInsets.fromLTRB(0, 0, 10, isJapanese ? 12 : 10),
             child: IconButton(
               onPressed: () => open_webpage(link),
-              icon: SvgPicture.asset('assets/images/wikipedia.svg'),
+              icon: SvgPicture.asset('assets/images/links/wikipedia.svg'),
             ),
           ),
           Container(
@@ -51,7 +51,7 @@ Widget _dbpedia(String link) => Container(
       child: IconButton(
         onPressed: () => open_webpage(link),
         icon: Image.asset(
-          'assets/images/dbpedia.png',
+          'assets/images/links/dbpedia.png',
         ),
       ),
     );
