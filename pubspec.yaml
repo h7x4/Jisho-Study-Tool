@@ -28,7 +28,7 @@ dependencies:
   test: ^1.19.5
   shared_preferences: ^2.0.6
   signature: ^5.0.0
-  unofficial_jisho_api: ^2.0.4
+  unofficial_jisho_api: ^3.0.0
   url_launcher: ^6.0.9
 
 dev_dependencies:

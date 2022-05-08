@@ -9,6 +9,7 @@ import './kanji_result_body/radical.dart';
 import './kanji_result_body/rank.dart';
 import './kanji_result_body/stroke_order_gif.dart';
 import './kanji_result_body/yomi_chips.dart';
+import '../../services/kanji_grade_conversion.dart';
 
 class KanjiResultBody extends StatelessWidget {
   late final String query;
@@ -24,6 +25,7 @@ class KanjiResultBody extends StatelessWidget {
     resultData = result.data!;
   }
 
+  // TODO: add compart link
   Widget get headerRow => Container(
         margin: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 30.0),
         child: Row(
@@ -62,7 +64,7 @@ class KanjiResultBody extends StatelessWidget {
           Row(
             children: [
               const Text('Grade: ', style: TextStyle(fontSize: 20.0)),
-              Grade(grade: resultData.taughtIn),
+              Grade(grade: resultData.grade),
             ],
           ),
           Row(
