@@ -17,7 +17,7 @@ CREATE TABLE Kanji_Radical (
 );
 
 CREATE TABLE Kanji_Radical_Forms (
-  form TEXT NOT NULL PRIMARY KEY,
+  form CHAR(1) NOT NULL PRIMARY KEY,
   radical CHAR(1) NOT NULL,
   FOREIGN KEY(radical) REFERENCES Kanji_Radical(symbol)
 );
@@ -31,23 +31,25 @@ CREATE TABLE Kanji_Onyomi (
 );
 
 CREATE TABLE Kanji_Part (
-  part TEXT NOT NULL PRIMARY KEY
+  part CHAR(1) NOT NULL PRIMARY KEY
+  -- FOREIGN KEY(part) REFERENCES Kanji_Radical(symbol)
 );
 
 CREATE TABLE Kanji_Result (
   kanji CHAR(1) PRIMARY KEY,
-  taughtIn INTEGER,
-  jlptLevel INTEGER,
+  taughtIn INTEGER CHECK (taughtIn BETWEEN 1 AND 7),
+  jlptLevel INTEGER CHECK (jlptLevel BETWEEN 1 AND 5),
   newspaperFrequencyRank INTEGER,
   strokeCount INTEGER NOT NULL,
   meaning INTEGER NOT NULL,
   radical CHAR(1) NOT NULL,
+  isJouyou BOOLEAN NOT NULL DEFAULT false,
   FOREIGN KEY (radical) REFERENCES Kanji_Radical(symbol)
 );
 
 CREATE TABLE Kanji_ResultKunyomiExample_XRef (
   exampleID INTEGER NOT NULL,
-  kanji TEXT NOT NULL,
+  kanji CHAR(1) NOT NULL,
   FOREIGN KEY(exampleID) REFERENCES Kanji_YomiExample(exampleID),
   FOREIGN KEY(kanji) REFERENCES Kanji_Result(kanji),
   PRIMARY KEY(exampleID, kanji)
@@ -55,7 +57,7 @@ CREATE TABLE Kanji_ResultKunyomiExample_XRef (
 
 CREATE TABLE Kanji_ResultOnyomiExample_XRef (
   exampleID INTEGER NOT NULL,
-  kanji TEXT NOT NULL,
+  kanji CHAR(1) NOT NULL,
   FOREIGN KEY(exampleID) REFERENCES Kanji_YomiExample(exampleID),
   FOREIGN KEY(kanji) REFERENCES Kanji_Result(kanji),
   PRIMARY KEY(exampleID, kanji)
@@ -63,7 +65,7 @@ CREATE TABLE Kanji_ResultOnyomiExample_XRef (
 
 CREATE TABLE Kanji_ResultKunyomi_XRef (
   yomi TEXT NOT NULL,
-  kanji TEXT NOT NULL,
+  kanji CHAR(1) NOT NULL,
   FOREIGN KEY(yomi) REFERENCES Kanji_Kunyomi(yomi),
   FOREIGN KEY(kanji) REFERENCES Kanji_Result(kanji),
   PRIMARY KEY(yomi, kanji)
@@ -71,19 +73,30 @@ CREATE TABLE Kanji_ResultKunyomi_XRef (
 
 CREATE TABLE Kanji_ResultOnyomi_XRef (
   yomi TEXT NOT NULL,
-  kanji TEXT NOT NULL,
+  kanji CHAR(1) NOT NULL,
   FOREIGN KEY(yomi) REFERENCES Kanji_Onyomi(yomi),
   FOREIGN KEY(kanji) REFERENCES Kanji_Result(kanji),
   PRIMARY KEY(yomi, kanji)
 );
 
 CREATE TABLE Kanji_ResultPart_XRef (
-  part TEXT NOT NULL,
-  kanji TEXT NOT NULL,
+  part CHAR(1) NOT NULL,
+  kanji CHAR(1) NOT NULL,
   FOREIGN KEY(part) REFERENCES Kanji_Part(part),
   FOREIGN KEY(kanji) REFERENCES Kanji_Result(kanji),
   PRIMARY KEY(part, kanji)
 );
+
+-- RADKFILE
+
+CREATE TABLE RADKFILE (
+  kanji CHAR(1) NOT NULL,
+  radical CHAR(1) NOT NULL,
+  FOREIGN KEY(radical) REFERENCES Kanji_Radical(symbol)
+);
+
+CREATE INDEX RADK ON RADKFILE (radical);
+CREATE INDEX KRAD ON RADKFILE (kanji);
 
 -- Example Sentence
 

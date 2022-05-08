@@ -1,253 +1,254 @@
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (1, '一', 1, 'one');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (2, '｜', 1, 'line');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (3, '丶', 1, 'dot');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (4, 'ノ', 1, 'slash');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (5, '乙', 1, 'second');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (6, '亅', 1, 'hook');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (7, '二', 2, 'two');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (8, '亠', 2, 'lid');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (9, '人', 2, 'man, human');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (10, '⺅', 2, 'man, human', '化');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (11, '𠆢', 2, 'man, human', '个');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (12, '儿', 2, 'legs');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (13, '入', 2, 'enter');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (14, 'ハ', 2, 'eight');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (15, '丷', 2, 'eight', '并');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (16, '冂', 2, 'open country');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (17, '冖', 2, 'cover');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (18, '冫', 2, 'ice');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (19, '几', 2, 'table');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (20, '凵', 2, 'container, open mouth');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (21, '刀', 2, 'knife, sword');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (22, '⺉', 2, 'knife, sword', '刈');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (23, '力', 2, 'power, force');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (24, '勹', 2, 'wrap, embrace');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (25, '匕', 2, 'spoon');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (26, '匚', 2, 'box');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (27, '十', 2, 'ten, complete');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (28, '卜', 2, 'divination');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (29, '卩', 2, 'kneel');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (30, '厂', 2, 'cliff');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (31, '厶', 2, 'private');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (32, '又', 2, 'right hand');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (33, 'マ', 2, 'Katakana, Jisho search radical');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (34, '九', 2, 'second');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (35, 'ユ', 2, 'Katakana, Jisho search radical');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (36, '乃', 2, 'slash');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (360, '𠂉', 2, 'slash', '乞');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (37, '⻌', 3, 'walk', '込');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (38, '口', 3, 'mouth, opening');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (39, '囗', 3, 'enclosure');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (40, '土', 3, 'earth');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (41, '士', 3, 'scholar, bachelor');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (42, '夂', 3, 'go');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (43, '夕', 3, 'evening, sunset');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (44, '大', 3, 'big, very');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (45, '女', 3, 'woman, female');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (46, '子', 3, 'child, seed');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (47, '宀', 3, 'roof');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (48, '寸', 3, 'thumb, inch');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (49, '小', 3, 'small, insignificant');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (50, '⺌', 3, 'small, insignificant', '尚');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (51, '尢', 3, 'lame');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (52, '尸', 3, 'corpse');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (53, '屮', 3, 'sprout');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (54, '山', 3, 'mountain');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (55, '川', 3, 'river');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (56, '巛', 3, 'river');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (57, '工', 3, 'work');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (58, '已', 3, 'oneself');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (59, '巾', 3, 'turban, scarf');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (60, '干', 3, 'pestle');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (61, '幺', 3, 'short, tiny');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (62, '广', 3, 'house on cliff');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (63, '廴', 3, 'long stride');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (64, '廾', 3, 'two hands, twenty');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (65, '弋', 3, 'shoot, arrow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (66, '弓', 3, 'bow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (67, 'ヨ', 3, 'pig snout');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (68, '彑', 3, 'pig snout');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (69, '彡', 3, 'bristle, beard');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (70, '彳', 3, 'step');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (71, '⺖', 3, 'heart', '忙');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (72, '⺘', 3, 'hand', '扎');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (73, '⺡', 3, 'water', '汁');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (74, '⺨', 3, 'dog', '犯');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (75, '⺾', 3, 'grass', '艾');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (76, '⻏', 3, 'town (阝 right)', '邦');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (77, '⻖', 3, 'mound, dam (阝 left)', '阡');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (78, '也', 3, 'second');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (79, '亡', 3, 'lid');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (80, '及', 3, 'right hand');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (81, '久', 3, 'slash');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (82, '⺹', 4, 'old', '老');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (83, '心', 4, 'heart');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (84, '戈', 4, 'spear, halberd');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (85, '戸', 4, 'door, house');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (86, '手', 4, 'hand');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (87, '支', 4, 'branch');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (88, '攵', 4, 'rap');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (89, '文', 4, 'script, literature');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (90, '斗', 4, 'dipper');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (91, '斤', 4, 'axe');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (92, '方', 4, 'square');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (93, '无', 4, 'perish');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (94, '日', 4, 'sun, day');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (95, '曰', 4, 'say');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (96, '月', 4, 'moon, month');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (97, '木', 4, 'tree');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (98, '欠', 4, 'lack, yawn');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (99, '止', 4, 'stop');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (100, '歹', 4, 'death, decay');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (101, '殳', 4, 'weapon, lance');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (102, '比', 4, 'compare, compete');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (103, '毛', 4, 'fur, hair');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (104, '氏', 4, 'clan');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (105, '气', 4, 'steam, breath');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (106, '水', 4, 'water');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (107, '火', 4, 'fire');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (108, '⺣', 4, 'fire', '杰');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (109, '爪', 4, 'claw');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (110, '父', 4, 'father');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (111, '爻', 4, 'mix, twine, cross');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (112, '爿', 4, 'split wood');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (113, '片', 4, 'slice');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (114, '牛', 4, 'cow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (115, '犬', 4, 'dog');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (116, '⺭', 4, 'sign', '礼');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (117, '王', 4, 'jade (king)');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (118, '元', 4, 'legs');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (119, '井', 4, 'two');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (120, '勿', 4, 'wrap, embrace');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (121, '尤', 4, 'lame');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (122, '五', 4, 'two');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (123, '屯', 4, 'sprout');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (124, '巴', 4, 'oneself');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (125, '毋', 4, 'mother, do not');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (126, '玄', 5, 'dark, profound');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (127, '瓦', 5, 'tile');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (128, '甘', 5, 'sweet');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (129, '生', 5, 'life');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (130, '用', 5, 'use');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (131, '田', 5, 'field');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (132, '疋', 5, 'bolt of cloth');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (133, '疒', 5, 'sickness', '疔');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (134, '癶', 5, 'footsteps');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (135, '白', 5, 'white');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (136, '皮', 5, 'skin');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (137, '皿', 5, 'dish');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (138, '目', 5, 'eye');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (139, '矛', 5, 'spear');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (140, '矢', 5, 'arrow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (141, '石', 5, 'stone');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (142, '示', 5, 'sign');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (143, '禸', 5, 'track', '禹');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (144, '禾', 5, 'grain');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (145, '穴', 5, 'cave');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (146, '立', 5, 'stand, erect');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (147, '⻂', 5, 'clothes', '初');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (148, '世', 5, 'one');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (149, '巨', 5, 'work');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (150, '冊', 5, 'open country');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (151, '母', 5, 'mother, do not');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (152, '⺲', 5, 'net', '買');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (153, '牙', 5, 'fang');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (154, '瓜', 6, 'melon');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (155, '竹', 6, 'bamboo');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (156, '米', 6, 'rice');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (157, '糸', 6, 'silk');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (158, '缶', 6, 'jar');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (159, '羊', 6, 'sheep');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (160, '羽', 6, 'feather');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (161, '而', 6, 'beard');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (162, '耒', 6, 'plow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (163, '耳', 6, 'ear');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (164, '聿', 6, 'brush');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (165, '肉', 6, 'meat');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (166, '自', 6, 'self');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (167, '至', 6, 'arrive');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (168, '臼', 6, 'mortar');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (169, '舌', 6, 'tongue');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (170, '舟', 6, 'boat');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (171, '艮', 6, 'stopping');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (172, '色', 6, 'colour, prettiness');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (173, '虍', 6, 'tiger stripes');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (174, '虫', 6, 'insect');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (175, '血', 6, 'blood');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (176, '行', 6, 'go, do');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (177, '衣', 6, 'clothes');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (178, '西', 6, 'west');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (179, '臣', 7, 'minster, official');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (180, '見', 7, 'see');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (181, '角', 7, 'horn');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (182, '言', 7, 'speech');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (183, '谷', 7, 'valley');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (184, '豆', 7, 'bean');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (185, '豕', 7, 'pig');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (186, '豸', 7, 'cat, badger');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (187, '貝', 7, 'shell');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (188, '赤', 7, 'red, naked');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (189, '走', 7, 'run');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (190, '足', 7, 'foot');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (191, '身', 7, 'body');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (192, '車', 7, 'cart, car');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (193, '辛', 7, 'bitter');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (194, '辰', 7, 'morning');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (195, '酉', 7, 'wine, alcohol');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (196, '釆', 7, 'divide, distinguish, choose');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (197, '里', 7, 'village, mile');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (198, '舛', 7, 'opposite');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (199, '麦', 7, 'wheat');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (200, '金', 8, 'metal, gold');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (201, '長', 8, 'long, grow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (202, '門', 8, 'gate');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (203, '隶', 8, 'slave, capture');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (204, '隹', 8, 'small bird');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (205, '雨', 8, 'rain');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (206, '青', 8, 'blue');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (207, '非', 8, 'wrong');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (208, '奄', 8, 'big, very');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (209, '岡', 8, 'mountain');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (210, '免', 8, 'legs');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (211, '斉', 8, 'script, literature');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (212, '面', 9, 'face');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (213, '革', 9, 'leather, rawhide');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (214, '韭', 9, 'leek');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (215, '音', 9, 'sound');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (216, '頁', 9, 'leaf');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (217, '風', 9, 'wind');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (218, '飛', 9, 'fly');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (219, '食', 9, 'eat, food');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (220, '首', 9, 'head');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (221, '香', 9, 'fragrance');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (222, '品', 9, 'mouth, opening');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (223, '馬', 10, 'horse');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (224, '骨', 10, 'bone');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (225, '高', 10, 'tall');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (226, '髟', 10, 'long hair');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (227, '鬥', 10, 'fight');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (228, '鬯', 10, 'herbs, sacrificial wine');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (229, '鬲', 10, 'tripod, cauldron');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (230, '鬼', 10, 'ghost, demon');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (231, '竜', 10, 'stand, erect');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (232, '韋', 10, 'tanned leather');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (233, '魚', 11, 'fish');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (234, '鳥', 11, 'bird');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (235, '鹵', 11, 'salt');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (236, '鹿', 11, 'deer');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (237, '麻', 11, 'hemp, flax');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (238, '亀', 11, 'second');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) VALUES (239, '啇', 11, 'mouth, opening', '滴');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (240, '黄', 11, 'yellow');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (241, '黒', 11, 'black');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (242, '黍', 12, 'millet');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (243, '黹', 12, 'embroidery, needlework');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (244, '無', 12, 'fire');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (245, '歯', 12, 'stop');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (246, '黽', 13, 'frog, amphibian');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (247, '鼎', 13, 'tripod');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (248, '鼓', 13, 'drum');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (249, '鼠', 13, 'rat, mouse');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (250, '鼻', 14, 'nose');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (251, '齊', 14, 'even, uniformly');
-INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) VALUES (252, '龠', 17, 'flute');
+INSERT INTO Kanji_Radical(id, symbol, strokes, meaning, searchSymbol) VALUES
+  (1, '一', 1, 'one', NULL),
+  (2, '｜', 1, 'line', NULL),
+  (3, '丶', 1, 'dot', NULL),
+  (4, 'ノ', 1, 'slash', NULL),
+  (5, '乙', 1, 'second', NULL),
+  (6, '亅', 1, 'hook', NULL),
+  (7, '二', 2, 'two', NULL),
+  (8, '亠', 2, 'lid', NULL),
+  (9, '人', 2, 'man, human', NULL),
+  (10, '⺅', 2, 'man, human', '化'),
+  (11, '𠆢', 2, 'man, human', '个'),
+  (12, '儿', 2, 'legs', NULL),
+  (13, '入', 2, 'enter', NULL),
+  (14, 'ハ', 2, 'eight', NULL),
+  (15, '丷', 2, 'eight', '并'),
+  (16, '冂', 2, 'open country', NULL),
+  (17, '冖', 2, 'cover', NULL),
+  (18, '冫', 2, 'ice', NULL),
+  (19, '几', 2, 'table', NULL),
+  (20, '凵', 2, 'container, open mouth', NULL),
+  (21, '刀', 2, 'knife, sword', NULL),
+  (22, '⺉', 2, 'knife, sword', '刈'),
+  (23, '力', 2, 'power, force', NULL),
+  (24, '勹', 2, 'wrap, embrace', NULL),
+  (25, '匕', 2, 'spoon', NULL),
+  (26, '匚', 2, 'box', NULL),
+  (27, '十', 2, 'ten, complete', NULL),
+  (28, '卜', 2, 'divination', NULL),
+  (29, '卩', 2, 'kneel', NULL),
+  (30, '厂', 2, 'cliff', NULL),
+  (31, '厶', 2, 'private', NULL),
+  (32, '又', 2, 'right hand', NULL),
+  (33, 'マ', 2, 'katakana, jisho search radical', NULL),
+  (34, '九', 2, 'second', NULL),
+  (35, 'ユ', 2, 'katakana, jisho search radical', NULL),
+  (36, '乃', 2, 'slash', NULL),
+  (360, '𠂉', 2, 'slash', '乞'),
+  (37, '⻌', 3, 'walk', '込'),
+  (38, '口', 3, 'mouth, opening', NULL),
+  (39, '囗', 3, 'enclosure', NULL),
+  (40, '土', 3, 'earth', NULL),
+  (41, '士', 3, 'scholar, bachelor', NULL),
+  (42, '夂', 3, 'go', NULL),
+  (43, '夕', 3, 'evening, sunset', NULL),
+  (44, '大', 3, 'big, very', NULL),
+  (45, '女', 3, 'woman, female', NULL),
+  (46, '子', 3, 'child, seed', NULL),
+  (47, '宀', 3, 'roof', NULL),
+  (48, '寸', 3, 'thumb, inch', NULL),
+  (49, '小', 3, 'small, insignificant', NULL),
+  (50, '⺌', 3, 'small, insignificant', '尚'),
+  (51, '尢', 3, 'lame', NULL),
+  (52, '尸', 3, 'corpse', NULL),
+  (53, '屮', 3, 'sprout', NULL),
+  (54, '山', 3, 'mountain', NULL),
+  (55, '川', 3, 'river', NULL),
+  (56, '巛', 3, 'river', NULL),
+  (57, '工', 3, 'work', NULL),
+  (58, '已', 3, 'oneself', NULL),
+  (59, '巾', 3, 'turban, scarf', NULL),
+  (60, '干', 3, 'pestle', NULL),
+  (61, '幺', 3, 'short, tiny', NULL),
+  (62, '广', 3, 'house on cliff', NULL),
+  (63, '廴', 3, 'long stride', NULL),
+  (64, '廾', 3, 'two hands, twenty', NULL),
+  (65, '弋', 3, 'shoot, arrow', NULL),
+  (66, '弓', 3, 'bow', NULL),
+  (67, 'ヨ', 3, 'pig snout', NULL),
+  (68, '彑', 3, 'pig snout', NULL),
+  (69, '彡', 3, 'bristle, beard', NULL),
+  (70, '彳', 3, 'step', NULL),
+  (71, '⺖', 3, 'heart', '忙'),
+  (72, '⺘', 3, 'hand', '扎'),
+  (73, '⺡', 3, 'water', '汁'),
+  (74, '⺨', 3, 'dog', '犯'),
+  (75, '⺾', 3, 'grass', '艾'),
+  (76, '⻏', 3, 'town (阝 right)', '邦'),
+  (77, '⻖', 3, 'mound, dam (阝 left)', '阡'),
+  (78, '也', 3, 'second', NULL),
+  (79, '亡', 3, 'lid', NULL),
+  (80, '及', 3, 'right hand', NULL),
+  (81, '久', 3, 'slash', NULL),
+  (82, '⺹', 4, 'old', '老'),
+  (83, '心', 4, 'heart', NULL),
+  (84, '戈', 4, 'spear, halberd', NULL),
+  (85, '戸', 4, 'door, house', NULL),
+  (86, '手', 4, 'hand', NULL),
+  (87, '支', 4, 'branch', NULL),
+  (88, '攵', 4, 'rap', NULL),
+  (89, '文', 4, 'script, literature', NULL),
+  (90, '斗', 4, 'dipper', NULL),
+  (91, '斤', 4, 'axe', NULL),
+  (92, '方', 4, 'square', NULL),
+  (93, '无', 4, 'perish', NULL),
+  (94, '日', 4, 'sun, day', NULL),
+  (95, '曰', 4, 'say', NULL),
+  (96, '月', 4, 'moon, month', NULL),
+  (97, '木', 4, 'tree', NULL),
+  (98, '欠', 4, 'lack, yawn', NULL),
+  (99, '止', 4, 'stop', NULL),
+  (100, '歹', 4, 'death, decay', NULL),
+  (101, '殳', 4, 'weapon, lance', NULL),
+  (102, '比', 4, 'compare, compete', NULL),
+  (103, '毛', 4, 'fur, hair', NULL),
+  (104, '氏', 4, 'clan', NULL),
+  (105, '气', 4, 'steam, breath', NULL),
+  (106, '水', 4, 'water', NULL),
+  (107, '火', 4, 'fire', NULL),
+  (108, '⺣', 4, 'fire', '杰'),
+  (109, '爪', 4, 'claw', NULL),
+  (110, '父', 4, 'father', NULL),
+  (111, '爻', 4, 'mix, twine, cross', NULL),
+  (112, '爿', 4, 'split wood', NULL),
+  (113, '片', 4, 'slice', NULL),
+  (114, '牛', 4, 'cow', NULL),
+  (115, '犬', 4, 'dog', NULL),
+  (116, '⺭', 4, 'sign', '礼'),
+  (117, '王', 4, 'jade (king)', NULL),
+  (118, '元', 4, 'legs', NULL),
+  (119, '井', 4, 'two', NULL),
+  (120, '勿', 4, 'wrap, embrace', NULL),
+  (121, '尤', 4, 'lame', NULL),
+  (122, '五', 4, 'two', NULL),
+  (123, '屯', 4, 'sprout', NULL),
+  (124, '巴', 4, 'oneself', NULL),
+  (125, '毋', 4, 'mother, do not', NULL),
+  (126, '玄', 5, 'dark, profound', NULL),
+  (127, '瓦', 5, 'tile', NULL),
+  (128, '甘', 5, 'sweet', NULL),
+  (129, '生', 5, 'life', NULL),
+  (130, '用', 5, 'use', NULL),
+  (131, '田', 5, 'field', NULL),
+  (132, '疋', 5, 'bolt of cloth', NULL),
+  (133, '疒', 5, 'sickness', '疔'),
+  (134, '癶', 5, 'footsteps', NULL),
+  (135, '白', 5, 'white', NULL),
+  (136, '皮', 5, 'skin', NULL),
+  (137, '皿', 5, 'dish', NULL),
+  (138, '目', 5, 'eye', NULL),
+  (139, '矛', 5, 'spear', NULL),
+  (140, '矢', 5, 'arrow', NULL),
+  (141, '石', 5, 'stone', NULL),
+  (142, '示', 5, 'sign', NULL),
+  (143, '禸', 5, 'track', '禹'),
+  (144, '禾', 5, 'grain', NULL),
+  (145, '穴', 5, 'cave', NULL),
+  (146, '立', 5, 'stand, erect', NULL),
+  (147, '⻂', 5, 'clothes', '初'),
+  (148, '世', 5, 'one', NULL),
+  (149, '巨', 5, 'work', NULL),
+  (150, '冊', 5, 'open country', NULL),
+  (151, '母', 5, 'mother, do not', NULL),
+  (152, '⺲', 5, 'net', '買'),
+  (153, '牙', 5, 'fang', NULL),
+  (154, '瓜', 6, 'melon', NULL),
+  (155, '竹', 6, 'bamboo', NULL),
+  (156, '米', 6, 'rice', NULL),
+  (157, '糸', 6, 'silk', NULL),
+  (158, '缶', 6, 'jar', NULL),
+  (159, '羊', 6, 'sheep', NULL),
+  (160, '羽', 6, 'feather', NULL),
+  (161, '而', 6, 'beard', NULL),
+  (162, '耒', 6, 'plow', NULL),
+  (163, '耳', 6, 'ear', NULL),
+  (164, '聿', 6, 'brush', NULL),
+  (165, '肉', 6, 'meat', NULL),
+  (166, '自', 6, 'self', NULL),
+  (167, '至', 6, 'arrive', NULL),
+  (168, '臼', 6, 'mortar', NULL),
+  (169, '舌', 6, 'tongue', NULL),
+  (170, '舟', 6, 'boat', NULL),
+  (171, '艮', 6, 'stopping', NULL),
+  (172, '色', 6, 'colour, prettiness', NULL),
+  (173, '虍', 6, 'tiger stripes', NULL),
+  (174, '虫', 6, 'insect', NULL),
+  (175, '血', 6, 'blood', NULL),
+  (176, '行', 6, 'go, do', NULL),
+  (177, '衣', 6, 'clothes', NULL),
+  (178, '西', 6, 'west', NULL),
+  (179, '臣', 7, 'minster, official', NULL),
+  (180, '見', 7, 'see', NULL),
+  (181, '角', 7, 'horn', NULL),
+  (182, '言', 7, 'speech', NULL),
+  (183, '谷', 7, 'valley', NULL),
+  (184, '豆', 7, 'bean', NULL),
+  (185, '豕', 7, 'pig', NULL),
+  (186, '豸', 7, 'cat, badger', NULL),
+  (187, '貝', 7, 'shell', NULL),
+  (188, '赤', 7, 'red, naked', NULL),
+  (189, '走', 7, 'run', NULL),
+  (190, '足', 7, 'foot', NULL),
+  (191, '身', 7, 'body', NULL),
+  (192, '車', 7, 'cart, car', NULL),
+  (193, '辛', 7, 'bitter', NULL),
+  (194, '辰', 7, 'morning', NULL),
+  (195, '酉', 7, 'wine, alcohol', NULL),
+  (196, '釆', 7, 'divide, distinguish, choose', NULL),
+  (197, '里', 7, 'village, mile', NULL),
+  (198, '舛', 7, 'opposite', NULL),
+  (199, '麦', 7, 'wheat', NULL),
+  (200, '金', 8, 'metal, gold', NULL),
+  (201, '長', 8, 'long, grow', NULL),
+  (202, '門', 8, 'gate', NULL),
+  (203, '隶', 8, 'slave, capture', NULL),
+  (204, '隹', 8, 'small bird', NULL),
+  (205, '雨', 8, 'rain', NULL),
+  (206, '青', 8, 'blue', NULL),
+  (207, '非', 8, 'wrong', NULL),
+  (208, '奄', 8, 'big, very', NULL),
+  (209, '岡', 8, 'mountain', NULL),
+  (210, '免', 8, 'legs', NULL),
+  (211, '斉', 8, 'script, literature', NULL),
+  (212, '面', 9, 'face', NULL),
+  (213, '革', 9, 'leather, rawhide', NULL),
+  (214, '韭', 9, 'leek', NULL),
+  (215, '音', 9, 'sound', NULL),
+  (216, '頁', 9, 'leaf', NULL),
+  (217, '風', 9, 'wind', NULL),
+  (218, '飛', 9, 'fly', NULL),
+  (219, '食', 9, 'eat, food', NULL),
+  (220, '首', 9, 'head', NULL),
+  (221, '香', 9, 'fragrance', NULL),
+  (222, '品', 9, 'mouth, opening', NULL),
+  (223, '馬', 10, 'horse', NULL),
+  (224, '骨', 10, 'bone', NULL),
+  (225, '高', 10, 'tall', NULL),
+  (226, '髟', 10, 'long hair', NULL),
+  (227, '鬥', 10, 'fight', NULL),
+  (228, '鬯', 10, 'herbs, sacrificial wine', NULL),
+  (229, '鬲', 10, 'tripod, cauldron', NULL),
+  (230, '鬼', 10, 'ghost, demon', NULL),
+  (231, '竜', 10, 'stand, erect', NULL),
+  (232, '韋', 10, 'tanned leather', NULL),
+  (233, '魚', 11, 'fish', NULL),
+  (234, '鳥', 11, 'bird', NULL),
+  (235, '鹵', 11, 'salt', NULL),
+  (236, '鹿', 11, 'deer', NULL),
+  (237, '麻', 11, 'hemp, flax', NULL),
+  (238, '亀', 11, 'second', NULL),
+  (239, '啇', 11, 'mouth, opening', '滴'),
+  (240, '黄', 11, 'yellow', NULL),
+  (241, '黒', 11, 'black', NULL),
+  (242, '黍', 12, 'millet', NULL),
+  (243, '黹', 12, 'embroidery, needlework', NULL),
+  (244, '無', 12, 'fire', NULL),
+  (245, '歯', 12, 'stop', NULL),
+  (246, '黽', 13, 'frog, amphibian', NULL),
+  (247, '鼎', 13, 'tripod', NULL),
+  (248, '鼓', 13, 'drum', NULL),
+  (249, '鼠', 13, 'rat, mouse', NULL),
+  (250, '鼻', 14, 'nose', NULL),
+  (251, '齊', 14, 'even, uniformly', NULL),
+  (252, '龠', 17, 'flute', NULL);

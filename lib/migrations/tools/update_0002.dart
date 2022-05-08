@@ -1,8 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:unofficial_jisho_api/api.dart';
 
-// TODO: Clean up code and automate process.
 
 class Radical {
   final int id;
@@ -24,11 +26,31 @@ class Radical {
     return '$id - ($symbol, $strokes${search_symbol != null ? ", $search_symbol" : ""})';
   }
 
-  String get sql_insert => search_symbol == null
-      ? 'INSERT INTO Kanji_Radical (id, symbol, strokes, meaning) '
-          "VALUES ($id, '$symbol', $strokes, '$meaning');"
-      : 'INSERT INTO Kanji_Radical (id, symbol, strokes, meaning, searchSymbol) '
-          "VALUES ($id, '$symbol', $strokes, '$meaning', '$search_symbol');";
+  String get sql_tuple => '  ('
+      '$id, '
+      "'$symbol', "
+      '$strokes, '
+      "'$meaning', "
+      "${search_symbol != null ? "'$search_symbol'" : 'NULL'}"
+      ')';
+
+  factory Radical.fromJson(Map<String, dynamic> json) {
+    return Radical(
+      id: json['id'] as int,
+      symbol: json['symbol'] as String,
+      strokes: json['strokes'] as int,
+      meaning: json['meaning'] as String,
+      search_symbol: json['search_symbol'] as String?,
+    );
+  }
+
+  Map<String, Object?> toJson() => {
+        'id': id,
+        'symbol': symbol,
+        'strokes': strokes,
+        'meaning': meaning,
+        'search_symbol': search_symbol,
+      };
 }
 
 String hexToUnicode(String code) =>
@@ -72,7 +94,9 @@ Future<Map<String, String>> fetchEquivalentUCJKIdeographs() async {
   return result;
 }
 
-Future<void> main(List<String> args) async {
+final cacheFile = File('data/0002_radicals.json');
+
+Future<void> cacheRadicals() async {
   final Map<String, String> equivalentSymbols =
       await fetchEquivalentUCJKIdeographs();
 
@@ -106,7 +130,7 @@ Future<void> main(List<String> args) async {
 
     final String radical = node.innerHtml;
 
-    // print(radical);
+    print('Caching: $radical');
 
     KanjiResult? result;
     for (final item in [
@@ -130,9 +154,25 @@ Future<void> main(List<String> args) async {
     );
 
     radicals.add(radicalData);
-
-    print(radicalData.sql_insert);
   }
 
   assert(radicals.length == 252, '[ERROR] Missing radicals!');
+
+  final encoder = JsonEncoder.withIndent('  ');
+  cacheFile.writeAsStringSync(encoder.convert(radicals));
+}
+
+Future<void> main(List<String> args) async {
+  if (!cacheFile.existsSync()) {
+    await cacheRadicals();
+  }
+
+  List<Radical> radicals = (jsonDecode(cacheFile.readAsStringSync()) as List).map((e) => Radical.fromJson(e)).toList();
+
+  File('0002_populate_radicals.sql').writeAsStringSync(
+    '''
+INSERT INTO Kanji_Radical(id, symbol, strokes, meaning, searchSymbol) VALUES
+${radicals.map((r) => r.sql_tuple).join(',\n')};
+''',
+  );
 }
