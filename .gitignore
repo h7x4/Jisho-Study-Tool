@@ -45,4 +45,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# -----------------------------
+
+# Nix build result
 result
+
+# The dev directory I'm using when moving files via adb
+android-data
+
