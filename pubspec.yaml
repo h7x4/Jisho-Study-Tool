@@ -23,11 +23,12 @@ dependencies:
   mdi: ^5.0.0-nullsafety.0
   path: ^1.8.0
   path_provider: ^2.0.2
-  sembast: ^3.1.1
   share_plus: ^4.0.4
-  test: ^1.19.5
   shared_preferences: ^2.0.6
   signature: ^5.0.0
+  sqflite: ^2.0.2
+  sqflite_common_ffi: ^2.1.1
+  test: ^1.19.5
   unofficial_jisho_api: ^3.0.0
   url_launcher: ^6.0.9
 
@@ -53,6 +54,7 @@ flutter:
     - assets/images/components/
     - assets/images/links/
     - assets/images/logo/
+    - assets/migrations/
     - assets/licenses/
 
 

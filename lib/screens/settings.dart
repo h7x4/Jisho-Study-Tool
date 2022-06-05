@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:confirm_dialog/confirm_dialog.dart';
@@ -6,15 +5,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:mdi/mdi.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast_io.dart';
-import 'package:sembast/utils/sembast_import_export.dart';
 
 import '../bloc/theme/theme_bloc.dart';
 import '../components/common/denshi_jisho_background.dart';
-import '../models/history/search.dart';
+import '../data/database.dart';
+import '../data/export.dart';
+import '../data/import.dart';
 import '../routing/routes.dart';
-import '../services/database.dart';
 import '../services/open_webpage.dart';
 import '../services/snackbar.dart';
 import '../settings.dart';
@@ -27,22 +24,39 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  final Database db = GetIt.instance.get<Database>();
   bool dataExportIsLoading = false;
   bool dataImportIsLoading = false;
 
   Future<void> clearHistory(context) async {
-    final bool userIsSure = await confirm(context);
+    final historyCount = (await db().query(
+      TableNames.historyEntry,
+      columns: ['COUNT(*) AS count'],
+    ))[0]['count']! as int;
 
-    if (userIsSure) {
-      await Search.store.delete(db);
-    }
+    final bool userIsSure = await confirm(
+      context,
+      content: Text(
+        'Are you sure that you want to delete $historyCount entries?',
+      ),
+    );
+    if (!userIsSure) return;
+
+    await db().delete(TableNames.historyEntry);
+    showSnackbar(context, 'Cleared history');
+  }
+
+  Future<void> clearAll(context) async {
+    final bool userIsSure = await confirm(context);
+    if (!userIsSure) return;
+
+    await resetDatabase();
+    showSnackbar(context, 'Cleared everything');
   }
 
   // ignore: avoid_positional_boolean_parameters
   void toggleAutoTheme(bool b) {
     final bool newThemeIsDark = b
-        ? WidgetsBinding.instance!.window.platformBrightness == Brightness.dark
+        ? WidgetsBinding.instance.window.platformBrightness == Brightness.dark
         : darkThemeEnabled;
 
     BlocProvider.of<ThemeBloc>(context)
@@ -63,75 +77,19 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   /// Can assume Android for time being
-  Future<void> exportData(context) async {
+  Future<void> exportHandler(context) async {
     setState(() => dataExportIsLoading = true);
-
-    final path = (await getExternalStorageDirectory())!;
-    final dbData = await exportDatabase(db);
-    final file = File('${path.path}/jisho_data.json');
-    file.createSync(recursive: true);
-    await file.writeAsString(jsonEncode(dbData));
-
+    final path = await exportData();
     setState(() => dataExportIsLoading = false);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Data exported to ${file.path}')));
+    showSnackbar(context, 'Data exported to $path');
   }
 
   /// Can assume Android for time being
-  Future<void> importData(context) async {
+  Future<void> importHandler(context) async {
     setState(() => dataImportIsLoading = true);
 
-    final path = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-    );
-    final file = File(path!.files[0].path!);
-
-    final List<Search> prevSearches = (await Search.store.find(db))
-        .map((e) => Search.fromJson(e.value! as Map<String, Object?>))
-        .toList();
-    late final List<Search> importedSearches;
-    try {
-      importedSearches = ((((jsonDecode(await file.readAsString())
-                  as Map<String, Object?>)['stores']! as List)
-              .map((e) => e as Map)
-              .where((e) => e['name'] == 'search')
-              .first)['values'] as List)
-          .map((item) => Search.fromJson(item))
-          .toList();
-    } catch (e) {
-      debugPrint(e.toString());
-      showSnackbar(
-        context,
-        "Couldn't read file. Did you choose the right one?",
-      );
-      return;
-    }
-
-    final List<Search> mergedSearches =
-        mergeSearches(prevSearches, importedSearches);
-
-    // print(mergedSearches);
-
-    await GetIt.instance.get<Database>().close();
-    GetIt.instance.unregister<Database>();
-
-    final importedDb = await importDatabase(
-      {
-        'sembast_export': 1,
-        'version': 1,
-        'stores': [
-          {
-            'name': 'search',
-            'keys': [for (var i = 1; i <= mergedSearches.length; i++) i],
-            'values': mergedSearches.map((e) => e.toJson()).toList(),
-          }
-        ]
-      },
-      databaseFactoryIo,
-      await databasePath(),
-    );
-    GetIt.instance.registerSingleton<Database>(importedDb);
+    final path = await FilePicker.platform.getDirectoryPath();
+    await importData(Directory(path!));
 
     setState(() => dataImportIsLoading = false);
     showSnackbar(context, 'Data imported successfully');
@@ -288,7 +246,7 @@ class _SettingsViewState extends State<SettingsView> {
                   SettingsTile(
                     leading: const Icon(Icons.file_upload),
                     title: 'Import Data',
-                    onPressed: importData,
+                    onPressed: importHandler,
                     enabled: Platform.isAndroid,
                     subtitle:
                         Platform.isAndroid ? null : 'Not available on iOS yet',
@@ -299,6 +257,7 @@ class _SettingsViewState extends State<SettingsView> {
                   SettingsTile(
                     leading: const Icon(Icons.file_download),
                     title: 'Export Data',
+                    onPressed: exportHandler,
                     enabled: Platform.isAndroid,
                     subtitle:
                         Platform.isAndroid ? null : 'Not available on iOS yet',
@@ -318,7 +277,13 @@ class _SettingsViewState extends State<SettingsView> {
                     onPressed: (c) {},
                     titleTextStyle: const TextStyle(color: Colors.red),
                     enabled: false,
-                  )
+                  ),
+                  SettingsTile(
+                    leading: const Icon(Icons.delete),
+                    title: 'Clear Everything',
+                    onPressed: clearAll,
+                    titleTextStyle: const TextStyle(color: Colors.red),
+                  ),
                 ],
               ),
 

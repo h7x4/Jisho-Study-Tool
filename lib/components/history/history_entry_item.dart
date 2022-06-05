@@ -1,51 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../models/history/search.dart';
+import '../../models/history/history_entry.dart';
 import '../../routing/routes.dart';
 import '../../services/datetime.dart';
+import '../../services/snackbar.dart';
 import '../../settings.dart';
+import '../common/loading.dart';
 import 'kanji_box.dart';
 
-class SearchItem extends StatelessWidget {
-  final Search search;
-  // final Widget search;
+class HistoryEntryItem extends StatelessWidget {
+  final HistoryEntry entry;
   final int objectKey;
   final void Function()? onDelete;
   final void Function()? onFavourite;
 
-  const SearchItem({
-    required this.search,
+  const HistoryEntryItem({
+    required this.entry,
     required this.objectKey,
     this.onDelete,
     this.onFavourite,
     Key? key,
   }) : super(key: key);
 
-  Widget get _child => (search.isKanji)
-      ? KanjiBox(kanji: search.kanjiQuery!.kanji)
-      : Text(search.wordQuery!.query);
+  Widget get _child => (entry.isKanji)
+      ? KanjiBox(kanji: entry.kanji!)
+      : Text(entry.word!);
 
-  void Function() _onTap(context) => search.isKanji
+  void Function() _onTap(context) => entry.isKanji
       ? () => Navigator.pushNamed(
             context,
             Routes.kanjiSearch,
-            arguments: search.kanjiQuery!.kanji,
+            arguments: entry.kanji,
           )
       : () => Navigator.pushNamed(
             context,
             Routes.search,
-            arguments: search.wordQuery!.query,
+            arguments: entry.word,
           );
 
   MaterialPageRoute get timestamps => MaterialPageRoute(
         builder: (context) => Scaffold(
           appBar: AppBar(title: const Text('Last searched')),
-          body: ListView(
-            children: [
-              for (final ts in search.timestamps.reversed)
-                ListTile(title: Text('${formatDate(ts)}    ${formatTime(ts)}'))
-            ],
+          body: FutureBuilder<List<DateTime>>(
+            future: entry.timestamps,
+            builder: (context, snapshot) {
+              // TODO: provide proper error handling
+              if (snapshot.hasError)
+                return ErrorWidget(snapshot.error!);
+              if (!snapshot.hasData) return const LoadingScreen();
+              return ListView(
+                children: snapshot.data!
+                    .map(
+                      (ts) => ListTile(
+                        title: Text('${formatDate(ts)}    ${formatTime(ts)}'),
+                      ),
+                    )
+                    .toList(),
+              );
+            },
           ),
         ),
       );
@@ -60,18 +73,15 @@ class SearchItem extends StatelessWidget {
           backgroundColor: Colors.yellow,
           icon: Icons.star,
           onPressed: (_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('TODO: implement favourites')),
-            );
+            showSnackbar(context, 'TODO: implement favourites');
             onFavourite?.call();
           },
         ),
         SlidableAction(
           backgroundColor: Colors.red,
           icon: Icons.delete,
-          onPressed: (_) {
-            final Database db = GetIt.instance.get<Database>();
-            Search.store.record(objectKey).delete(db);
+          onPressed: (_) async {
+            await entry.delete();
             onDelete?.call();
           },
         ),
@@ -93,7 +103,7 @@ class SearchItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(formatTime(search.timestamp)),
+                child: Text(formatTime(entry.lastTimestamp)),
               ),
               DefaultTextStyle.merge(
                 style: japaneseFont.textStyle,

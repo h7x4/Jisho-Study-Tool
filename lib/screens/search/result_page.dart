@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../components/common/loading.dart';
 import '../../components/kanji/kanji_result_body.dart';
 import '../../components/search/search_result_body.dart';
-import '../../models/history/search.dart';
+import '../../models/history/history_entry.dart';
 import '../../services/jisho_api/jisho_search.dart';
 import '../../services/jisho_api/kanji_search.dart';
 
@@ -33,14 +33,16 @@ class _ResultPageState extends State<ResultPage> {
             ? fetchKanji(widget.searchTerm)
             : fetchJishoResults(widget.searchTerm),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const LoadingScreen();
+          // TODO: provide proper error handling
           if (snapshot.hasError) return ErrorWidget(snapshot.error!);
+          if (!snapshot.hasData) return const LoadingScreen();
 
           if (!addedToDatabase) {
-            addSearchToDatabase(
-              searchTerm: widget.searchTerm,
-              isKanji: widget.isKanji,
-            );
+            if (widget.isKanji) {
+              HistoryEntry.insertKanji(kanji: widget.searchTerm);
+            } else {
+              HistoryEntry.insertWord(word: widget.searchTerm);
+            }
             addedToDatabase = true;
           }
 

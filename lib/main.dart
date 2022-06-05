@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import 'bloc/theme/theme_bloc.dart';
+import 'data/database.dart';
 import 'routing/router.dart';
-import 'services/database.dart';
 import 'services/licenses.dart';
 import 'services/preferences.dart';
 import 'settings.dart';
