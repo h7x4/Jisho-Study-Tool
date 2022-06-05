@@ -1,32 +1,32 @@
 
-CREATE TABLE "JST_SavedList" (
+CREATE TABLE "JST_LibraryList" (
   "name" TEXT PRIMARY KEY NOT NULL,
-  "nextList" TEXT REFERENCES "JST_SavedList"("name")
+  "nextList" TEXT REFERENCES "JST_LibraryList"("name")
 );
 
-CREATE INDEX "JST_SavedList_byNextList" ON "JST_SavedList"("nextList");
+CREATE INDEX "JST_LibraryList_byNextList" ON "JST_LibraryList"("nextList");
 
-CREATE TABLE "JST_SavedListEntry" (
-  "listName" TEXT NOT NULL REFERENCES "JST_SavedList"("name") ON DELETE CASCADE,
+CREATE TABLE "JST_LibraryListEntry" (
+  "listName" TEXT NOT NULL REFERENCES "JST_LibraryList"("name") ON DELETE CASCADE,
   "entryText" TEXT NOT NULL,
   "isKanji" BOOLEAN NOT NULL DEFAULT 0,
   "lastModified" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "nextEntry" TEXT NOT NULL,
   PRIMARY KEY ("listName", "entryText", "isKanji"),
-  FOREIGN KEY ("listName", "nextEntry") REFERENCES "JST_SavedListEntry"("listName", "entryText"),
+  FOREIGN KEY ("listName", "nextEntry") REFERENCES "JST_LibraryListEntry"("listName", "entryText"),
   CHECK ((NOT "isKanji") OR ("nextEntry" <> 0))
 );
 
-CREATE INDEX "JST_SavedListEntry_byListName" ON "JST_SavedListEntry"("listName");
+CREATE INDEX "JST_LibraryListEntry_byListName" ON "JST_LibraryListEntry"("listName");
 
--- CREATE VIEW "JST_SavedListEntry_sortedByLists" AS
---   WITH RECURSIVE "JST_SavedListEntry_sorted"("next") AS (
+-- CREATE VIEW "JST_LibraryListEntry_sortedByLists" AS
+--   WITH RECURSIVE "JST_LibraryListEntry_sorted"("next") AS (
 --     -- Initial SELECT 
 --     UNION ALL
 --     SELECT * FROM ""
 --     -- Recursive Select
 --   )
--- SELECT * FROM "JST_SavedListEntry_sorted";
+-- SELECT * FROM "JST_LibraryListEntry_sorted";
 
 CREATE TABLE "JST_HistoryEntry" (
   "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
@@ -40,9 +40,9 @@ CREATE TABLE "JST_HistoryEntryKanji" (
 
 CREATE TABLE "JST_HistoryEntryWord" (
   "entryId" INTEGER NOT NULL REFERENCES "JST_HistoryEntry"("id") ON DELETE CASCADE,
-  "searchword" TEXT NOT NULL,
+  "word" TEXT NOT NULL,
   "language" CHAR(1) CHECK ("language" IN ("e", "j")),
-  PRIMARY KEY ("entryId", "searchword")
+  PRIMARY KEY ("entryId", "word")
 );
 
 CREATE TABLE "JST_HistoryEntryTimestamp" (

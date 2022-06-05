@@ -95,14 +95,14 @@ class TableNames {
 
   /// Attributes:
   /// - entryId INTEGER
-  /// - searchword TEXT
+  /// - word TEXT
   /// - language CHAR(1)?
   static const String historyEntryWord = 'JST_HistoryEntryWord';
 
   /// Attributes:
   /// - name TEXT
   /// - nextList TEXT
-  static const String savedList = 'JST_SavedList';
+  static const String libraryList = 'JST_LibraryList';
 
   /// Attributes:
   /// - listName TEXT
@@ -110,7 +110,7 @@ class TableNames {
   /// - isKanji BOOLEAN
   /// - lastModified TIMESTAMP
   /// - nextEntry TEXT
-  static const String savedListEntry = 'JST_SavedListEntry';
+  static const String libraryListEntry = 'JST_LibraryListEntry';
 
   ///////////
   // VIEWS //
@@ -119,7 +119,7 @@ class TableNames {
   /// Attributes:
   /// - entryId INTEGER
   /// - timestamp INTEGER
-  /// - searchword TEXT?
+  /// - word TEXT?
   /// - kanji CHAR(1)?
   /// - language CHAR(1)?
   static const String historyEntryOrderedByTimestamp =

@@ -34,13 +34,13 @@ class HistoryEntry {
   ///
   /// - entryId
   /// - timestamp
-  /// - searchword?
+  /// - word?
   /// - kanji?
   factory HistoryEntry.fromDBMap(Map<String, Object?> dbObject) =>
-      dbObject['searchword'] != null
+      dbObject['word'] != null
           ? HistoryEntry.withWord(
               id: dbObject['entryId']! as int,
-              word: dbObject['searchword']! as String,
+              word: dbObject['word']! as String,
               lastTimestamp: DateTime.fromMillisecondsSinceEpoch(
                 dbObject['timestamp']! as int,
               ),
@@ -121,7 +121,7 @@ class HistoryEntry {
 
         final existingEntry = await txn.query(
           TableNames.historyEntryWord,
-          where: 'searchword = ?',
+          where: 'word = ?',
           whereArgs: [word],
         );
 
@@ -146,7 +146,7 @@ class HistoryEntry {
           });
           b.insert(TableNames.historyEntryWord, {
             'entryId': id,
-            'searchword': word,
+            'word': word,
             'language': {
               null: null,
               'japanese': 'j',
@@ -210,7 +210,7 @@ class HistoryEntry {
               )
             : await txn.query(
                 TableNames.historyEntryWord,
-                where: 'searchword = ?',
+                where: 'word = ?',
                 whereArgs: [json['word']! as String],
               );
 
@@ -229,7 +229,7 @@ class HistoryEntry {
           } else {
             b.insert(TableNames.historyEntryWord, {
               'entryId': id,
-              'searchword': json['word']! as String,
+              'word': json['word']! as String,
             });
           }
         } else {
@@ -286,7 +286,7 @@ class HistoryEntry {
                 )
               : await txn.query(
                   TableNames.historyEntryWord,
-                  where: 'searchword = ?',
+                  where: 'word = ?',
                   whereArgs: [jsonObject['word']! as String],
                 );
 
@@ -305,7 +305,7 @@ class HistoryEntry {
             } else {
               b.insert(TableNames.historyEntryWord, {
                 'entryId': id,
-                'searchword': jsonObject['word']! as String,
+                'word': jsonObject['word']! as String,
               });
             }
           } else {

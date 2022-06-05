@@ -3,7 +3,7 @@ import 'dart:io';
 // Example file Structure:
 //   jisho_data_22.01.01_1
 //   - history.json
-//   - saved/
+//   - library/
 //     - lista.json
 //     - listb.json
 
@@ -16,5 +16,5 @@ extension ArchiveFormat on Directory {
   }
 
   File get historyFile => File(uri.resolve('history.json').path);
-  Directory get savedLists => Directory(uri.resolve('savedLists').path);
+  Directory get libraryDir => Directory(uri.resolve('library').path);
 }

@@ -75,9 +75,9 @@ class _HomeState extends State<Home> {
         ),
         _Page(
           content: Container(),
-          titleBar: const Text('Saved'),
+          titleBar: const Text('Library'),
           item: const BottomNavigationBarItem(
-            label: 'Saved',
+            label: 'Library',
             icon: Icon(Icons.bookmark),
           ),
         ),

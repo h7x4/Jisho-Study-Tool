@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/history/history_entry.dart';
+import 'archive_format.dart';
 import 'database.dart';
 
 Future<Directory> exportDirectory() async {
   final basedir = (await getExternalStorageDirectory())!;
-  // TODO: fix path
-  final dir = Directory(basedir.uri.resolve('export').path);
+  final dir = basedir.exportDirectory;
   dir.createSync(recursive: true);
   return dir;
 }
@@ -17,12 +17,12 @@ Future<Directory> exportDirectory() async {
 /// Returns the path to which the data was saved.
 Future<String> exportData() async {
   final dir = await exportDirectory();
-  final savedDir = Directory.fromUri(dir.uri.resolve('saved'));
-  savedDir.createSync();
+  final libraryDir = dir.libraryDir;
+  libraryDir.createSync();
 
   await Future.wait([
     exportHistoryTo(dir),
-    exportSavedListsTo(savedDir),
+    exportLibraryListsTo(libraryDir),
   ]);
   return dir.path;
 }
@@ -38,8 +38,8 @@ Future<void> exportHistoryTo(Directory dir) async {
   file.writeAsStringSync(jsonEncode(jsonEntries));
 }
 
-Future<void> exportSavedListsTo(Directory dir) async {
+Future<void> exportLibraryListsTo(Directory dir) async {
   // TODO:
-  // final query = db().query(TableNames.savedList);
-  print('TODO: implement exportSavedLists');
+  // final query = db().query(TableNames.libraryList);
+  print('TODO: implement exportLibraryLists');
 }

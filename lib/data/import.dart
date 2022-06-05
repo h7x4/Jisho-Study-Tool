@@ -7,7 +7,7 @@ import 'archive_format.dart';
 Future<void> importData(Directory dir) async {
   await Future.wait([
     importHistoryFrom(dir.historyFile),
-    importSavedListsFrom(dir.savedLists),
+    importLibraryListsFrom(dir.libraryDir),
   ]);
 }
 
@@ -20,6 +20,6 @@ Future<void> importHistoryFrom(File file) async {
   );
 }
 
-Future<void> importSavedListsFrom(Directory savedListsDir) async {
-  print('TODO: Implement importSavedLists');
+Future<void> importLibraryListsFrom(Directory libraryListsDir) async {
+  print('TODO: Implement importLibraryLists');
 }
