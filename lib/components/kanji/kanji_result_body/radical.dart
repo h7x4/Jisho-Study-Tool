@@ -19,7 +19,11 @@ class Radical extends StatelessWidget {
           final colors = state.theme.kanjiResultColor;
 
           return InkWell(
-            onTap: () => Navigator.pushNamed(context, Routes.kanjiSearchRadicals, arguments: radical.symbol),
+            onTap: () => Navigator.pushNamed(
+              context,
+              Routes.kanjiSearchRadicals,
+              arguments: radical.symbol,
+            ),
             child: Container(
               padding: const EdgeInsets.all(15.0),
               decoration: BoxDecoration(

@@ -4,8 +4,10 @@ import 'package:mdi/mdi.dart';
 
 import '../bloc/theme/theme_bloc.dart';
 import '../components/common/denshi_jisho_background.dart';
+import '../components/library/new_library_dialog.dart';
 import 'debug.dart';
 import 'history.dart';
+import 'library/library_view.dart';
 import 'search/kanji_view.dart';
 import 'search/search_view.dart';
 import 'settings.dart';
@@ -20,25 +22,35 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int pageNum = 0;
 
+  _Page get page => pages[pageNum];
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, themeState) {
         return Scaffold(
           appBar: AppBar(
-            title: pages[pageNum].titleBar,
+            title: Text(page.titleBar),
             centerTitle: true,
             backgroundColor: AppTheme.jishoGreen.background,
             foregroundColor: AppTheme.jishoGreen.foreground,
+            actions: page.actions,
           ),
-          body: DenshiJishoBackground(child: pages[pageNum].content),
+          body: DenshiJishoBackground(child: page.content),
           bottomNavigationBar: BottomNavigationBar(
             fixedColor: AppTheme.jishoGreen.background,
             currentIndex: pageNum,
             onTap: (index) => setState(() {
               pageNum = index;
             }),
-            items: pages.map((p) => p.item).toList(),
+            items: pages
+                .map(
+                  (p) => BottomNavigationBarItem(
+                    label: p.titleBar,
+                    icon: p.icon,
+                  ),
+                )
+                .toList(),
             showSelectedLabels: false,
             showUnselectedLabels: false,
             unselectedItemColor: themeState.theme.menuGreyDark.background,
@@ -51,52 +63,40 @@ class _HomeState extends State<Home> {
   List<_Page> get pages => [
         const _Page(
           content: SearchView(),
-          titleBar: Text('Search'),
-          item: BottomNavigationBarItem(
-            label: 'Search',
-            icon: Icon(Icons.search),
-          ),
+          titleBar: 'Search',
+          icon: Icon(Icons.search),
         ),
         const _Page(
           content: KanjiView(),
-          titleBar: Text('Kanji Search'),
-          item: BottomNavigationBarItem(
-            label: 'Kanji',
-            icon: Icon(Mdi.ideogramCjk, size: 30),
-          ),
+          titleBar: 'Kanji Search',
+          icon: Icon(Mdi.ideogramCjk, size: 30),
         ),
         const _Page(
           content: HistoryView(),
-          titleBar: Text('History'),
-          item: BottomNavigationBarItem(
-            label: 'History',
-            icon: Icon(Icons.history),
-          ),
+          titleBar: 'History',
+          icon: Icon(Icons.history),
         ),
         _Page(
-          content: Container(),
-          titleBar: const Text('Library'),
-          item: const BottomNavigationBarItem(
-            label: 'Library',
-            icon: Icon(Icons.bookmark),
-          ),
+          content: const LibraryView(),
+          titleBar: 'Library',
+          icon: const Icon(Icons.bookmark),
+          actions: [
+            IconButton(
+              onPressed: showNewLibraryDialog(context),
+              icon: const Icon(Icons.add),
+            )
+          ],
         ),
         const _Page(
           content: SettingsView(),
-          titleBar: Text('Settings'),
-          item: BottomNavigationBarItem(
-            label: 'Settings',
-            icon: Icon(Icons.settings),
-          ),
+          titleBar: 'Settings',
+          icon: Icon(Icons.settings),
         ),
         if (kDebugMode) ...[
           const _Page(
             content: DebugView(),
-            titleBar: Text('Debug Page'),
-            item: BottomNavigationBarItem(
-              label: 'Debug',
-              icon: Icon(Icons.biotech),
-            ),
+            titleBar: 'Debug Page',
+            icon: Icon(Icons.biotech),
           )
         ],
       ];
@@ -104,12 +104,14 @@ class _HomeState extends State<Home> {
 
 class _Page {
   final Widget content;
-  final Widget titleBar;
-  final BottomNavigationBarItem item;
+  final String titleBar;
+  final Icon icon;
+  final List<Widget> actions;
 
   const _Page({
     required this.content,
     required this.titleBar,
-    required this.item,
+    required this.icon,
+    this.actions = const [],
   });
 }

@@ -11,6 +11,8 @@ import '../components/common/denshi_jisho_background.dart';
 import '../data/database.dart';
 import '../data/export.dart';
 import '../data/import.dart';
+import '../models/history/history_entry.dart';
+import '../models/library/library_list.dart';
 import '../routing/routes.dart';
 import '../services/open_webpage.dart';
 import '../services/snackbar.dart';
@@ -28,15 +30,12 @@ class _SettingsViewState extends State<SettingsView> {
   bool dataImportIsLoading = false;
 
   Future<void> clearHistory(context) async {
-    final historyCount = (await db().query(
-      TableNames.historyEntry,
-      columns: ['COUNT(*) AS count'],
-    ))[0]['count']! as int;
+    final historyCount = await HistoryEntry.amountOfEntries();
 
     final bool userIsSure = await confirm(
       context,
       content: Text(
-        'Are you sure that you want to delete $historyCount entries?',
+        'Are you sure that you want to clear all $historyCount entries in history?',
       ),
     );
     if (!userIsSure) return;
@@ -45,10 +44,33 @@ class _SettingsViewState extends State<SettingsView> {
     showSnackbar(context, 'Cleared history');
   }
 
-  Future<void> clearAll(context) async {
-    final bool userIsSure = await confirm(context);
+  Future<void> clearFavourites(context) async {
+    final favouritesCount = await LibraryList.favourites.length;
+    final bool userIsSure = await confirm(
+      context,
+      content: Text(
+        'Are you sure that you want to clear all $favouritesCount entries in favourites?',
+      ),
+    );
     if (!userIsSure) return;
 
+    await LibraryList.favourites.deleteAllEntries();
+    showSnackbar(context, 'Cleared favourites');
+  }
+
+  Future<void> clearAll(context) async {
+    final historyCount = await HistoryEntry.amountOfEntries();
+    final libraryCount = await LibraryList.amountOfLibraries();
+
+    final bool userIsSure = await confirm(
+      context,
+      content: Text(
+        'Are you sure you want to delete $historyCount history entries '
+        'and $libraryCount libraries?',
+      ),
+    );
+
+    if (!userIsSure) return;
     await resetDatabase();
     showSnackbar(context, 'Cleared everything');
   }
@@ -56,7 +78,7 @@ class _SettingsViewState extends State<SettingsView> {
   // ignore: avoid_positional_boolean_parameters
   void toggleAutoTheme(bool b) {
     final bool newThemeIsDark = b
-        ? WidgetsBinding.instance.window.platformBrightness == Brightness.dark
+        ? WidgetsBinding.instance?.window.platformBrightness == Brightness.dark
         : darkThemeEnabled;
 
     BlocProvider.of<ThemeBloc>(context)
@@ -274,9 +296,8 @@ class _SettingsViewState extends State<SettingsView> {
                   SettingsTile(
                     leading: const Icon(Icons.delete),
                     title: 'Clear Favourites',
-                    onPressed: (c) {},
+                    onPressed: clearFavourites,
                     titleTextStyle: const TextStyle(color: Colors.red),
-                    enabled: false,
                   ),
                   SettingsTile(
                     leading: const Icon(Icons.delete),

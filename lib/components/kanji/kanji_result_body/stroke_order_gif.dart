@@ -22,6 +22,7 @@ class StrokeOrderGif extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
+              // TODO: show some kind of default icon if GIF is missing.
               child: Image.network(uri),
             ),
           );

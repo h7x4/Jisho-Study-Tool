@@ -3,6 +3,7 @@ import 'package:signature/signature.dart';
 
 import '../../bloc/theme/theme_bloc.dart';
 import '../../services/handwriting.dart';
+import '../../services/snackbar.dart';
 import '../../settings.dart';
 
 class DrawingBoard extends StatefulWidget {
@@ -182,10 +183,9 @@ class _DrawingBoardState extends State<DrawingBoard> {
             ),
             if (!widget.onlyOneCharacterSuggestions)
               IconButton(
-                onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('TODO: implement scrolling page feature!'),
-                  ),
+                onPressed: () => showSnackbar(
+                  context,
+                  'TODO: implement scrolling page feature!',
                 ),
                 icon: const Icon(Icons.arrow_forward),
               ),

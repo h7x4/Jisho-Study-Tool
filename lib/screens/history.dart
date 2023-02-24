@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/common/loading.dart';
 import '../components/common/opaque_box.dart';
 import '../components/history/date_divider.dart';
-import '../components/history/history_entry_item.dart';
+import '../components/history/history_entry_tile.dart';
 import '../models/history/history_entry.dart';
 import '../services/datetime.dart';
 
@@ -45,10 +45,15 @@ class HistoryView extends StatelessWidget {
         final HistoryEntry search = data[index];
         final DateTime searchDate = search.lastTimestamp;
 
-        if (index == 0 || !dateIsEqual(data[index - 1].lastTimestamp, searchDate))
+        if (index == 0 ||
+            !dateIsEqual(data[index - 1].lastTimestamp, searchDate))
           return TextDivider(text: formatDate(roundToDay(searchDate)));
 
-        return const Divider(height: 0);
+        return const Divider(
+          height: 0,
+          indent: 10,
+          endIndent: 10,
+        );
       };
 
   Widget Function(BuildContext, int) historyEntryWithData(
@@ -56,7 +61,7 @@ class HistoryView extends StatelessWidget {
   ) =>
       (context, index) => (index == 0)
           ? const SizedBox.shrink()
-          : HistoryEntryItem(
+          : HistoryEntryTile(
               entry: data.values.toList()[index - 1],
               objectKey: data.keys.toList()[index - 1],
               onDelete: () => build(context),

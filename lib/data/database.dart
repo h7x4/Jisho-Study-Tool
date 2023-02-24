@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path/path.dart';
@@ -41,7 +42,8 @@ Future<void> migrate(Database db, int oldVersion, int newVersion) async {
     log(
       'Migrating database from v$i to v${i + 1} with File(${migrations[i - 1]})',
     );
-    final migrationContent = await rootBundle.loadString(migrations[i - 1], cache: false);
+    final migrationContent =
+        await rootBundle.loadString(migrations[i - 1], cache: false);
 
     migrationContent
         .split(';')
@@ -58,24 +60,25 @@ Future<void> migrate(Database db, int oldVersion, int newVersion) async {
 }
 
 Future<void> setupDatabase() async {
-  databaseFactory.debugSetLogLevel(sqfliteLogLevelSql);
+  if (kDebugMode) {
+    databaseFactory.debugSetLogLevel(sqfliteLogLevelSql);
+  }
+
   final Database database = await openDatabase(
     await databasePath(),
     version: 1,
     onCreate: (db, version) => migrate(db, 0, version),
     onUpgrade: migrate,
-    onOpen: (db) => Future.wait([
-      db.execute('PRAGMA foreign_keys=ON')
-    ]),
+    onOpen: (db) => Future.wait([db.execute('PRAGMA foreign_keys=ON')]),
   );
   GetIt.instance.registerSingleton<Database>(database);
 }
 
 Future<void> resetDatabase() async {
-    await db().close();
-    File(await databasePath()).deleteSync();
-    GetIt.instance.unregister<Database>();
-    await setupDatabase();
+  await db().close();
+  File(await databasePath()).deleteSync();
+  GetIt.instance.unregister<Database>();
+  await setupDatabase();
 }
 
 class TableNames {
@@ -101,7 +104,7 @@ class TableNames {
 
   /// Attributes:
   /// - name TEXT
-  /// - nextList TEXT
+  /// - prevList TEXT
   static const String libraryList = 'JST_LibraryList';
 
   /// Attributes:
@@ -109,12 +112,17 @@ class TableNames {
   /// - entryText TEXT
   /// - isKanji BOOLEAN
   /// - lastModified TIMESTAMP
-  /// - nextEntry TEXT
+  /// - prevEntryText TEXT
+  /// - prevEntryIsKanji BOOLEAN
   static const String libraryListEntry = 'JST_LibraryListEntry';
 
   ///////////
   // VIEWS //
   ///////////
+  
+  /// Attributes:
+  /// - name TEXT
+  static const String libraryListOrdered = 'JST_LibraryListOrdered';
 
   /// Attributes:
   /// - entryId INTEGER

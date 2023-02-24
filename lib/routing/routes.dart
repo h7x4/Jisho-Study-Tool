@@ -5,6 +5,7 @@ class Routes {
   static const String kanjiSearchDraw = '/kanjiSearch/draw';
   static const String kanjiSearchGrade = '/kanjiSearch/grade';
   static const String kanjiSearchRadicals = '/kanjiSearch/radicals';
+  static const String libraryContent = '/library';
   static const String about = '/info/about';
   static const String aboutLicenses = '/info/licenses';
   static const String errorNotFound = '/error/404';

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../bloc/theme/theme_bloc.dart';
 import '../../../../routing/routes.dart';
-import '../../../../settings.dart';
+import '../../../common/kanji_box.dart';
 
 class KanjiRow extends StatelessWidget {
   final List<String> kanji;
@@ -12,36 +11,6 @@ class KanjiRow extends StatelessWidget {
     required this.kanji,
     this.fontSize = 20,
   }) : super(key: key);
-
-  Widget _kanjiBox(String kanji) => UnconstrainedBox(
-        child: IntrinsicHeight(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: BlocBuilder<ThemeBloc, ThemeState>(
-              builder: (context, state) {
-                final colors = state.theme.menuGreyLight;
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: colors.background,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: FittedBox(
-                    child: Text(
-                      kanji,
-                      style: TextStyle(
-                        color: colors.foreground,
-                        fontSize: fontSize,
-                      ).merge(japaneseFont.textStyle),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +33,10 @@ class KanjiRow extends StatelessWidget {
                   Routes.kanjiSearch,
                   arguments: k,
                 ),
-                child: _kanjiBox(k),
+                child: KanjiBox.headline4(
+                  context: context,
+                  kanji: k,
+                ),
               )
           ],
         ),

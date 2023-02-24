@@ -267,7 +267,7 @@ class HistoryEntry {
 
   /// An efficient implementation of [insertJsonEntry] for multiple
   /// entries.
-  /// 
+  ///
   /// This assumes that there are no duplicates within the elements
   /// in the json.
   static Future<List<HistoryEntry>> insertJsonEntries(
@@ -347,6 +347,14 @@ class HistoryEntry {
         await b.commit();
         return entries;
       });
+
+  static Future<int> amountOfEntries() async {
+    final query = await db().query(
+      TableNames.historyEntry,
+      columns: ['COUNT(*) AS count'],
+    );
+    return query.first['count']! as int;
+  }
 
   static Future<List<HistoryEntry>> get fromDB async =>
       (await db().query(TableNames.historyEntryOrderedByTimestamp))

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import '../models/history/history_entry.dart';
@@ -13,11 +14,11 @@ Future<void> importData(Directory dir) async {
 
 Future<void> importHistoryFrom(File file) async {
   final String content = file.readAsStringSync();
-  await HistoryEntry.insertJsonEntries(
-    (jsonDecode(content) as List)
-        .map((h) => h as Map<String, Object?>)
-        .toList(),
-  );
+  final List<Map<String, Object?>> json = (jsonDecode(content) as List)
+      .map((h) => h as Map<String, Object?>)
+      .toList();
+  log('Importing ${json.length} entries from ${file.path}');
+  await HistoryEntry.insertJsonEntries(json);
 }
 
 Future<void> importLibraryListsFrom(Directory libraryListsDir) async {

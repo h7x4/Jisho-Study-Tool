@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ruby_text/ruby_text.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
+import '../../../../services/jisho_api/kanji_furigana_separation.dart';
 import '../../../../services/romaji_transliteration.dart';
 import '../../../../settings.dart';
 
@@ -25,30 +27,13 @@ class JapaneseHeader extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.only(left: 10.0),
-      child: Column(
-        children: [
-          // Both wordReading and word.word being present implies that the word has furigana.
-          // If that's not the case, then the word is usually present in wordReading.
-          // However, there are some exceptions where the reading is placed in word.
-          // I have no clue why this might be the case.
-          hasFurigana
-              ? Text(
-                  wordReading!,
-                  style: romajiEnabled ? null : japaneseFont.textStyle,
-                )
-              : const Text(''),
-          hasFurigana
-              ? Text(
-                  word.word!,
-                  style: japaneseFont.textStyle,
-                )
-              : Text(
-                  wordReading ?? word.word!,
-                  style: wordReading != null && romajiEnabled
-                      ? null
-                      : japaneseFont.textStyle,
-                ),
-        ],
+      child: RubySpanWidget(
+        RubyTextData(
+          word.kanji,
+          ruby: word.furigana,
+          style: romajiEnabled ? null : japaneseFont.textStyle,
+          rubyStyle: romajiEnabled ? null : japaneseFont.textStyle,
+        ),
       ),
     );
   }

@@ -4,28 +4,23 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../models/history/history_entry.dart';
 import '../../routing/routes.dart';
 import '../../services/datetime.dart';
-import '../../services/snackbar.dart';
 import '../../settings.dart';
+import '../common/kanji_box.dart';
 import '../common/loading.dart';
-import 'kanji_box.dart';
 
-class HistoryEntryItem extends StatelessWidget {
+class HistoryEntryTile extends StatelessWidget {
   final HistoryEntry entry;
   final int objectKey;
   final void Function()? onDelete;
   final void Function()? onFavourite;
 
-  const HistoryEntryItem({
+  const HistoryEntryTile({
     required this.entry,
     required this.objectKey,
     this.onDelete,
     this.onFavourite,
     Key? key,
   }) : super(key: key);
-
-  Widget get _child => (entry.isKanji)
-      ? KanjiBox(kanji: entry.kanji!)
-      : Text(entry.word!);
 
   void Function() _onTap(context) => entry.isKanji
       ? () => Navigator.pushNamed(
@@ -46,8 +41,7 @@ class HistoryEntryItem extends StatelessWidget {
             future: entry.timestamps,
             builder: (context, snapshot) {
               // TODO: provide proper error handling
-              if (snapshot.hasError)
-                return ErrorWidget(snapshot.error!);
+              if (snapshot.hasError) return ErrorWidget(snapshot.error!);
               if (!snapshot.hasData) return const LoadingScreen();
               return ListView(
                 children: snapshot.data!
@@ -68,14 +62,6 @@ class HistoryEntryItem extends StatelessWidget {
           backgroundColor: Colors.blue,
           icon: Icons.access_time,
           onPressed: (_) => Navigator.push(context, timestamps),
-        ),
-        SlidableAction(
-          backgroundColor: Colors.yellow,
-          icon: Icons.star,
-          onPressed: (_) {
-            showSnackbar(context, 'TODO: implement favourites');
-            onFavourite?.call();
-          },
         ),
         SlidableAction(
           backgroundColor: Colors.red,
@@ -107,7 +93,12 @@ class HistoryEntryItem extends StatelessWidget {
               ),
               DefaultTextStyle.merge(
                 style: japaneseFont.textStyle,
-                child: _child,
+                child: entry.isKanji
+                    ? KanjiBox.headline4(
+                        context: context,
+                        kanji: entry.kanji!,
+                      )
+                    : Expanded(child: Text(entry.word!)),
               ),
             ],
           ),

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:jisho_study_tool/services/kanji_regex.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:unofficial_jisho_api/api.dart';
 
-import './parts/common_badge.dart';
-import './parts/header.dart';
-import './parts/jlpt_badge.dart';
-import './parts/other_forms.dart';
-import './parts/senses.dart';
-import './parts/wanikani_badge.dart';
+import '../../../models/library/library_list.dart';
+import '../../../services/jisho_api/kanji_furigana_separation.dart';
+import '../../../services/kanji_regex.dart';
 import '../../../settings.dart';
+import '../../library/add_to_library_dialog.dart';
 import 'parts/audio_player.dart';
+import 'parts/common_badge.dart';
+import 'parts/header.dart';
+import 'parts/jlpt_badge.dart';
 import 'parts/kanji.dart';
 import 'parts/links.dart';
 import 'parts/notes.dart';
+import 'parts/other_forms.dart';
+import 'parts/senses.dart';
+import 'parts/wanikani_badge.dart';
 
 class SearchResultCard extends StatefulWidget {
   final JishoResult result;
@@ -31,19 +35,10 @@ class SearchResultCard extends StatefulWidget {
 }
 
 class _SearchResultCardState extends State<SearchResultCard> {
+  static const _margin = SizedBox(height: 20);
   PhrasePageScrapeResultData? extraData;
+
   bool? extraDataSearchFailed;
-
-  Future<PhrasePageScrapeResult?> _scrape(JishoResult result) =>
-      (!(result.japanese[0].word == null && result.japanese[0].reading == null))
-          ? scrapeForPhrase(
-              widget.result.japanese[0].word ??
-                  widget.result.japanese[0].reading!,
-            )
-          : Future(() => null);
-
-  List<JishoSenseLink> get links =>
-      [for (final sense in widget.result.senses) ...sense.links];
 
   bool get hasAttribution =>
       widget.result.attribution.jmdict ||
@@ -67,30 +62,77 @@ class _SearchResultCardState extends State<SearchResultCard> {
       .toSet()
       .toList();
 
-  Widget get _header => IntrinsicWidth(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            JapaneseHeader(word: widget.mainWord),
-            Row(
-              children: [
-                WKBadge(
-                  level: widget.result.tags.firstWhere(
-                    (tag) => tag.contains('wanikani'),
-                    orElse: () => '',
-                  ),
-                ),
-                JLPTBadge(jlptLevel: jlptLevel),
-                CommonBadge(isCommon: widget.result.isCommon ?? false)
-              ],
-            )
-          ],
-        ),
+  List<JishoSenseLink> get links =>
+      [for (final sense in widget.result.senses) ...sense.links];
+
+  Widget get _header => Row(
+        children: [
+          Expanded(child: JapaneseHeader(word: widget.mainWord)),
+          WKBadge(
+            level: widget.result.tags.firstWhere(
+              (tag) => tag.contains('wanikani'),
+              orElse: () => '',
+            ),
+          ),
+          JLPTBadge(jlptLevel: jlptLevel),
+          CommonBadge(isCommon: widget.result.isCommon ?? false)
+        ],
       );
 
-  static const _margin = SizedBox(height: 20);
+  @override
+  Widget build(BuildContext context) {
+    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
-  List<Widget> _withMargin(Widget w) => [_margin, w];
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            backgroundColor: Colors.yellow,
+            icon: Icons.star,
+            onPressed: (_) => LibraryList.favourites.toggleEntry(
+              entryText: widget.result.slug,
+              isKanji: false,
+            ),
+          ),
+          SlidableAction(
+            backgroundColor: Colors.blue,
+            icon: Icons.bookmark,
+            onPressed: (context) => showAddToLibraryDialog(
+              context: context,
+              entryText: widget.result.japanese.first.kanji,
+              furigana: widget.result.japanese.first.furigana
+            ),
+          ),
+        ],
+      ),
+      child: ExpansionTile(
+        collapsedBackgroundColor: backgroundColor,
+        backgroundColor: backgroundColor,
+        onExpansionChanged: (b) async {
+          if (extensiveSearchEnabled && extraData == null) {
+            final data = await _scrape(widget.result);
+            setState(() {
+              extraDataSearchFailed = !(data?.found ?? false);
+              extraData = !extraDataSearchFailed! ? data!.data : null;
+            });
+          }
+        },
+        title: _header,
+        children: [
+          if (extensiveSearchEnabled && extraDataSearchFailed == null)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Center(child: CircularProgressIndicator()),
+            )
+          else if (!extraDataSearchFailed!)
+            _body(extendedData: extraData)
+          else
+            _body()
+        ],
+      ),
+    );
+  }
 
   Widget _body({PhrasePageScrapeResultData? extendedData}) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -123,34 +165,13 @@ class _SearchResultCardState extends State<SearchResultCard> {
         ),
       );
 
-  @override
-  Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+  Future<PhrasePageScrapeResult?> _scrape(JishoResult result) =>
+      (!(result.japanese[0].word == null && result.japanese[0].reading == null))
+          ? scrapeForPhrase(
+              widget.result.japanese[0].word ??
+                  widget.result.japanese[0].reading!,
+            )
+          : Future(() => null);
 
-    return ExpansionTile(
-      collapsedBackgroundColor: backgroundColor,
-      backgroundColor: backgroundColor,
-      onExpansionChanged: (b) async {
-        if (extensiveSearchEnabled && extraData == null) {
-          final data = await _scrape(widget.result);
-          setState(() {
-            extraDataSearchFailed = !(data?.found ?? false);
-            extraData = !extraDataSearchFailed! ? data!.data : null;
-          });
-        }
-      },
-      title: _header,
-      children: [
-        if (extensiveSearchEnabled && extraDataSearchFailed == null)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Center(child: CircularProgressIndicator()),
-          )
-        else if (!extraDataSearchFailed!)
-          _body(extendedData: extraData)
-        else
-          _body()
-      ],
-    );
-  }
+  List<Widget> _withMargin(Widget w) => [_margin, w];
 }

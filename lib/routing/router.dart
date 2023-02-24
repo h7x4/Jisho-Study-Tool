@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../models/library/library_list.dart';
 import '../screens/home.dart';
 import '../screens/info/about.dart';
 import '../screens/info/licenses.dart';
+import '../screens/library/library_content_view.dart';
 import '../screens/search/result_page.dart';
 import '../screens/search/search_mechanisms/drawing.dart';
 import '../screens/search/search_mechanisms/grade_list.dart';
@@ -38,6 +40,12 @@ Route<Widget> generateRoute(RouteSettings settings) {
       final prechosenRadical = args as String?;
       return MaterialPageRoute(
         builder: (_) => KanjiRadicalSearch(prechosenRadical: prechosenRadical),
+      );
+
+    case Routes.libraryContent:
+      final library = args! as LibraryList;
+      return MaterialPageRoute(
+        builder: (_) => LibraryContentView(library: library),
       );
 
     case Routes.about:

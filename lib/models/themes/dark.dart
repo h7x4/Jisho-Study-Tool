@@ -61,7 +61,14 @@ class DarkTheme extends AppTheme {
   ThemeData getMaterialTheme() {
     return ThemeData(
       brightness: Brightness.dark,
-      primarySwatch: createMaterialColor(AppTheme.jishoGreen.background),
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: createMaterialColor(AppTheme.jishoGreen.background),
+        accentColor: AppTheme.jishoGreen.background,
+        brightness: Brightness.dark,
+      ),
+      toggleableActiveColor: AppTheme.jishoGreen.background,
+
+      // elevatedButtonTheme: ElevatedButtonThemeData(style: )
     );
   }
 }

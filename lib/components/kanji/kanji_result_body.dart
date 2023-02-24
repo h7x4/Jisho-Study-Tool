@@ -3,13 +3,14 @@ import 'package:unofficial_jisho_api/api.dart' as jisho;
 
 import './kanji_result_body/examples.dart';
 import './kanji_result_body/grade.dart';
-import './kanji_result_body/header.dart';
 import './kanji_result_body/jlpt_level.dart';
 import './kanji_result_body/radical.dart';
 import './kanji_result_body/rank.dart';
 import './kanji_result_body/stroke_order_gif.dart';
 import './kanji_result_body/yomi_chips.dart';
+import '../../bloc/theme/theme_bloc.dart';
 import '../../services/kanji_grade_conversion.dart';
+import '../common/kanji_box.dart';
 
 class KanjiResultBody extends StatelessWidget {
   late final String query;
@@ -36,9 +37,22 @@ class KanjiResultBody extends StatelessWidget {
               child: SizedBox(),
             ),
             Flexible(
-              fit: FlexFit.tight,
-              child: Center(child: Header(kanji: query)),
-            ),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: BlocBuilder<ThemeBloc, ThemeState>(
+                    builder: (context, state) {
+                      final colors = state.theme.kanjiResultColor;
+                      return KanjiBox.expanded(
+                        kanji: query,
+                        ratio: 40,
+                        foreground: colors.foreground,
+                        background: colors.background,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            
             Flexible(
               fit: FlexFit.tight,
               child: Center(
@@ -81,6 +95,7 @@ class KanjiResultBody extends StatelessWidget {
     return ListView(
       children: [
         headerRow,
+        // TODO: handle case where meaning is empty. See 牃 for example
         YomiChips(yomi: resultData.meaning.split(', '), type: YomiType.meaning),
         (resultData.onyomi.isNotEmpty)
             ? YomiChips(yomi: resultData.onyomi, type: YomiType.onyomi)
@@ -101,6 +116,7 @@ class KanjiResultBody extends StatelessWidget {
           onyomi: resultData.onyomiExamples,
           kunyomi: resultData.kunyomiExamples,
         ),
+        // TODO: Add unicode information
       ],
     );
   }

@@ -20,7 +20,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     );
 
     final bool autoThemeIsDark =
-        SchedulerBinding.instance!.window.platformBrightness == Brightness.dark;
+        SchedulerBinding.instance?.window.platformBrightness == Brightness.dark;
 
     add(
       SetTheme(
